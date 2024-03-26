@@ -108,7 +108,14 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.12.5</version>
 		</dependency>
-		
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.4.4.Final</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
