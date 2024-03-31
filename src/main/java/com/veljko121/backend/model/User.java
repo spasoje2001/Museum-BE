@@ -1,6 +1,5 @@
 package com.veljko121.backend.model;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,21 +30,26 @@ public class User implements UserDetails {
     private Integer id;
 
     @NotEmpty
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     
     @NotEmpty
     @Email
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     
     @NotEmpty
+    @Column(nullable = false)
     private String password;
-
+    
+    @Column
+    private String firstName;
+    
+    @Column
+    private String lastName;
+    
     @Enumerated
     private Role role;
-
-    private LocalDateTime createdDateTime;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
