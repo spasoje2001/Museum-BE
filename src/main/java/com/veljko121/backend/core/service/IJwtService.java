@@ -12,10 +12,15 @@ import io.jsonwebtoken.Claims;
 public interface IJwtService {
 
     String extractUsername(String jwt);
+
     <T> T extractClaim(String jwt, Function<Claims, T> claimsResolver);
+
     String generateJwt(User userDetails);
+
     String generateJwt(UserDetails userDetails);
+
     public String generateJwt(Map<String, Object> extraClaims, UserDetails userDetails);
+    
     public Boolean isJwtValid(String jwt, UserDetails userDetails);
     
 }

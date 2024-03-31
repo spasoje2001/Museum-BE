@@ -19,7 +19,7 @@ import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
 import com.veljko121.backend.dto.CredentialsDTO;
 import com.veljko121.backend.dto.RegisterRequestDTO;
-import com.veljko121.backend.model.User;
+import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.service.IAuthenticationService;
 
 import jakarta.validation.Valid;
@@ -40,7 +40,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO requestDTO) {
         try {
-            var user = modelMapper.map(requestDTO, User.class);
+            var user = modelMapper.map(requestDTO, Guest.class);
             authenticationService.register(user);
     
             var jwt = jwtService.generateJwt(user);

@@ -3,3 +3,9 @@ INSERT INTO _user(email, username, password, first_name, last_name, role) VALUES
     ('vule.dok@gmail.com', 'dokma', '$2a$10$jicdgzoNyODhfwtEuXsYHelIRjzFZ5zIgqcXlHfoy9BROPAnWV2y2', 'Vukašin', 'Dokmanović', 0),
     ('spale01@gmail.com', 'spale', '$2a$10$NhX4GkvqpZTas4mZa9wxuevS.8VCi70t3tKXVekdD5/VCg2Hf.kAu', 'Spasoje', 'Brborić', 0),
     ('kuzminacn@gmail.com', 'nina', '$2a$10$XxmC.cIEK6XvYUVOa2HvTOlMQlIk0J6oQYouW2iBdgob.sRv78W9C', 'Nina', 'Kuzminac', 0);
+
+INSERT INTO guest(id, biography) VALUES
+    (1, 'Passionate about ancient civilizations, always seeking to uncover the mysteries of the past within museum walls..'),
+    (2, 'I am interested in narco cartel history.'),
+    (3, 'I am passionate about unraveling ancient civilizations and love exploring museums for insights.'),
+    (4, 'Dedicated to preserving cultural heritage, advocating for the importance of museums in safeguarding our collective history.');
