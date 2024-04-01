@@ -15,7 +15,7 @@ public interface IJwtService {
 
     <T> T extractClaim(String jwt, Function<Claims, T> claimsResolver);
 
-    String generateJwt(User userDetails);
+    String generateJwt(User user);
 
     String generateJwt(UserDetails userDetails);
 
