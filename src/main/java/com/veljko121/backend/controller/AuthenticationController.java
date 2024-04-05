@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.core.dto.ErrorResponseDTO;
 import com.veljko121.backend.core.dto.ExistsResponseDTO;
+import com.veljko121.backend.core.enums.Role;
 import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
 import com.veljko121.backend.dto.CredentialsDTO;
 import com.veljko121.backend.dto.RegisterRequestDTO;
+import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Guest;
+import com.veljko121.backend.model.Organizer;
+import com.veljko121.backend.model.Restaurateur;
 import com.veljko121.backend.service.IAuthenticationService;
 
 import jakarta.validation.Valid;
@@ -76,5 +80,39 @@ public class AuthenticationController {
     public ResponseEntity<ExistsResponseDTO> emailExists(@PathVariable @Email String email) {
         return ResponseEntity.ok().body(new ExistsResponseDTO(authenticationService.emailExists(email)));
     }
+
+    @PostMapping("/registerEmployee")
+    public ResponseEntity<?> registerEmployee(@Valid @RequestBody RegisterRequestDTO requestDTO) {
+        try {
+
+            var jwt = "";
+            if(requestDTO.getRole() == Role.CURATOR){
+                var user = modelMapper.map(requestDTO, Curator.class);
+                authenticationService.registerCurator(user);
+                jwt = jwtService.generateJwt(user);
+            }else if(requestDTO.getRole() == Role.ORGANIZER){
+                var user = modelMapper.map(requestDTO, Organizer.class);
+                authenticationService.registerOrganizer(user);
+                jwt = jwtService.generateJwt(user);
+            }else if(requestDTO.getRole() == Role.RESTAURATEUR){
+                var user = modelMapper.map(requestDTO, Restaurateur.class);
+                authenticationService.registerRestaurateur(user);
+                jwt = jwtService.generateJwt(user);
+            }
+
+            var authenticationResponse = new AuthenticationResponseDTO(jwt);
     
+            return ResponseEntity.status(HttpStatus.CREATED).body(authenticationResponse);
+
+        } catch (UsernameNotUniqueException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.badRequest().body(new ErrorResponseDTO(e.getMessage()));
+            
+        } catch (EmailNotUniqueException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.badRequest().body(new ErrorResponseDTO(e.getMessage()));
+        }
+    }
+
+
 }

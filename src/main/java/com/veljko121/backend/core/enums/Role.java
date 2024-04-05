@@ -4,6 +4,6 @@ public enum Role {
     GUEST,
     CURATOR,
     ORGANIZER,
-    RESTAURATOR,
+    RESTAURATEUR,
     ADMIN
 }
