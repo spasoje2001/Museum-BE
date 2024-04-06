@@ -23,7 +23,6 @@ public class RegisterRequestDTO {
 
     private String lastName;
 
-    @NotEmpty
     private Role role;
     
 }
