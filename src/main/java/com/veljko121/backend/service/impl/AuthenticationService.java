@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.veljko121.backend.core.enums.Role;
 import com.veljko121.backend.dto.CredentialsDTO;
 import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Guest;
