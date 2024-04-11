@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
 import com.veljko121.backend.dto.CredentialsDTO;
 import com.veljko121.backend.dto.RegisterRequestDTO;
+import com.veljko121.backend.dto.UpdateProfileRequestDTO;
 import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.model.Organizer;
@@ -114,5 +116,17 @@ public class AuthenticationController {
         }
     }
 
+    @PutMapping
+    public ResponseEntity<?> updateProfile(@RequestBody UpdateProfileRequestDTO requestDTO) {
+        try {
+            // TODO: get logged in user
+            var loggedInUserUsername = jwtService.getLoggedInUserUsername();
+            logger.info(loggedInUserUsername);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }
