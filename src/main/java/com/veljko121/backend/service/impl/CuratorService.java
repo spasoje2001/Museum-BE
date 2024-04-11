@@ -39,4 +39,21 @@ public class CuratorService extends CRUDService<Curator, Integer> implements ICu
     private Boolean existsByEmail(String email) {
         return userService.existsByEmail(email);
     }
+
+    @Override
+    public Curator update(Curator updated) {
+        if (!userService.canUsernameBeChanged(updated)) throw new UsernameNotUniqueException(updated.getUsername());
+        if (!userService.canEmailBeChanged(updated)) throw new EmailNotUniqueException(updated.getEmail());
+
+        var oldGuest = findById(updated.getId());
+        updated.setPassword(oldGuest.getPassword());
+        updated.setRole(oldGuest.getRole());
+
+        return curatorRepository.save(updated);
+    }
+
+    @Override
+    public Curator findByUsername(String username) {
+        return curatorRepository.findByUsername(username).orElseThrow();
+    }
 }
