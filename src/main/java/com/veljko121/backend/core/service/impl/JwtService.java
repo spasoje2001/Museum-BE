@@ -8,6 +8,7 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,7 @@ public class JwtService implements IJwtService {
     @Value("${application.jwt.secret-key}") private String SECRET_KEY; 
     @Value("${application.jwt.expiration-minutes}") private Integer expirationMinutes = 60;
     private Integer expirationMilliseconds = expirationMinutes * 60 * 1000;
+	@Value("Authorization") private String AUTH_HEADER;
 
     public String extractUsername(String jwt) {
         return extractClaim(jwt, Claims::getSubject);
@@ -85,6 +87,11 @@ public class JwtService implements IJwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         var key = Keys.hmacShaKeyFor(keyBytes);
         return key;
+    }
+
+    public String getLoggedInUserUsername() {
+        var jwt = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return extractUsername(jwt);
     }
     
 }

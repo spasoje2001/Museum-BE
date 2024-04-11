@@ -19,8 +19,10 @@ public interface IJwtService {
 
     String generateJwt(UserDetails userDetails);
 
-    public String generateJwt(Map<String, Object> extraClaims, UserDetails userDetails);
+    String generateJwt(Map<String, Object> extraClaims, UserDetails userDetails);
     
-    public Boolean isJwtValid(String jwt, UserDetails userDetails);
+    Boolean isJwtValid(String jwt, UserDetails userDetails);
+
+    String getLoggedInUserUsername();
     
 }
