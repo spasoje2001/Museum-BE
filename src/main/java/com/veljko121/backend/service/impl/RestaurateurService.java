@@ -40,4 +40,22 @@ public class RestaurateurService extends CRUDService<Restaurateur, Integer> impl
     private Boolean existsByEmail(String email) {
         return userService.existsByEmail(email);
     }
+
+    @Override
+    public Restaurateur update(Restaurateur updated) {
+        if (!userService.canUsernameBeChanged(updated)) throw new UsernameNotUniqueException(updated.getUsername());
+        if (!userService.canEmailBeChanged(updated)) throw new EmailNotUniqueException(updated.getEmail());
+
+        var oldGuest = findById(updated.getId());
+        updated.setPassword(oldGuest.getPassword());
+        updated.setRole(oldGuest.getRole());
+
+        return restaurateurRepository.save(updated);
+    }
+
+    @Override
+    public Restaurateur findByUsername(String username) {
+        return restaurateurRepository.findByUsername(username).orElseThrow();
+    }
+
 }
