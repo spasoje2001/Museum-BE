@@ -90,8 +90,19 @@ public class JwtService implements IJwtService {
     }
 
     public String getLoggedInUserUsername() {
-        var jwt = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return extractUsername(jwt);
+        return extractUsername(getJwtFromContext());
+    }
+
+    public Integer extractId(String jwt) {
+        return (Integer) extractAllClaims(jwt).get("id");
+    }
+
+    public Integer getLoggedInUserId() {
+        return extractId(getJwtFromContext());
+    }
+
+    private String getJwtFromContext() {
+        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
     
 }

@@ -12,6 +12,8 @@ import io.jsonwebtoken.Claims;
 public interface IJwtService {
 
     String extractUsername(String jwt);
+    
+    Integer extractId(String jwt);
 
     <T> T extractClaim(String jwt, Function<Claims, T> claimsResolver);
 
@@ -24,5 +26,7 @@ public interface IJwtService {
     Boolean isJwtValid(String jwt, UserDetails userDetails);
 
     String getLoggedInUserUsername();
+
+    Integer getLoggedInUserId();
     
 }
