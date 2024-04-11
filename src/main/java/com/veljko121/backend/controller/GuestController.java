@@ -15,9 +15,10 @@ import com.veljko121.backend.core.dto.ErrorResponseDTO;
 import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
+import com.veljko121.backend.dto.AuthenticationResponseDTO;
 import com.veljko121.backend.dto.GuestUpdateProfileRequestDTO;
 import com.veljko121.backend.model.Guest;
-import com.veljko121.backend.service.impl.GuestService;
+import com.veljko121.backend.service.IGuestService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GuestController {
     
-    private final GuestService guestService;
+    private final IGuestService guestService;
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
@@ -42,12 +43,14 @@ public class GuestController {
     public ResponseEntity<?> updateProfile(@RequestBody GuestUpdateProfileRequestDTO requestDTO) {
         try {
             var updated = modelMapper.map(requestDTO, Guest.class);
-            var loggedInUserUsername = jwtService.getLoggedInUserUsername();
-            var loggedInGuest = guestService.findByUsername(loggedInUserUsername);
-            updated.setId(loggedInGuest.getId());
+            var loggedInUserId = jwtService.getLoggedInUserId();
+            var loggedInUser = guestService.findById(loggedInUserId);
+            updated.setId(loggedInUser.getId());
             updated = guestService.update(updated);
+            var jwt = jwtService.generateJwt(updated);
+            var authenticationResponse = new AuthenticationResponseDTO(jwt);
     
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(authenticationResponse);
 
         } catch (UsernameNotUniqueException e) {
             logger.error(e.getMessage());
