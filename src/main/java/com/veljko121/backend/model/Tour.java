@@ -39,7 +39,11 @@ public class Tour {
 
     @NotEmpty
     @Column(nullable = false)
-    private String price;           // Cena mora da se prilagodjava razlicitim grupama korisnika
+    private String adultTicketPrice;
+
+    @NotEmpty
+    @Column(nullable = false)
+    private String minorTicketPrice;
 
     @ManyToOne
     @JoinColumn(name = "guide_id")

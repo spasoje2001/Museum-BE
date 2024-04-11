@@ -15,13 +15,15 @@ public class TourCreateDTO {
 
     private String description;
 
-    private List<Integer> roomIds = new ArrayList<>(); // ???
+    //private List<Integer> roomIds = new ArrayList<>();
 
     private String duration;
 
     private LocalDateTime eventDateTime;
 
-    private String price;           // Cena mora da se prilagodjava razlicitim grupama korisnika
+    private String adultTicketPrice;
+
+    private String minorTicketPrice;
 
     private Integer guideId;
 
