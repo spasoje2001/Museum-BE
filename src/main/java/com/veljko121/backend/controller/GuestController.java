@@ -16,6 +16,7 @@ import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
+import com.veljko121.backend.dto.GuestResponseDTO;
 import com.veljko121.backend.dto.GuestUpdateProfileRequestDTO;
 import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.service.IGuestService;
@@ -34,9 +35,16 @@ public class GuestController {
     private final ModelMapper modelMapper;
     private final Logger logger;
 
-    @GetMapping(path = "{username}")
-    public ResponseEntity<?> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok().body(guestService.findByUsername(username));
+    @GetMapping(path = "{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        var guest = guestService.findById(id);
+        var guestResponse = modelMapper.map(guest, GuestResponseDTO.class);
+        return ResponseEntity.ok().body(guestResponse);
+    }
+    
+    @GetMapping(path = "profile")
+    public ResponseEntity<?> getProfile() {
+        return getById(jwtService.getLoggedInUserId());
     }
     
     @PutMapping
