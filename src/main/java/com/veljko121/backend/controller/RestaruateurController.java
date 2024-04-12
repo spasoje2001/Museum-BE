@@ -16,6 +16,7 @@ import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
+import com.veljko121.backend.dto.RestaurateurResponseDTO;
 import com.veljko121.backend.dto.RestaurateurUpdateProfileRequestDTO;
 import com.veljko121.backend.model.Restaurateur;
 import com.veljko121.backend.service.IRestaurateurService;
@@ -34,9 +35,16 @@ public class RestaruateurController {
     private final ModelMapper modelMapper;
     private final Logger logger;
 
-    @GetMapping(path = "{username}")
-    public ResponseEntity<?> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok().body(restaurateurService.findByUsername(username));
+    @GetMapping(path = "{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        var restaurateur = restaurateurService.findById(id);
+        var restaurateurResponse = modelMapper.map(restaurateur, RestaurateurResponseDTO.class);
+        return ResponseEntity.ok().body(restaurateurResponse);
+    }
+    
+    @GetMapping(path = "profile")
+    public ResponseEntity<?> getProfile() {
+        return getById(jwtService.getLoggedInUserId());
     }
     
     @PutMapping
