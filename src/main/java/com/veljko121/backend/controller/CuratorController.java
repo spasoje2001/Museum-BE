@@ -34,9 +34,16 @@ public class CuratorController {
     private final ModelMapper modelMapper;
     private final Logger logger;
 
-    @GetMapping(path = "{username}")
-    public ResponseEntity<?> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok().body(curatorService.findByUsername(username));
+    @GetMapping(path = "{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        var curator = curatorService.findById(id);
+        var curatorResponse = modelMapper.map(curator, Curator.class);
+        return ResponseEntity.ok().body(curatorResponse);
+    }
+    
+    @GetMapping(path = "profile")
+    public ResponseEntity<?> getProfile() {
+        return getById(jwtService.getLoggedInUserId());
     }
     
     @PutMapping
