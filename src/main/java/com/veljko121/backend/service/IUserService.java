@@ -19,4 +19,8 @@ public interface IUserService extends UserDetailsService, ICRUDService<User, Int
     
     Boolean canEmailBeChanged(User updatedUser);
 
+    Boolean canUsernameBeChanged(User user, String newUsername);
+
+    Boolean canEmailBeChanged(User user, String newEmail);
+
 }

@@ -63,5 +63,25 @@ public class UserService extends CRUDService<User, Integer> implements IUserServ
 
         return true; // email changed and doesn't exist
     }
+
+    @Override
+    public Boolean canUsernameBeChanged(User user, String newUsername) {
+        if (existsByUsername(newUsername)) {
+            if (user.getUsername().equals(newUsername)) return true;
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean canEmailBeChanged(User user, String newEmail) {
+        if (existsByEmail(newEmail)) {
+            if (user.getEmail().equals(newEmail)) return true;
+            return false;
+        }
+
+        return true;
+    }
     
 }
