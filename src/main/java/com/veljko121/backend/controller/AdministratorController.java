@@ -15,6 +15,7 @@ import com.veljko121.backend.core.dto.ErrorResponseDTO;
 import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
+import com.veljko121.backend.dto.AdministratorResponseDTO;
 import com.veljko121.backend.dto.AdministratorUpdateProfileRequestDTO;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
 import com.veljko121.backend.model.Administrator;
@@ -34,9 +35,16 @@ public class AdministratorController {
     private final ModelMapper modelMapper;
     private final Logger logger;
 
-    @GetMapping(path = "{username}")
-    public ResponseEntity<?> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok().body(administratorService.findByUsername(username));
+    @GetMapping(path = "{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        var administrator = administratorService.findById(id);
+        var administratorResponse = modelMapper.map(administrator, AdministratorResponseDTO.class);
+        return ResponseEntity.ok().body(administratorResponse);
+    }
+    
+    @GetMapping(path = "profile")
+    public ResponseEntity<?> getProfile() {
+        return getById(jwtService.getLoggedInUserId());
     }
     
     @PutMapping
