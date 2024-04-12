@@ -16,6 +16,7 @@ import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
+import com.veljko121.backend.dto.OrganizerResponseDTO;
 import com.veljko121.backend.dto.OrganizerUpdateProfileRequestDTO;
 import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.service.IOrganizerService;
@@ -35,8 +36,15 @@ public class OrganizerController {
     private final Logger logger;
 
     @GetMapping(path = "{username}")
-    public ResponseEntity<?> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok().body(organizerService.findByUsername(username));
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        var organizer = organizerService.findById(id);
+        var organizerResponse = modelMapper.map(organizer, OrganizerResponseDTO.class);
+        return ResponseEntity.ok().body(organizerResponse);
+    }
+    
+    @GetMapping(path = "profile")
+    public ResponseEntity<?> getProfile() {
+        return getById(jwtService.getLoggedInUserId());
     }
     
     @PutMapping
