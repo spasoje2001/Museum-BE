@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TourService extends CRUDService<Tour, Integer> implements ITourService {
 
@@ -23,4 +25,10 @@ public class TourService extends CRUDService<Tour, Integer> implements ITourServ
     public Tour save(Tour tour) {
         return tourRepository.save(tour);
     }
+
+    @Override
+    public List<Tour> findAll(){
+        return tourRepository.findAll();
+    }
+
 }

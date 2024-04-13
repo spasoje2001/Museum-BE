@@ -1,7 +1,8 @@
 package com.veljko121.backend.controller;
 
 import com.veljko121.backend.core.service.IJwtService;
-import com.veljko121.backend.dto.TourCreateDTO;
+
+import com.veljko121.backend.dto.tours.TourCreateDTO;
 import com.veljko121.backend.model.Tour;
 import com.veljko121.backend.service.IOrganizerService;
 import com.veljko121.backend.service.ITourService;
@@ -11,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/tours")
@@ -34,5 +38,15 @@ public class TourController {
         tourService.save(tour);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tourCreateDTO);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ORGANIZER', 'CURATOR', 'GUEST')")
+    public ResponseEntity<?> findAll() {
+        List<Tour> tours = tourService.findAll();
+        var tourResponses = tours.stream()
+                .map(tour -> modelMapper.map(tour, Tour.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(tourResponses);
     }
 }
