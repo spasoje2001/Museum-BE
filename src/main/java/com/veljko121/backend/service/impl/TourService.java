@@ -31,4 +31,8 @@ public class TourService extends CRUDService<Tour, Integer> implements ITourServ
         return tourRepository.findAll();
     }
 
+    public List<Tour> findByOrganizerId(Integer organizerId){
+        return tourRepository.findByOrganizerId(organizerId);
+    }
+
 }

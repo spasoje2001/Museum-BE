@@ -44,9 +44,18 @@ public class TourController {
     @PreAuthorize("hasAnyRole('ORGANIZER', 'CURATOR', 'GUEST')")
     public ResponseEntity<?> findAll() {
         List<Tour> tours = tourService.findAll();
-        var tourResponses = tours.stream()
+        var tourResponse = tours.stream()
                 .map(tour -> modelMapper.map(tour, Tour.class))
                 .collect(Collectors.toList());
-        return ResponseEntity.ok().body(tourResponses);
+        return ResponseEntity.ok().body(tourResponse);
+    }
+
+    @GetMapping("/organizers/{organizerId}")
+    public ResponseEntity<?> findByOrganizerId(@PathVariable Integer organizerId) {
+        List<Tour> tours = tourService.findByOrganizerId(organizerId);
+        var tourResponse = tours.stream()
+                .map(tour -> modelMapper.map(tour, Tour.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(tourResponse);
     }
 }

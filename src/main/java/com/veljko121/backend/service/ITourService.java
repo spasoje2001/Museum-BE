@@ -9,4 +9,6 @@ public interface ITourService extends ICRUDService<Tour, Integer> {
 
     List<Tour> findAll();
 
+    List<Tour> findByOrganizerId(Integer organizerId);
+
 }
