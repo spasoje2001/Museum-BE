@@ -39,4 +39,21 @@ public class AdministratorService extends CRUDService<Administrator, Integer> im
     private Boolean existsByEmail(String email) {
         return userService.existsByEmail(email);
     }
+
+    @Override
+    public Administrator update(Administrator updated) {
+        if (!userService.canUsernameBeChanged(updated)) throw new UsernameNotUniqueException(updated.getUsername());
+        if (!userService.canEmailBeChanged(updated)) throw new EmailNotUniqueException(updated.getEmail());
+
+        var oldGuest = findById(updated.getId());
+        updated.setPassword(oldGuest.getPassword());
+        updated.setRole(oldGuest.getRole());
+
+        return administratorRepository.save(updated);
+    }
+
+    @Override
+    public Administrator findByUsername(String username) {
+        return administratorRepository.findByUsername(username).orElseThrow();
+    }
 }

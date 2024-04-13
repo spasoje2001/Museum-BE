@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.veljko121.backend.core.dto.BooleanResponseDTO;
 import com.veljko121.backend.core.dto.ErrorResponseDTO;
 import com.veljko121.backend.core.dto.ExistsResponseDTO;
 import com.veljko121.backend.core.enums.Role;
@@ -25,6 +26,7 @@ import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.model.Restaurateur;
 import com.veljko121.backend.service.IAuthenticationService;
+import com.veljko121.backend.service.IUserService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -36,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationController {
 
     private final IAuthenticationService authenticationService;
+    private final IUserService userService;
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
@@ -114,5 +117,18 @@ public class AuthenticationController {
         }
     }
 
+    @GetMapping("/can-change-username/{username}")
+    public ResponseEntity<BooleanResponseDTO> canUsernameBeChanged(@PathVariable String username) {
+        var id = jwtService.getLoggedInUserId();
+        var user = userService.findById(id);
+        return ResponseEntity.ok().body(new BooleanResponseDTO(userService.canUsernameBeChanged(user, username)));
+    }
+
+    @GetMapping("/can-change-email/{email}")
+    public ResponseEntity<BooleanResponseDTO> canEmailBeChanged(@PathVariable String email) {
+        var id = jwtService.getLoggedInUserId();
+        var user = userService.findById(id);
+        return ResponseEntity.ok().body(new BooleanResponseDTO(userService.canEmailBeChanged(user, email)));
+    }
 
 }

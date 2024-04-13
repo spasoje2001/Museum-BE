@@ -41,4 +41,21 @@ public class OrganizerService extends CRUDService<Organizer, Integer> implements
     private Boolean existsByEmail(String email) {
         return userService.existsByEmail(email);
     }
+
+    @Override
+    public Organizer update(Organizer updated) {
+        if (!userService.canUsernameBeChanged(updated)) throw new UsernameNotUniqueException(updated.getUsername());
+        if (!userService.canEmailBeChanged(updated)) throw new EmailNotUniqueException(updated.getEmail());
+
+        var oldGuest = findById(updated.getId());
+        updated.setPassword(oldGuest.getPassword());
+        updated.setRole(oldGuest.getRole());
+
+        return organizerRepository.save(updated);
+    }
+
+    @Override
+    public Organizer findByUsername(String username) {
+        return organizerRepository.findByUsername(username).orElseThrow();
+    }
 }
