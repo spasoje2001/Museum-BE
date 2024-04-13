@@ -33,7 +33,6 @@ public class Tour {
     @Column(nullable = false)
     private String duration;
 
-    @NotEmpty
     @Column(nullable = false)
     private LocalDateTime occurrenceDateTime;
 
@@ -48,5 +47,13 @@ public class Tour {
     @ManyToOne
     @JoinColumn(name = "guide_id")
     private Curator guide;          // Da li samo kustos ili moze da bude i recimo gostujuci predavac
+
+    @ManyToOne
+    @JoinColumn(name = "organizer_id")
+    private Organizer organizer;
+
+    @NotEmpty
+    @Column(nullable = false)
+    private String picturePath;
 
 }
