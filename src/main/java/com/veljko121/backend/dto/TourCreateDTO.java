@@ -19,12 +19,16 @@ public class TourCreateDTO {
 
     private String duration;
 
-    private LocalDateTime eventDateTime;
+    private LocalDateTime occurrenceDateTime;
 
     private String adultTicketPrice;
 
     private String minorTicketPrice;
 
     private Integer guideId;
+
+    private String capacity;
+
+    private String picturePath;
 
 }
