@@ -56,4 +56,8 @@ public class Tour {
     @Column(nullable = false)
     private String picturePath;
 
+    @NotEmpty
+    @Column(nullable = false)
+    private String capacity;
+
 }
