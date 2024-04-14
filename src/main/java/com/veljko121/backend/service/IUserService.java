@@ -4,14 +4,23 @@ import java.util.NoSuchElementException;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.veljko121.backend.core.service.ICRUDService;
 import com.veljko121.backend.model.User;
 
-public interface IUserService extends UserDetailsService {
+public interface IUserService extends UserDetailsService, ICRUDService<User, Integer> {
 
     User findByUsername(String username) throws NoSuchElementException;
 
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+    Boolean canUsernameBeChanged(User updatedUser);
     
+    Boolean canEmailBeChanged(User updatedUser);
+
+    Boolean canUsernameBeChanged(User user, String newUsername);
+
+    Boolean canEmailBeChanged(User user, String newEmail);
+
 }
