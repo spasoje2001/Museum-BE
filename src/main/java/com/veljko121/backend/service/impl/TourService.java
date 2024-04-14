@@ -35,4 +35,8 @@ public class TourService extends CRUDService<Tour, Integer> implements ITourServ
         return tourRepository.findByOrganizerId(organizerId);
     }
 
+    @Override
+    public Tour update(Tour updated) {
+        return tourRepository.save(updated);
+    }
 }
