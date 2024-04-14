@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/personalTours")
 @RequiredArgsConstructor
@@ -41,4 +44,15 @@ public class PersonalTourController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tourDTO);
     }
+
+    @GetMapping("/{guestId}")
+    @PreAuthorize("hasRole('Organizer')")
+    public ResponseEntity<?> findByGuestId(@PathVariable Integer guestId) {
+        List<PersonalTour> tours = personalTourService.findByGuestId(guestId);
+        var tourResponse = tours.stream()
+                .map(tour -> modelMapper.map(tour, PersonalTour.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(tourResponse);
+    }
+
 }
