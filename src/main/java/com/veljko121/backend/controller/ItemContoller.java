@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.veljko121.backend.dto.ItemDTO;
+import com.veljko121.backend.dto.ItemCreateDTO;
 import com.veljko121.backend.model.Item;
 import com.veljko121.backend.service.IItemService;
 
@@ -27,19 +27,17 @@ public class ItemContoller {
 
     private final ModelMapper modelMapper;
     private final IItemService itemService;
-    private final Logger logger;
 
-
-    @PostMapping("/add")
-    public ResponseEntity<?> register(@Valid @RequestBody ItemDTO itemDTO) {
+    @PostMapping
+    public ResponseEntity<?> register(@Valid @RequestBody ItemCreateDTO itemDTO) {
 
         var item = modelMapper.map(itemDTO, Item.class);
         itemService.save(item);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemDTO);
 
     }
-
-    @GetMapping("/")
+    
+    @GetMapping
     public ResponseEntity<?> finAll() {
 
         List<Item> items = itemService.findAll();
