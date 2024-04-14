@@ -1,6 +1,5 @@
-package com.veljko121.backend.dto;
+package com.veljko121.backend.dto.Tours;
 
-import com.veljko121.backend.model.PersonalTourRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,9 +15,4 @@ public class PersonalTourRequestCreateDTO {
     private String guestNumber;
 
     private LocalDateTime occurrenceDateTime;
-
-    private Integer proposerId;
-
-    private Integer organizerId;
-
 }
