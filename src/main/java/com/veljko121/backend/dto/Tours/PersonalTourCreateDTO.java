@@ -22,8 +22,6 @@ public class PersonalTourCreateDTO {
 
     private Integer guideId;
 
-    private Integer organizerId;
-
     private Integer proposerId;
 
     private String guestNumber;
