@@ -8,6 +8,8 @@ import com.veljko121.backend.dto.EmployeeResponseDTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.veljko121.backend.core.enums.Role;
+
 import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.model.User;
 import com.veljko121.backend.repository.UserRepository;
@@ -89,6 +91,7 @@ public class UserService extends CRUDService<User, Integer> implements IUserServ
 
     public List<EmployeeResponseDTO> getAllEmployees() {
         return userRepository.findAll().stream()
+                .filter(user -> user.getRole() != Role.GUEST && user.getRole() != Role.ADMIN)
                 .map(this::convertToEmployeeResponseDTO)
                 .collect(Collectors.toList());
     }
@@ -102,6 +105,13 @@ public class UserService extends CRUDService<User, Integer> implements IUserServ
         dto.setIsAccountLocked(user.getIsAccountLocked());
         // Add more fields as needed, for example, dto.setIsBlocked(user.getIsBlocked());
         return dto;
+    }
+
+    public void switchAccountLockedStatus(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + userId));
+        user.setIsAccountLocked(!user.getIsAccountLocked()); // Assuming there's a setter for the isAccountLocked field
+        userRepository.save(user);
     }
     
 }

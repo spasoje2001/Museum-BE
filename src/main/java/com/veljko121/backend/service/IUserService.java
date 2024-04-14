@@ -27,5 +27,7 @@ public interface IUserService extends UserDetailsService, ICRUDService<User, Int
 
     List<EmployeeResponseDTO> getAllEmployees();
 
+    void switchAccountLockedStatus(Integer userId);
+
 
 }
