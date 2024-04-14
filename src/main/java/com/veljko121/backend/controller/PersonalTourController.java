@@ -1,11 +1,17 @@
 package com.veljko121.backend.controller;
 
+import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.Tours.PersonalTourCreateDTO;
+import com.veljko121.backend.service.ICuratorService;
+import com.veljko121.backend.service.IOrganizerService;
 import com.veljko121.backend.service.IPersonalTourService;
+import com.veljko121.backend.service.impl.GuestService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.veljko121.backend.model.PersonalTour;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,11 +20,25 @@ import org.springframework.web.bind.annotation.*;
 public class PersonalTourController {
 
     private final IPersonalTourService personalTourService;
+    private final IJwtService jwtService;
+    private final IOrganizerService organizerService;
+    private final ICuratorService curatorService;
 
     private final ModelMapper modelMapper;
+    private final GuestService guestService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody PersonalTourCreateDTO tour) {
-        return ResponseEntity.ok().body(personalTourService.save(modelMapper.map(tour, PersonalTour.class)));
+    @PreAuthorize("hasRole('Organizer')")
+    public ResponseEntity<?> create(@RequestBody PersonalTourCreateDTO tourDTO) {
+        var tour = modelMapper.map(tourDTO, PersonalTour.class);
+
+        var id = jwtService.getLoggedInUserId();
+        tour.setOrganizer(organizerService.findById(id));
+        tour.setProposer(guestService.findById(tourDTO.getProposerId()));
+        tour.setGuide(curatorService.findById(tourDTO.getGuideId()));
+
+        personalTourService.save(tour);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(tourDTO);
     }
 }
