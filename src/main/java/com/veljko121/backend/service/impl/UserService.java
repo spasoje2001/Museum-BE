@@ -1,7 +1,10 @@
 package com.veljko121.backend.service.impl;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
+import com.veljko121.backend.dto.EmployeeResponseDTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +85,23 @@ public class UserService extends CRUDService<User, Integer> implements IUserServ
         }
 
         return true;
+    }
+
+    public List<EmployeeResponseDTO> getAllEmployees() {
+        return userRepository.findAll().stream()
+                .map(this::convertToEmployeeResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    private EmployeeResponseDTO convertToEmployeeResponseDTO(User user) {
+        EmployeeResponseDTO dto = new EmployeeResponseDTO();
+        dto.setId(user.getId());
+        dto.setName(user.getFirstName() + " " + user.getLastName());
+        dto.setRole(user.getRole());
+        dto.setEmail(user.getEmail());
+        dto.setIsAccountLocked(user.getIsAccountLocked());
+        // Add more fields as needed, for example, dto.setIsBlocked(user.getIsBlocked());
+        return dto;
     }
     
 }
