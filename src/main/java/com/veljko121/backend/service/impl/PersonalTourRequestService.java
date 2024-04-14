@@ -41,4 +41,8 @@ public class PersonalTourRequestService extends CRUDService<PersonalTourRequest,
         return personalTourRequestRepository.findAll();
     }
 
+    public List<PersonalTourRequest> findOnHold(){
+        return personalTourRequestRepository.findOnHold();
+    }
+
 }

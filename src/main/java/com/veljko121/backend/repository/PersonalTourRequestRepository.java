@@ -11,4 +11,7 @@ public interface PersonalTourRequestRepository extends JpaRepository<PersonalTou
     @Query("SELECT r FROM PersonalTourRequest r WHERE r.proposer.id = ?1")
     List<PersonalTourRequest> findByGuestId(Integer guestId);
 
+    @Query("SELECT r FROM PersonalTourRequest r WHERE r.status = 'ON_HOLD'")
+    List<PersonalTourRequest> findOnHold();
+
 }

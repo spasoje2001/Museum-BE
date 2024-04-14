@@ -61,7 +61,7 @@ public class PersonalTourRequestController {
     }
 
     @GetMapping("/{guestId}")
-    @PreAuthorize("hasRole('Guest')")
+    @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> findByGuestId(@PathVariable Integer guestId) {
         List<PersonalTourRequest> requests = personalTourRequestService.findByGuestId(guestId);
         var requestResponse = requests.stream()
@@ -71,9 +71,19 @@ public class PersonalTourRequestController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('Organizer')")
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> findAll() {
         List<PersonalTourRequest> requests = personalTourRequestService.findAll();
+        var requestResponse = requests.stream()
+                .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(requestResponse);
+    }
+
+    @GetMapping("/onHold")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> findOnHold() {
+        List<PersonalTourRequest> requests = personalTourRequestService.findOnHold();
         var requestResponse = requests.stream()
                 .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
                 .collect(Collectors.toList());

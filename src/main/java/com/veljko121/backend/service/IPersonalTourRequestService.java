@@ -13,4 +13,5 @@ public interface IPersonalTourRequestService extends ICRUDService<PersonalTourRe
 
     List<PersonalTourRequest> findAll();
 
+    List<PersonalTourRequest> findOnHold();
 }
