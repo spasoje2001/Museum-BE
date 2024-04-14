@@ -1,9 +1,9 @@
 package com.veljko121.backend.controller;
 
+import com.veljko121.backend.dto.Tours.PersonalTourCreateDTO;
 import com.veljko121.backend.service.IPersonalTourService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import com.veljko121.backend.dto.PersonalTourCreateDTO;
 import com.veljko121.backend.model.PersonalTour;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
