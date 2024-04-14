@@ -1,7 +1,6 @@
 package com.veljko121.backend.service.impl;
 
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.PersonalTour;
 import com.veljko121.backend.model.PersonalTourRequest;
 import com.veljko121.backend.repository.PersonalTourRequestRepository;
 import com.veljko121.backend.service.IPersonalTourRequestService;
@@ -35,6 +34,11 @@ public class PersonalTourRequestService extends CRUDService<PersonalTourRequest,
 
     public List<PersonalTourRequest> findByGuestId(Integer guestId){
         return personalTourRequestRepository.findByGuestId(guestId);
+    }
+
+    @Override
+    public List<PersonalTourRequest> findAll(){
+        return personalTourRequestRepository.findAll();
     }
 
 }

@@ -69,4 +69,14 @@ public class PersonalTourRequestController {
         return ResponseEntity.ok().body(requestResponse);
     }
 
+    @GetMapping
+    @PreAuthorize("hasRole('Organizer')")
+    public ResponseEntity<?> findAll() {
+        List<PersonalTourRequest> requests = personalTourRequestService.findAll();
+        var requestResponse = requests.stream()
+                .map(request -> modelMapper.map(request, PersonalTourRequest.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(requestResponse);
+    }
+
 }

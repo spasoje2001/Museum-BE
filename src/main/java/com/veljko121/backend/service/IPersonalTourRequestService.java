@@ -11,4 +11,6 @@ public interface IPersonalTourRequestService extends ICRUDService<PersonalTourRe
 
     List<PersonalTourRequest> findByGuestId(Integer guestId);
 
+    List<PersonalTourRequest> findAll();
+
 }
