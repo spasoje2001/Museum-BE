@@ -39,4 +39,9 @@ public class TourService extends CRUDService<Tour, Integer> implements ITourServ
     public Tour update(Tour updated) {
         return tourRepository.save(updated);
     }
+
+    @Override
+    public void delete(Tour tour){
+        tourRepository.delete(tour);
+    }
 }

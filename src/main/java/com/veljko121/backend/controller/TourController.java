@@ -71,4 +71,16 @@ public class TourController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tourUpdateDTO);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        Tour tour = tourService.findById(id);
+
+        if (tour != null) {
+            tourService.delete(tour);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

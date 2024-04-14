@@ -12,4 +12,6 @@ public interface ITourService extends ICRUDService<Tour, Integer> {
     List<Tour> findByOrganizerId(Integer organizerId);
 
     Tour update(Tour updated);
+
+    void delete(Tour updated);
 }
