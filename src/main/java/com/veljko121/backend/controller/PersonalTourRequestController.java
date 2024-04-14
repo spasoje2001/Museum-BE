@@ -27,8 +27,8 @@ public class PersonalTourRequestController {
     private final IGuestService guestService;
     private final IOrganizerService organizerService;
 
-    @PreAuthorize("hasRole('GUEST')")
     @PostMapping
+    @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> create(@RequestBody PersonalTourRequestCreateDTO requestDTO) {
         var request = modelMapper.map(requestDTO, PersonalTourRequest.class);
 
@@ -41,8 +41,8 @@ public class PersonalTourRequestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
     }
 
-    @PreAuthorize("hasRole('ORGANIZER')")
     @PutMapping
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> update(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
 
         var request = personalTourRequestService.findById(requestDTO.getId());
