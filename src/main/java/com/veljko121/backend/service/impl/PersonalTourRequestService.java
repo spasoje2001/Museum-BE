@@ -24,4 +24,10 @@ public class PersonalTourRequestService extends CRUDService<PersonalTourRequest,
     public PersonalTourRequest save(PersonalTourRequest request) {
         return personalTourRequestRepository.save(request);
     }
+
+    @Override
+    public PersonalTourRequest update(PersonalTourRequest request) {
+        return personalTourRequestRepository.save(request);
+    }
+
 }

@@ -5,4 +5,6 @@ import com.veljko121.backend.model.PersonalTourRequest;
 
 public interface IPersonalTourRequestService extends ICRUDService<PersonalTourRequest, Integer> {
 
+    PersonalTourRequest update(PersonalTourRequest request);
+
 }

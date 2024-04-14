@@ -1,19 +1,19 @@
 package com.veljko121.backend.controller;
 
+import com.veljko121.backend.core.enums.PersonalTourRequestStatus;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.Tours.PersonalTourRequestCreateDTO;
+import com.veljko121.backend.dto.Tours.PersonalTourRequestUpdateDTO;
 import com.veljko121.backend.model.PersonalTourRequest;
 import com.veljko121.backend.service.IGuestService;
+import com.veljko121.backend.service.IOrganizerService;
 import com.veljko121.backend.service.IPersonalTourRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/personalTourRequests")
@@ -25,6 +25,7 @@ public class PersonalTourRequestController {
 
     private final ModelMapper modelMapper;
     private final IGuestService guestService;
+    private final IOrganizerService organizerService;
 
     @PreAuthorize("hasRole('GUEST')")
     @PostMapping
@@ -33,11 +34,26 @@ public class PersonalTourRequestController {
 
         var id = jwtService.getLoggedInUserId();
         request.setProposer(guestService.findById(id));
+        request.setStatus(PersonalTourRequestStatus.ON_HOLD);
 
         personalTourRequestService.save(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
     }
 
+    @PreAuthorize("hasRole('ORGANIZER')")
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
+
+        var request = personalTourRequestService.findById(requestDTO.getId());
+
+        var id = jwtService.getLoggedInUserId();
+        request.setOrganizer(organizerService.findById(id));
+        request.setStatus(requestDTO.getStatus());
+
+        personalTourRequestService.update(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
+    }
 
 }
