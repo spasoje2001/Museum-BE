@@ -46,7 +46,7 @@ public class PersonalTourController {
     }
 
     @GetMapping("/{guestId}")
-    @PreAuthorize("hasRole('Organizer')")
+    @PreAuthorize("hasRole('Guest')")
     public ResponseEntity<?> findByGuestId(@PathVariable Integer guestId) {
         List<PersonalTour> tours = personalTourService.findByGuestId(guestId);
         var tourResponse = tours.stream()
