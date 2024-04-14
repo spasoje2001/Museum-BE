@@ -16,7 +16,6 @@ public class PersonalTourRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     @Column(nullable = false)
     private LocalDateTime occurrenceDateTime;
 
@@ -36,7 +35,6 @@ public class PersonalTourRequest {
     private Organizer organizer;
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
     @Column(nullable = false, columnDefinition = "varchar(20) default 'ON_HOLD'")
     private PersonalTourRequestStatus status;
 
