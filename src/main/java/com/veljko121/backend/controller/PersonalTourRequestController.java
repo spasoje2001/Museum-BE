@@ -3,6 +3,7 @@ package com.veljko121.backend.controller;
 import com.veljko121.backend.core.enums.PersonalTourRequestStatus;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.Tours.PersonalTourRequestCreateDTO;
+import com.veljko121.backend.dto.Tours.PersonalTourRequestResponseDTO;
 import com.veljko121.backend.dto.Tours.PersonalTourRequestUpdateDTO;
 import com.veljko121.backend.model.PersonalTourRequest;
 import com.veljko121.backend.service.IGuestService;
@@ -64,7 +65,7 @@ public class PersonalTourRequestController {
     public ResponseEntity<?> findByGuestId(@PathVariable Integer guestId) {
         List<PersonalTourRequest> requests = personalTourRequestService.findByGuestId(guestId);
         var requestResponse = requests.stream()
-                .map(request -> modelMapper.map(request, PersonalTourRequest.class))
+                .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(requestResponse);
     }
@@ -74,7 +75,7 @@ public class PersonalTourRequestController {
     public ResponseEntity<?> findAll() {
         List<PersonalTourRequest> requests = personalTourRequestService.findAll();
         var requestResponse = requests.stream()
-                .map(request -> modelMapper.map(request, PersonalTourRequest.class))
+                .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(requestResponse);
     }
