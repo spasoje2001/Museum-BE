@@ -2,6 +2,7 @@ package com.veljko121.backend.controller;
 
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.Tours.PersonalTourCreateDTO;
+import com.veljko121.backend.dto.Tours.PersonalTourResponseDTO;
 import com.veljko121.backend.service.ICuratorService;
 import com.veljko121.backend.service.IOrganizerService;
 import com.veljko121.backend.service.IPersonalTourService;
@@ -50,7 +51,7 @@ public class PersonalTourController {
     public ResponseEntity<?> findByGuestId(@PathVariable Integer guestId) {
         List<PersonalTour> tours = personalTourService.findByGuestId(guestId);
         var tourResponse = tours.stream()
-                .map(tour -> modelMapper.map(tour, PersonalTour.class))
+                .map(tour -> modelMapper.map(tour, PersonalTourResponseDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(tourResponse);
     }
