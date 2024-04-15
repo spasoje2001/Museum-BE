@@ -4,7 +4,7 @@ public enum PersonalTourRequestStatus {
     ON_HOLD,
     ACCEPTED,
     DECLINED,
-    CANCELED,
-    EXPIRED,
-    PROPOSED_TERMS
+//    CANCELED,
+//    EXPIRED,
+//    PROPOSED_TERMS
 }
