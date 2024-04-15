@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import com.veljko121.backend.dto.EmployeeResponseDTO;
+import com.veljko121.backend.dto.UserResponseDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -112,6 +114,24 @@ public class UserService extends CRUDService<User, Integer> implements IUserServ
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + userId));
         user.setIsAccountLocked(!user.getIsAccountLocked()); // Assuming there's a setter for the isAccountLocked field
         userRepository.save(user);
+    }
+
+    public UserResponseDTO getById(Integer userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Employee not found with id: " + userId));
+        return convertToUserResponseDTO(user);
+    };
+
+    private UserResponseDTO convertToUserResponseDTO(User user) {
+        UserResponseDTO dto = new UserResponseDTO();
+        dto.setId(user.getId());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setUsername(user.getUsername());
+        dto.setRole(user.getRole());
+        dto.setEmail(user.getEmail());
+        // Add more fields as needed, for example, dto.setIsBlocked(user.getIsBlocked());
+        return dto;
     }
     
 }
