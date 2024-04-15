@@ -54,6 +54,9 @@ public abstract class User implements UserDetails {
     @Enumerated
     private Role role;
 
+    @Column(nullable = false)
+    private Boolean isAccountLocked = false;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
@@ -66,7 +69,7 @@ public abstract class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !isAccountLocked;
     }
 
     @Override
