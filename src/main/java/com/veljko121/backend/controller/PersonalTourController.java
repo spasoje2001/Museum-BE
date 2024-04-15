@@ -32,7 +32,7 @@ public class PersonalTourController {
     private final GuestService guestService;
 
     @PostMapping
-    @PreAuthorize("hasRole('Organizer')")
+    @PreAuthorize("hasRole('OGRANIZER')")
     public ResponseEntity<?> create(@RequestBody PersonalTourCreateDTO tourDTO) {
         var tour = modelMapper.map(tourDTO, PersonalTour.class);
 
@@ -47,7 +47,7 @@ public class PersonalTourController {
     }
 
     @GetMapping("/{guestId}")
-    @PreAuthorize("hasRole('Guest')")
+    @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> findByGuestId(@PathVariable Integer guestId) {
         List<PersonalTour> tours = personalTourService.findByGuestId(guestId);
         var tourResponse = tours.stream()
