@@ -1,6 +1,5 @@
 package com.veljko121.backend.model;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,36 +15,47 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-@Data
 @Entity
+@Data
 @Table(name = "_user")
-public class User implements UserDetails {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotEmpty
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     
     @NotEmpty
     @Email
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     
     @NotEmpty
+    @Column(nullable = false)
     private String password;
-
+    
+    @Column
+    private String firstName;
+    
+    @Column
+    private String lastName;
+    
     @Enumerated
     private Role role;
 
-    private LocalDateTime createdDateTime;
+    @Column(nullable = false)
+    private Boolean isAccountLocked = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,7 +69,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !isAccountLocked;
     }
 
     @Override

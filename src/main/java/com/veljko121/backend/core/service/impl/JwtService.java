@@ -8,10 +8,12 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.veljko121.backend.core.service.IJwtService;
+import com.veljko121.backend.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,6 +26,7 @@ public class JwtService implements IJwtService {
     @Value("${application.jwt.secret-key}") private String SECRET_KEY; 
     @Value("${application.jwt.expiration-minutes}") private Integer expirationMinutes = 60;
     private Integer expirationMilliseconds = expirationMinutes * 60 * 1000;
+	@Value("Authorization") private String AUTH_HEADER;
 
     public String extractUsername(String jwt) {
         return extractClaim(jwt, Claims::getSubject);
@@ -32,6 +35,14 @@ public class JwtService implements IJwtService {
     public <T> T extractClaim(String jwt, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(jwt);
         return claimsResolver.apply(claims);
+    }
+
+    public String generateJwt(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("username", user.getUsername());
+        claims.put("role", user.getRole().toString());
+        return generateJwt(claims, user);
     }
 
     public String generateJwt(UserDetails userDetails) {
@@ -76,6 +87,22 @@ public class JwtService implements IJwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         var key = Keys.hmacShaKeyFor(keyBytes);
         return key;
+    }
+
+    public String getLoggedInUserUsername() {
+        return extractUsername(getJwtFromContext());
+    }
+
+    public Integer extractId(String jwt) {
+        return (Integer) extractAllClaims(jwt).get("id");
+    }
+
+    public Integer getLoggedInUserId() {
+        return extractId(getJwtFromContext());
+    }
+
+    private String getJwtFromContext() {
+        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
     
 }
