@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemCreateDTO {
-
     private String name;
     private String description;
     private String authorsName;
