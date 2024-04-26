@@ -52,8 +52,4 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
-
-    @Enumerated
-    private ItemStatus status;
-
 }

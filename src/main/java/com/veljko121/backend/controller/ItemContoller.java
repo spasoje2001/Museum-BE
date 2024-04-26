@@ -29,7 +29,7 @@ public class ItemContoller {
     private final IItemService itemService;
 
     @PostMapping
-    public ResponseEntity<?> register(@Valid @RequestBody ItemCreateDTO itemDTO) {
+    public ResponseEntity<?> register(@RequestBody ItemCreateDTO itemDTO) {
 
         var item = modelMapper.map(itemDTO, Item.class);
         itemService.save(item);
