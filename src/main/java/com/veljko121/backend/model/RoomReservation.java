@@ -1,6 +1,5 @@
 package com.veljko121.backend.model;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -28,6 +27,6 @@ public class RoomReservation {
     private LocalDateTime startDateTime;
     
     @Column
-    private Duration duration;
+    private Integer durationMinutes;
     
 }

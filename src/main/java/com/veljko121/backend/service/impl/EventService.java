@@ -18,5 +18,7 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
         super(repository);
         eventRepository = repository;
     }
+
+
     
 }

@@ -1,6 +1,5 @@
 package com.veljko121.backend.model;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,9 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -39,13 +40,13 @@ public class Event {
     
     @NotNull
     @Column(nullable = false)
-    private Duration duration;
+    private Integer durationMinutes; // in minutes
     
     @Positive
     @Column(nullable = false)
     private Integer ticketsNumber;
     
-    @Positive
+    @PositiveOrZero
     @Column(nullable = false)
     private Integer price;
     
