@@ -16,5 +16,6 @@ public class EventResponseDTO {
     private Integer price;
     private OrganizerResponseDTO organizer;
     private LocalDateTime createdDateTime;
+    private RoomReservationResponseDTO roomReservation;
     
 }

@@ -54,9 +54,16 @@ public class Event {
     @NotNull
     private Organizer organizer;
 
+    @OneToOne
+    private RoomReservation roomReservation;
+
     @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp
     @Setter(value = AccessLevel.PRIVATE)
     private LocalDateTime createdDateTime;
+
+    public LocalDateTime getEndDateTime() {
+        return startDateTime.plusMinutes(durationMinutes);
+    }
 
 }

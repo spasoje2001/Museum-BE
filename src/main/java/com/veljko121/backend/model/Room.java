@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,7 +36,7 @@ public class Room {
     @Column(unique = true, nullable = false)
     private String number;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
     
 }

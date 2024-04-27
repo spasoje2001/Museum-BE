@@ -26,3 +26,6 @@ INSERT INTO curator(id, biography) VALUES
     
 INSERT INTO restaurateur(id, biography) VALUES
     (8, 'I love restoring stuff.');
+
+INSERT INTO room(name, floor, number) VALUES
+    ('Main room', '1', '10');
