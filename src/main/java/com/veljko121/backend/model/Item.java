@@ -1,6 +1,7 @@
 package com.veljko121.backend.model;
 
 import com.veljko121.backend.core.enums.ItemCategory;
+import com.veljko121.backend.core.enums.ItemStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

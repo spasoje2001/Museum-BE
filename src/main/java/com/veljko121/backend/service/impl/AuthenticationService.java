@@ -1,5 +1,8 @@
 package com.veljko121.backend.service.impl;
 
+import com.veljko121.backend.core.enums.Role;
+import com.veljko121.backend.dto.UpdateEmployeeRequestDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +22,8 @@ import com.veljko121.backend.service.IRestaurateurService;
 import com.veljko121.backend.service.IUserService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +69,85 @@ public class AuthenticationService implements IAuthenticationService {
         //restaurateur.setRole(Role.RESTAURATEUR);
         restaurateur.setPassword(passwordEncoder.encode(restaurateur.getPassword()));
         return restaurateurService.save(restaurateur);
+    }
+
+    @Transactional
+    public void updateEmployee(Integer id, UpdateEmployeeRequestDTO requestDTO) {
+        User user = userService.findById(id);
+        Role currentRole = user.getRole();
+        String biography = "";
+        boolean roleChanged = !currentRole.equals(requestDTO.getRole());
+
+        user.setRole(requestDTO.getRole());
+        user.setFirstName(requestDTO.getFirstName());
+        user.setLastName(requestDTO.getLastName());
+        user.setEmail(requestDTO.getEmail());
+        user.setUsername(requestDTO.getUsername());
+
+        if (StringUtils.hasText(requestDTO.getPassword())) {
+            user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+        }
+
+        userService.save(user);
+        // Check if the role has changed
+        if (roleChanged) {
+            // Handle role change
+            switch (currentRole) {
+                case CURATOR:
+                    // Remove from curator table
+                    Curator curator = curatorService.findById(id);
+                    biography = curator.getBiography();
+                    curatorService.deleteById(id);
+                    break;
+                case ORGANIZER:
+                    // Remove from organizer table
+                    Organizer organizer = organizerService.findById(id);
+                    biography = organizer.getBiography();
+                    organizerService.deleteById(id);
+                    break;
+                // ... other cases
+                case RESTAURATEUR:
+                    Restaurateur restaurateur = restaurateurService.findById(id);
+                    biography = restaurateur.getBiography();
+                    restaurateurService.deleteById(id);
+                    break;
+            }
+
+            switch (requestDTO.getRole()) {
+                case CURATOR:
+                    // Add to curator table
+                    Curator curator = new Curator();
+                    copyUserFieldsToSubclass(user, curator);
+                    curator.setBiography(biography);
+                    curatorService.save(curator);
+                    break;
+                case ORGANIZER:
+                    // Add to organizer table
+                    Organizer organizer = new Organizer();
+                    copyUserFieldsToSubclass(user, organizer);
+                    organizer.setBiography(biography);
+                    organizerService.save(organizer);
+                    break;
+                case RESTAURATEUR:
+                    Restaurateur restaurateur = new Restaurateur();
+                    copyUserFieldsToSubclass(user, restaurateur);
+                    restaurateur.setBiography(biography);
+                    restaurateurService.save(restaurateur);
+                    break;
+                // ... other cases
+            }
+        }
+    }
+
+    private void copyUserFieldsToSubclass(User user, User subclass) {
+        // Copy common fields
+        subclass.setFirstName(user.getFirstName());
+        subclass.setLastName(user.getLastName());
+        subclass.setEmail(user.getEmail());
+        subclass.setUsername(user.getUsername());
+        subclass.setRole(user.getRole());
+        subclass.setPassword(user.getPassword());
+        // ... other common fields
     }
 
     
