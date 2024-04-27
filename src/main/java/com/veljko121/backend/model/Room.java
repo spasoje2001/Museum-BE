@@ -1,6 +1,5 @@
 package com.veljko121.backend.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -36,5 +35,5 @@ public class Room {
     private String number;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items;
 }

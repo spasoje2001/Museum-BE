@@ -1,9 +1,9 @@
 package com.veljko121.backend.core.enums;
 
-public enum ItemStatus {
+public enum CleaningStatus {
     NEW,
     APPROVED,
+    REJECTED,
     INCLEANING,
     CLEANSED,
-    FORDISPLAY
 }

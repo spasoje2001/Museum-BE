@@ -1,8 +1,9 @@
 package com.veljko121.backend.model;
 
-import com.veljko121.backend.core.enums.ItemCategory;
+import java.time.LocalDate;
 
-import jakarta.persistence.CascadeType;
+import com.veljko121.backend.core.enums.CleaningStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -11,15 +12,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "item")
-public class Item {
+@Table(name = "cleaning")
+public class Cleaning {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,34 +27,24 @@ public class Item {
 
     @NotEmpty
     @Column(nullable = false)
-    private String name;
+    private String text;
 
-    @NotEmpty
     @Column(nullable = false)
-    private String description;
+    private LocalDate startDate;
 
-    @Column(nullable = true)
-    private String authorsName;
 
-    @Column(nullable = true)
-    private String yearOfCreation;
-
-    @NotEmpty
     @Column(nullable = false)
-    private String period;
+    private LocalDate endDate;
 
     @Enumerated
-    private ItemCategory category;
-
-    @NotEmpty
-    @Column(nullable = false)
-    private String picture;
+    private CleaningStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
+    @JoinColumn(name = "curator_id")
+    private Curator curator;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cleaning_id")
-    private Cleaning cleaning;
+    @ManyToOne
+    @JoinColumn(name = "restaurateur_id")
+    private Restaurateur restaurateur;
+
 }

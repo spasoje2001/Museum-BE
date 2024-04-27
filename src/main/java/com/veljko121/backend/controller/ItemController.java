@@ -44,4 +44,8 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemResponse);
     }
 
+    @GetMapping("/forCleaning")
+    public List<Item> getAllItemsForCleaning() {
+        return itemService.getAllItemsForCleaning();
+    }
 }

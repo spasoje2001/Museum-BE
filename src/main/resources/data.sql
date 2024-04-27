@@ -26,3 +26,4 @@ INSERT INTO curator(id, biography) VALUES
     
 INSERT INTO restaurateur(id, biography) VALUES
     (8, 'I love restoring stuff.');
+
