@@ -37,4 +37,5 @@ public class Room {
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Item> items = new ArrayList<>();
+    
 }
