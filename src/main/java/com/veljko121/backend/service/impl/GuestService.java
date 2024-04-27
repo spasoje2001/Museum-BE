@@ -27,18 +27,27 @@ public class GuestService extends CRUDService<Guest, Integer> implements IGuestS
 
     @Override
     public Guest save(Guest guest) {
-        if (existsByUsername(guest.getUsername())) throw new UsernameNotUniqueException(guest.getUsername());
-        if (existsByEmail(guest.getEmail())) throw new EmailNotUniqueException(guest.getEmail());
+        if (userService.existsByUsername(guest.getUsername())) throw new UsernameNotUniqueException(guest.getUsername());
+        if (userService.existsByEmail(guest.getEmail())) throw new EmailNotUniqueException(guest.getEmail());
 
         return guestRepository.save(guest);
     }
 
-    private Boolean existsByUsername(String username) {
-        return userService.existsByUsername(username);
+    @Override
+    public Guest update(Guest updated) {
+        if (!userService.canUsernameBeChanged(updated)) throw new UsernameNotUniqueException(updated.getUsername());
+        if (!userService.canEmailBeChanged(updated)) throw new EmailNotUniqueException(updated.getEmail());
+
+        var oldGuest = findById(updated.getId());
+        updated.setPassword(oldGuest.getPassword());
+        updated.setRole(oldGuest.getRole());
+
+        return guestRepository.save(updated);
     }
-    
-    private Boolean existsByEmail(String email) {
-        return userService.existsByEmail(email);
+
+    @Override
+    public Guest findByUsername(String username) {
+        return guestRepository.findByUsername(username).orElseThrow();
     }
     
 }

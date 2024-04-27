@@ -5,13 +5,10 @@ import com.veljko121.backend.core.enums.Role;
 import lombok.Data;
 
 @Data
-public class UserResponseDTO {
-    
+public class EmployeeResponseDTO {
     private Integer id;
-    private String username;
-    private String email;
-    private String firstName;
-    private String lastName;
+    private String name;
     private Role role;
-
+    private String email;
+    private Boolean isAccountLocked;
 }
