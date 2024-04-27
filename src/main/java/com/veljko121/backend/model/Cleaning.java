@@ -47,4 +47,7 @@ public class Cleaning {
     @JoinColumn(name = "restaurateur_id")
     private Restaurateur restaurateur;
 
+    @Column(name = "item_id")
+    private Integer itemId;
+
 }

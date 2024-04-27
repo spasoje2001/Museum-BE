@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/items")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
 public class ItemController {
 
     private final ModelMapper modelMapper;

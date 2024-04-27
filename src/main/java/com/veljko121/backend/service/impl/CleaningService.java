@@ -41,6 +41,7 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         .orElseThrow(() -> new RuntimeException("Restaurateur not found with id: " + restaurateurId));
 
         cleaning.setRestaurateur(restaurateur);
+        cleaning.setItemId(itemId);
         Cleaning savedCleaning = cleaningRepository.save(cleaning);
         addCleaningToItem(itemId, cleaning);
         return savedCleaning;
