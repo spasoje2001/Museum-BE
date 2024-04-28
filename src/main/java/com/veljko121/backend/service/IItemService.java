@@ -8,5 +8,5 @@ import com.veljko121.backend.model.Item;
 public interface IItemService extends ICRUDService<Item, Integer>{
 
     List<Item> findAll();
-
+    public List<Item> getAllItemsForCleaning();
 }
