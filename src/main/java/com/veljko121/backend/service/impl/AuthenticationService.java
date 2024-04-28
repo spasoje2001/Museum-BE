@@ -23,7 +23,6 @@ import com.veljko121.backend.service.IUserService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @RequiredArgsConstructor

@@ -10,6 +10,8 @@ import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.service.ICuratorService;
 import com.veljko121.backend.service.IUserService;
 
+import java.util.List;
+
 @Service
 public class CuratorService extends CRUDService<Curator, Integer> implements ICuratorService{
     
@@ -55,5 +57,10 @@ public class CuratorService extends CRUDService<Curator, Integer> implements ICu
     @Override
     public Curator findByUsername(String username) {
         return curatorRepository.findByUsername(username).orElseThrow();
+    }
+
+    @Override
+    public List<Curator> findAll(){
+        return curatorRepository.findAll();
     }
 }

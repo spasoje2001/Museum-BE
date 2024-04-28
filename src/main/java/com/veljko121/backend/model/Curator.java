@@ -10,4 +10,5 @@ import lombok.EqualsAndHashCode;
 public class Curator extends User{
     @Column
     private String biography;
+
 }

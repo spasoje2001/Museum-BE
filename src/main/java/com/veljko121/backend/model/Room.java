@@ -1,7 +1,7 @@
 package com.veljko121.backend.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

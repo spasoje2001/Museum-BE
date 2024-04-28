@@ -1,7 +1,7 @@
 package com.veljko121.backend.dto;
 
 import com.veljko121.backend.core.enums.ItemCategory;
-import com.veljko121.backend.core.enums.ItemStatus;
+import com.veljko121.backend.model.Cleaning;
 
 import lombok.Data;
 //DADATI ROOM UNUTAR DTO PRI RESPONSU
@@ -16,6 +16,5 @@ public class ItemResponseDTO {
     private String period;
     private ItemCategory category;
     private String picture;
-    private ItemStatus status;
-
+    private Cleaning cleaning;
 }
