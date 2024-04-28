@@ -29,3 +29,9 @@ INSERT INTO restaurateur(id, biography) VALUES
 
 INSERT INTO room(name, floor, number) VALUES
     ('Main room', '1', '10');
+
+INSERT INTO room_reservation(room_id, start_date_time, duration_minutes) VALUES
+    (1, '2024-06-15 18:00:00', 120);
+
+INSERT INTO event(name, description, start_date_time, duration_minutes, tickets_number, price, organizer_id, room_reservation_id, status) VALUES
+    ('Salvador Dalí - Genius or Insane?', 'By visiting this event you will find out a lot about a very controversial individual by the name of Salvador Dalí. Many consider him to be a genius, but just as much portay him as a complete madman. Not sure about that? We invite you to make your own conclusion!', '2024-06-15 18:00:00', 120, 100, 20, 6, 1, 0);

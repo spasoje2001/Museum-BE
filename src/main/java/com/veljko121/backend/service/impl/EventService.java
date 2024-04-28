@@ -9,6 +9,7 @@ import com.veljko121.backend.core.enums.EventStatus;
 import com.veljko121.backend.core.exception.RoomNotAvailableException;
 import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.model.Event;
+import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.repository.EventRepository;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.service.IEventService;
@@ -57,6 +58,18 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
     @Override
     public Collection<Event> findPublished() {
         return eventRepository.findByStatus(EventStatus.PUBLISHED);
+    }
+
+    @Override
+    public Collection<Event> findByOrganizer(Organizer organier) {
+        return eventRepository.findByOrganizer(organier);
+    }
+
+    @Override
+    public void archive(Integer id) {
+        var event = findById(id);
+        event.setStatus(EventStatus.DRAFT);
+        super.save(event);
     }
     
 }
