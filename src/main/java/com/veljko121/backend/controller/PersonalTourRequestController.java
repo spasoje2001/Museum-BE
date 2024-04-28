@@ -38,7 +38,7 @@ public class PersonalTourRequestController {
 
         var id = jwtService.getLoggedInUserId();
         request.setProposer(guestService.findById(id));
-        request.setStatus(PersonalTourRequestStatus.ON_HOLD);
+        request.setStatus(PersonalTourRequestStatus.IN_PROGRESS);
 
         personalTourRequestService.save(request);
 
@@ -83,7 +83,7 @@ public class PersonalTourRequestController {
     @GetMapping("/onHold")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> findOnHold() {
-        List<PersonalTourRequest> requests = personalTourRequestService.findOnHold();
+        List<PersonalTourRequest> requests = personalTourRequestService.findInProgress();
         var requestResponse = requests.stream()
                 .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
                 .collect(Collectors.toList());
