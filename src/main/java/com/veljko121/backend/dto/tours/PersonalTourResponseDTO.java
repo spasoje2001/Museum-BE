@@ -1,4 +1,4 @@
-package com.veljko121.backend.dto.Tours;
+package com.veljko121.backend.dto.tours;
 
 import java.time.LocalDateTime;
 

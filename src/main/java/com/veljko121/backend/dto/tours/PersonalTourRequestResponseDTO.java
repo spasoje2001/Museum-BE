@@ -1,4 +1,4 @@
-package com.veljko121.backend.dto.Tours;
+package com.veljko121.backend.dto.tours;
 
 import com.veljko121.backend.core.enums.PersonalTourRequestStatus;
 import lombok.Getter;

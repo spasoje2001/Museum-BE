@@ -2,9 +2,9 @@ package com.veljko121.backend.controller;
 
 import com.veljko121.backend.core.enums.PersonalTourRequestStatus;
 import com.veljko121.backend.core.service.IJwtService;
-import com.veljko121.backend.dto.Tours.PersonalTourRequestCreateDTO;
-import com.veljko121.backend.dto.Tours.PersonalTourRequestResponseDTO;
-import com.veljko121.backend.dto.Tours.PersonalTourRequestUpdateDTO;
+import com.veljko121.backend.dto.tours.PersonalTourRequestCreateDTO;
+import com.veljko121.backend.dto.tours.PersonalTourRequestResponseDTO;
+import com.veljko121.backend.dto.tours.PersonalTourRequestUpdateDTO;
 import com.veljko121.backend.model.PersonalTourRequest;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
