@@ -40,16 +40,16 @@ public class CleaningController {
     }
 
    // PUT method to decline cleaning for an item
-    @PutMapping("/decline/{itemId}/{curatorId}")
-    public ResponseEntity<Void> declineCleaning(@PathVariable Integer itemId, @PathVariable Integer curatorId) {
-        cleaningService.declineCleaning(itemId, curatorId);
+    @PutMapping("/decline/{cleaningId}/{curatorId}")
+    public ResponseEntity<Void> declineCleaning(@PathVariable Integer cleaningId, @PathVariable Integer curatorId) {
+        cleaningService.declineCleaning(cleaningId, curatorId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // PUT method to approve cleaning for an item
-    @PutMapping("/approve/{itemId}/{curatorId}")
-    public ResponseEntity<Void> approveCleaning(@PathVariable Integer itemId, @PathVariable Integer curatorId) {
-        cleaningService.acceptCleaning(itemId, curatorId);
+    @PutMapping("/approve/{cleaningId}/{curatorId}")
+    public ResponseEntity<Void> approveCleaning(@PathVariable Integer cleaningId, @PathVariable Integer curatorId) {
+        cleaningService.acceptCleaning(cleaningId, curatorId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

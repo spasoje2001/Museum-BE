@@ -27,3 +27,15 @@ INSERT INTO curator(id, biography) VALUES
 INSERT INTO restaurateur(id, biography) VALUES
     (8, 'I love restoring stuff.');
 
+INSERT INTO item(
+	category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation)
+	VALUES (0, null, -1, null,'Lenoardo da Vinci', 'Slika zene sa tajanstvenim osmehom', 'Mona Lisa', 'Novi vek', 'neka slika', '1503');
+
+INSERT INTO item(
+	category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation)
+	VALUES (0, null, -2, null,'Lenoardo da Vinci', 'Momenat Judine izdaje', 'Tajna vecera', 'Novi vek', 'neka slika', '1498');
+
+INSERT INTO item(
+	category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation)
+	VALUES (0, null, -3, null,'Vincent van Gogh', 'Pogled sa istocnog prozora azilantske sobe', 'Zvezdana noc', 'Novi vek', 'neka slika', '1889');
+

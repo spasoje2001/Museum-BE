@@ -59,11 +59,11 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
 
         Curator curator = curatorRepository.findById(curatorId)
                 .orElseThrow(() -> new RuntimeException("Curator not found with id: " + curatorId));
-
+        Item item = itemRepository.findById(cleaning.getItemId()).orElseThrow(() -> new RuntimeException("Item not found with id: " + cleaning.getItemId()));
         // Update the status and curator of the cleaning
         cleaning.setStatus(CleaningStatus.APPROVED);
         cleaning.setCurator(curator);
-
+        item.getCleaning().setStatus(CleaningStatus.CLEANSED);
         // Save the updated cleaning
         return cleaningRepository.save(cleaning);
     }

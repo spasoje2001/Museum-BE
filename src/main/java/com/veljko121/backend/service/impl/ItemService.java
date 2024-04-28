@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.enums.CleaningStatus;
 import com.veljko121.backend.core.service.impl.CRUDService;
+import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Item;
 import com.veljko121.backend.repository.ItemRepository;
 import com.veljko121.backend.service.IItemService;
@@ -49,5 +50,9 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         return itemsForCleaning;
     }
 
+    @Override
+    public Item findById(Integer itemId) {
+        return itemRepository.findById(itemId).orElseThrow();
+    }
 
 }
