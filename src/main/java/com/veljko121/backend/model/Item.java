@@ -3,15 +3,7 @@ package com.veljko121.backend.model;
 import com.veljko121.backend.core.enums.ItemCategory;
 import com.veljko121.backend.core.enums.ItemStatus;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -42,7 +34,7 @@ public class Item {
     @Column(nullable = false)
     private String period;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ItemCategory category;
 
     @NotEmpty
