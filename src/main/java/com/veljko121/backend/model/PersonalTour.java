@@ -25,7 +25,6 @@ public class PersonalTour {
     @Column(nullable = false)
     private String duration;
 
-    @NotEmpty
     @Column(nullable = false)
     private LocalDateTime occurrenceDateTime;
 
