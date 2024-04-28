@@ -1,10 +1,7 @@
 package com.veljko121.backend.core.enums;
 
 public enum PersonalTourRequestStatus {
-    ON_HOLD,
+    IN_PROGRESS,
     ACCEPTED,
     DECLINED,
-//    CANCELED,
-//    EXPIRED,
-//    PROPOSED_TERMS
 }
