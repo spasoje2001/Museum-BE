@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/tours")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ORGANIZER')")
 public class TourController {
 
     private final ITourService tourService;
@@ -31,6 +30,7 @@ public class TourController {
     private final ModelMapper modelMapper;
 
     @PostMapping
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> create(@RequestBody TourCreateDTO tourCreateDTO) {
         var tour = modelMapper.map(tourCreateDTO, Tour.class);
 
@@ -43,7 +43,6 @@ public class TourController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ORGANIZER', 'CURATOR', 'GUEST')")
     public ResponseEntity<?> findAll() {
         List<Tour> tours = tourService.findAll();
         var tourResponse = tours.stream()
@@ -53,6 +52,7 @@ public class TourController {
     }
 
     @GetMapping("/organizers/{organizerId}")
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> findByOrganizerId(@PathVariable Integer organizerId) {
         List<Tour> tours = tourService.findByOrganizerId(organizerId);
         var tourResponse = tours.stream()
@@ -62,6 +62,7 @@ public class TourController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> update(@RequestBody TourUpdateDTO tourUpdateDTO) {
         var tour = modelMapper.map(tourUpdateDTO, Tour.class);
 
@@ -74,6 +75,7 @@ public class TourController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Tour tour = tourService.findById(id);
 
