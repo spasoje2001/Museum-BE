@@ -32,12 +32,21 @@ public class PersonalTourController {
     private final GuestService guestService;
 
     @PostMapping
-    @PreAuthorize("hasRole('OGRANIZER')")
+    @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> create(@RequestBody PersonalTourCreateDTO tourDTO) {
-        var tour = modelMapper.map(tourDTO, PersonalTour.class);
+        //var tour = modelMapper.map(tourDTO, PersonalTour.class);
+        // Nece da mapira iz nekog razloga
 
-        var id = jwtService.getLoggedInUserId();
-        tour.setOrganizer(organizerService.findById(id));
+        PersonalTour tour = new PersonalTour();
+
+        tour.setDuration(tourDTO.getDuration());
+        tour.setOccurrenceDateTime(tourDTO.getOccurrenceDateTime());
+        tour.setAdultTicketPrice(tourDTO.getAdultTicketPrice());
+        tour.setMinorTicketPrice(tourDTO.getMinorTicketPrice());
+        tour.setGuestNumber(tourDTO.getGuestNumber());
+
+        var organizerId = jwtService.getLoggedInUserId();
+        tour.setOrganizer(organizerService.findById(organizerId));
         tour.setProposer(guestService.findById(tourDTO.getProposerId()));
         tour.setGuide(curatorService.findById(tourDTO.getGuideId()));
 
