@@ -1,7 +1,7 @@
-package com.veljko121.backend.repository;
+package com.veljko121.backend.repository.tours;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.veljko121.backend.model.PersonalTour;
+import com.veljko121.backend.model.tours.PersonalTour;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.veljko121.backend.service;
+package com.veljko121.backend.service.tours;
 
 import com.veljko121.backend.core.service.ICRUDService;
-import com.veljko121.backend.model.PersonalTourRequest;
+import com.veljko121.backend.model.tours.PersonalTourRequest;
 
 import java.util.List;
 

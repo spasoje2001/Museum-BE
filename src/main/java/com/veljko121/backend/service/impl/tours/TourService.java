@@ -1,9 +1,9 @@
-package com.veljko121.backend.service.impl;
+package com.veljko121.backend.service.impl.tours;
 
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.Tour;
-import com.veljko121.backend.repository.TourRepository;
-import com.veljko121.backend.service.ITourService;
+import com.veljko121.backend.model.tours.Tour;
+import com.veljko121.backend.repository.tours.TourRepository;
+import com.veljko121.backend.service.tours.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;

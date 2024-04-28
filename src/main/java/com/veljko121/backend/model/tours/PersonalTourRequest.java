@@ -1,6 +1,8 @@
-package com.veljko121.backend.model;
+package com.veljko121.backend.model.tours;
 
 import com.veljko121.backend.core.enums.PersonalTourRequestStatus;
+import com.veljko121.backend.model.Guest;
+import com.veljko121.backend.model.Organizer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;

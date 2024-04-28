@@ -1,16 +1,16 @@
-package com.veljko121.backend.controller;
+package com.veljko121.backend.controller.tours;
 
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.tours.PersonalTourCreateDTO;
 import com.veljko121.backend.dto.tours.PersonalTourResponseDTO;
 import com.veljko121.backend.service.ICuratorService;
 import com.veljko121.backend.service.IOrganizerService;
-import com.veljko121.backend.service.IPersonalTourService;
+import com.veljko121.backend.service.tours.IPersonalTourService;
 import com.veljko121.backend.service.impl.GuestService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.veljko121.backend.model.PersonalTour;
+import com.veljko121.backend.model.tours.PersonalTour;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
