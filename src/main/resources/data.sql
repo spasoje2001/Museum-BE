@@ -27,15 +27,7 @@ INSERT INTO curator(id, biography) VALUES
 INSERT INTO restaurateur(id, biography) VALUES
     (8, 'I love restoring stuff.');
 
-INSERT INTO item(
-	category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation)
-	VALUES (0, null, -1, null,'Lenoardo da Vinci', 'Slika zene sa tajanstvenim osmehom', 'Mona Lisa', 'Novi vek', 'neka slika', '1503');
-
-INSERT INTO item(
-	category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation)
-	VALUES (0, null, -2, null,'Lenoardo da Vinci', 'Momenat Judine izdaje', 'Tajna vecera', 'Novi vek', 'neka slika', '1498');
-
-INSERT INTO item(
-	category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation)
-	VALUES (0, null, -3, null,'Vincent van Gogh', 'Pogled sa istocnog prozora azilantske sobe', 'Zvezdana noc', 'Novi vek', 'neka slika', '1889');
-
+INSERT INTO item(category, cleaning_id, id, room_id, authors_name, description, name, period, picture, year_of_creation) VALUES
+    (0, null, -1, null,'Lenoardo da Vinci', 'Slika zene sa tajanstvenim osmehom', 'Mona Lisa', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fspokenvision.com%2Fwp-content%2Fuploads%2F2017%2F03%2FMona-Lisa-770x876.jpg&f=1&nofb=1&ipt=f33b774de9794bf6413fd7e4c1b323f2c6cf2e170382753993da0a7b53706043&ipo=images', '1503'),
+    (0, null, -2, null,'Lenoardo da Vinci', 'Momenat Judine izdaje', 'Tajna vecera', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbanjalucanke.com%2Fwp-content%2Fuploads%2F2018%2F04%2Ftajna-vecera.jpg&f=1&nofb=1&ipt=c1c4810e054d5fc837614e051123e735ec0b9c4fb967e8a5d227ed45ee689a8a&ipo=images', '1498'),
+    (0, null, -3, null,'Vincent van Gogh', 'Pogled sa istocnog prozora azilantske sobe', 'Zvezdana noc', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fde%2FVincent_van_Gogh_Starry_Night.jpg&f=1&nofb=1&ipt=5cc303de5ac08f9b5cc8a5c90dabb9e38ef72fa5b9d06e3752bb42d942bf820e&ipo=images', '1889');
