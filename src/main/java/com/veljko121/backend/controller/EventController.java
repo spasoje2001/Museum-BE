@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.EventRequestDTO;
 import com.veljko121.backend.dto.EventResponseDTO;
+import com.veljko121.backend.dto.EventUpdateRequestDTO;
 import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.service.IEventService;
@@ -58,6 +60,15 @@ public class EventController {
         var event = modelMapper.map(requestDTO, Event.class);
         event.setOrganizer(getLoggedInOrganizer());
         eventService.save(event);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    
+    @PutMapping
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> update(@RequestBody EventUpdateRequestDTO requestDTO) {
+        var event = modelMapper.map(requestDTO, Event.class);
+        event.setOrganizer(getLoggedInOrganizer());
+        eventService.update(event);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
@@ -107,8 +118,8 @@ public class EventController {
     public ResponseEntity<?> getEventsByLoggedInOrganizer() {
         var events = eventService.findByOrganizer(getLoggedInOrganizer());
         var response = events.stream()
-        .map(tour -> modelMapper.map(tour, Event.class))
-        .collect(Collectors.toList());
+            .map(tour -> modelMapper.map(tour, Event.class))
+            .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     

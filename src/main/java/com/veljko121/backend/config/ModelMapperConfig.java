@@ -1,10 +1,12 @@
 package com.veljko121.backend.config;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.veljko121.backend.dto.EventRequestDTO;
+import com.veljko121.backend.dto.EventUpdateRequestDTO;
 import com.veljko121.backend.model.Event;
 
 @Configuration
@@ -15,8 +17,14 @@ public class ModelMapperConfig {
         var modelMapper = new ModelMapper();
 
         // events
-        // var eventTypeMap = modelMapper.getTypeMap(EventRequestDTO.class, Event.class);
         modelMapper.typeMap(EventRequestDTO.class, Event.class).addMapping(src -> src.getRoomId(), (dest, value) -> dest.getRoomReservation().getRoom().setId((Integer)value));
+        modelMapper.typeMap(EventRequestDTO.class, Event.class).addMappings(new PropertyMap<EventRequestDTO, Event>() {
+            @Override
+            protected void configure() {
+                skip(destination.getId());
+            }
+        });
+        modelMapper.typeMap(EventUpdateRequestDTO.class, Event.class).addMapping(src -> src.getRoomId(), (dest, value) -> dest.getRoomReservation().getRoom().setId((Integer)value));
 
         return modelMapper;
     }

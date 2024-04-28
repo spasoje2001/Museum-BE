@@ -14,6 +14,8 @@ public interface IEventService extends ICRUDService<Event, Integer> {
     
     Collection<Event> findPublished();
 
-    Collection<Event> findByOrganizer(Organizer organier);
+    Collection<Event> findByOrganizer(Organizer organizer);
+
+    Event update(Event entity);
     
 }

@@ -71,5 +71,30 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
         event.setStatus(EventStatus.DRAFT);
         super.save(event);
     }
+
+    @Override
+    public Event update(Event entity) {
+        var oldEvent = eventRepository.findById(entity.getId()).orElseThrow();
+        var room = roomRepository.findById(entity.getRoomReservation().getRoom().getId()).orElseThrow();
+        var roomReservation = oldEvent.getRoomReservation();
+
+        eventRepository.delete(oldEvent);
+        roomReservationService.delete(roomReservation);
+        
+        if (!roomReservationService.isRoomAvailable(room, entity.getStartDateTime(), entity.getDurationMinutes())) {
+            eventRepository.save(oldEvent);
+            roomReservationService.save(roomReservation);
+            throw new RoomNotAvailableException(roomReservation);
+        }
+
+        roomReservation.setDurationMinutes(entity.getDurationMinutes());
+        roomReservation.setStartDateTime(entity.getStartDateTime());
+        roomReservation = roomReservationService.save(roomReservation);
+
+        entity.setRoomReservation(roomReservation);
+        entity.setStatus(EventStatus.DRAFT);
+
+        return super.save(entity);
+    }
     
 }
