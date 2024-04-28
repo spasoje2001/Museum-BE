@@ -22,6 +22,9 @@ import com.veljko121.backend.service.ICuratorService;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/users/curators")
 @PreAuthorize("hasRole('CURATOR')")
@@ -67,6 +70,16 @@ public class CuratorController {
             logger.error(e.getMessage());
             return ResponseEntity.badRequest().body(new ErrorResponseDTO(e.getMessage()));
         }
+    }
+
+    @GetMapping()
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> findAll() {
+        List<Curator> curators = curatorService.findAll();
+        var curatorResponses = curators.stream()
+                .map(curator -> modelMapper.map(curator, Curator.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(curatorResponses);
     }
 
 }
