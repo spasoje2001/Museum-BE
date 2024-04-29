@@ -62,7 +62,7 @@ public class Exhibition {
     @JoinColumn(name = "curator_id")
     private Curator curator;
 
-    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<RoomReservation> roomReservations;
 
     public void setOrganizer(Organizer organizer) {
