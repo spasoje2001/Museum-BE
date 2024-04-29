@@ -36,6 +36,6 @@ public class Room {
     @Column(unique = true, nullable = false)
     private String number;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Item> items;
+//    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+//    private List<Item> items;
 }

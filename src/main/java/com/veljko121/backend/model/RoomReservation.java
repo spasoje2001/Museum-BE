@@ -29,7 +29,7 @@ public class RoomReservation {
     @JoinColumn(name = "exhibition_id", nullable = true)
     private Exhibition exhibition;
 
-    @OneToMany(mappedBy = "roomReservation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemReservation> itemReservations;
+//    @OneToMany(mappedBy = "roomReservation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private List<ItemReservation> itemReservations;
 
 }
