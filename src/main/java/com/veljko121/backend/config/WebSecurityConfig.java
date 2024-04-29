@@ -40,6 +40,8 @@ public class WebSecurityConfig {
         "/ws/**", "/ws",
         "/actuator","/actuator/*",
         "/swagger-ui.html",
+
+        "/api/events/published",
     };
     
     private final AuthenticationProvider authenticationProvider;
