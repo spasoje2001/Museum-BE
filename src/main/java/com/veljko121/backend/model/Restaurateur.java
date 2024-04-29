@@ -11,4 +11,5 @@ public class Restaurateur extends User{
 
     @Column
     private String biography;
+
 }
