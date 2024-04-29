@@ -34,7 +34,6 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         return itemRepository.findAll();
     }
 
-    
     public List<Item> getAllItemsForCleaning() {
         List<Item> itemsForCleaning = new ArrayList<>();
         List<Item> allItems = itemRepository.findAll();
