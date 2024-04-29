@@ -3,11 +3,13 @@ package com.veljko121.backend.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.service.impl.CRUDService;
+import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.model.RoomReservation;
 import com.veljko121.backend.repository.RoomRepository;
@@ -57,6 +59,30 @@ public class RoomReservationService extends CRUDService<RoomReservation, Integer
             if (isRoomAvailable(room, startDateTime, durationMinutes)) availableRooms.add(room);
         }
         return availableRooms;
+    }
+
+    @Override
+    public Collection<Room> findAvailableRoomsForUpdating(Event event, LocalDateTime startDateTime, Integer durationMinutes) {
+        var availableRooms = new ArrayList<Room>();
+        for (var room : roomRepository.findAll()) {
+            if (isRoomAvailableForUpdating(room, startDateTime, durationMinutes, event.getRoomReservation())) availableRooms.add(room);
+        }
+        return availableRooms;
+    }
+
+    @Override
+    public Boolean isRoomAvailableForUpdating(Room room, LocalDateTime startDateTime, Integer durationMinutes, RoomReservation roomReservation) {
+        var reservations = roomReservationRepository.findByRoom(room);
+        var filtered = new ArrayList<RoomReservation>();
+        for (var reservation : reservations) {
+            if (reservation.getId() != roomReservation.getId()) filtered.add(reservation);
+        }
+        for (var reservation : filtered) {
+            if (overlaps(reservation, startDateTime, durationMinutes)) {
+                return false;
+            }
+        }
+        return true;
     }
     
 }
