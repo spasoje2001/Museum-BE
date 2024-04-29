@@ -89,7 +89,7 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
             throw new RoomNotAvailableException(roomReservation);
         }
 
-        roomReservation.setDurationMinutes(entity.getDurationMinutes());
+        roomReservation.setEndDateTime(entity.getStartDateTime().plusMinutes(entity.getDurationMinutes()));
         roomReservation.setStartDateTime(entity.getStartDateTime());
         roomReservation = roomReservationService.save(roomReservation);
 
