@@ -43,7 +43,7 @@ public class Item {
     @Column(nullable = false)
     private String period;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private ItemCategory category;
 
     @NotEmpty
