@@ -30,12 +30,32 @@ INSERT INTO restaurateur(id, biography) VALUES
 INSERT INTO room(name, floor, number) VALUES
     ('Main room', '1', '10');
 
-INSERT INTO exhibition (name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
-VALUES ('Ancient Civilizations Unveiled', 'https://cdn.pixabay.com/photo/2024/03/27/01/21/ai-generated-8657978_640.png', 'Discover the secrets of ancient civilizations', 'Explore the wonders of ancient civilizations and uncover their mysteries.', 'ANCIENT_HISTORY', 'OPEN', '2024-04-01', '2024-04-30 ', 10, 6, 7);
-INSERT INTO exhibition (name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
-VALUES ('Medieval Treasures', 'https://cdn.pixabay.com/photo/2024/04/02/02/24/ai-generated-8669925_640.png', 'Explore the medieval era', 'Discover the art and history of the medieval period', 'MEDIEVAL_HISTORY', 'READY_TO_OPEN', '2024-05-15', '2024-06-15', 12, 6, 7);
-INSERT INTO exhibition (name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
-VALUES ('Military History: Triumphs and Tragedies', 'https://cdn.pixabay.com/photo/2020/04/19/17/44/war-5064697_640.jpg', 'Explore the triumphs and tragedies of military history', 'Journey through pivotal moments in military history and the impact of warfare', 'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 6, 7);
+INSERT INTO exhibition
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
+VALUES
+    ('Ancient Civilizations Unveiled',
+     'https://cdn.pixabay.com/photo/2024/03/27/01/21/ai-generated-8657978_640.png',
+     'Discover the secrets of ancient civilizations',
+     'Unearth the legacies of ancient societies through immersive exhibits and authentic artifacts that tell a story of innovation and discovery.',
+     'ANCIENT_HISTORY', 'OPEN', '2024-04-01', '2024-04-30', 10, 6, 7);
+
+INSERT INTO exhibition
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
+VALUES
+    ('Medieval Treasures',
+     'https://cdn.pixabay.com/photo/2024/04/02/02/24/ai-generated-8669925_640.png',
+     'Explore the medieval era',
+     'Delve into the Middle Ages with treasures that reveal the daily life, art, and the grandeur of a time cloaked in both darkness and enlightenment.',
+     'MEDIEVAL_HISTORY', 'READY_TO_OPEN', '2024-05-15', '2024-06-15', 12, 6, 7);
+
+INSERT INTO exhibition
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
+VALUES
+    ('Military History: Triumphs and Tragedies',
+     'https://cdn.pixabay.com/photo/2020/04/19/17/44/war-5064697_640.jpg',
+     'Explore the triumphs and tragedies of military history',
+     'Explore pivotal moments of military history, showcasing the tactics, artifacts, and personal stories that echo through time.',
+     'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 6, 7);
 
 INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
 VALUES (1, '2024-04-01 09:00:00', '2024-04-30 17:00:00', 1);
