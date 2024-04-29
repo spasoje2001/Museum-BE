@@ -1,19 +1,12 @@
 package com.veljko121.backend.model;
 
-import com.veljko121.backend.core.enums.EventStatus;
 import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.enums.ExhibitionTheme;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -68,22 +61,24 @@ public class Exhibition {
     public void setOrganizer(Organizer organizer) {
         this.organizer = organizer;
     }
+
     public void assignCurator(Curator newCurator) {
         // If there's an existing curator, remove this exhibition from their list
-        if (this.curator != null) {
-            this.curator.getExhibitions().remove(this);
-        }
-        // Assign the new curator
-        this.curator = newCurator;
-        // If the new curator is not null, add this exhibition to their list
-        if (newCurator != null) {
-            newCurator.getExhibitions().add(this);
-        }
+//        if (this.curator != null) {
+//            this.curator.getExhibitions().remove(this);
+//        }
+//        // Assign the new curator
+//        this.curator = newCurator;
+//        // If the new curator is not null, add this exhibition to their list
+//        if (newCurator != null) {
+//            newCurator.getExhibitions().add(this);
+//        }
     }
 
     public boolean isPermanent() {
         return endDate == null;
     }
+
     public boolean isTemporary() {
         return endDate != null;
     }
