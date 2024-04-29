@@ -11,5 +11,5 @@ public class Organizer extends User{
 
     @Column
     private String biography;
-    
+
 }

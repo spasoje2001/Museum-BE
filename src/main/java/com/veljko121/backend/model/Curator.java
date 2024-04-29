@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 public class Curator extends User{
+
     @Column
     private String biography;
+
 }
