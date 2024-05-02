@@ -1,6 +1,7 @@
 package com.veljko121.backend.model.tours;
 
 import com.veljko121.backend.model.Curator;
+import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.model.Organizer;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,8 +23,9 @@ public class PersonalTour {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = false)
-    //private List<Exhibition> exhibitions = new ArrayList<>();  Izlozba jos ne postoji tek kada se bude spojila grana treba otkomentarisati
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_tour_id")
+    private List<Exhibition> exhibitions = new ArrayList<>();
 
     @NotEmpty
     @Column(nullable = false)

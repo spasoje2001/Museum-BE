@@ -2,12 +2,15 @@ package com.veljko121.backend.model.tours;
 
 import com.veljko121.backend.core.enums.PersonalTourRequestStatus;
 import com.veljko121.backend.model.Guest;
+import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.Organizer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,8 +28,9 @@ public class PersonalTourRequest {
     @Column(nullable = false)
     private String guestNumber;
 
-    //@OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = false)
-    //private List<Exhibition> exhibitions = new ArrayList<>();  Izlozba jos ne postoji tek kada se bude spojila grana treba otkomentarisati
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personal_tour_request_id")
+    private List<Exhibition> exhibitions = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "proposer_id")
@@ -39,5 +43,12 @@ public class PersonalTourRequest {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(20) default 'ON_HOLD'")
     private PersonalTourRequestStatus status;
+
+    @Column(nullable = false)
+    private String denialReason;
+
+    @NotEmpty
+    @Column(nullable = false)
+    private String proposerContactPhone;
 
 }

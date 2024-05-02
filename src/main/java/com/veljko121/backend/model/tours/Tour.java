@@ -1,6 +1,7 @@
 package com.veljko121.backend.model.tours;
 
 import com.veljko121.backend.model.Curator;
+import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.Organizer;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,6 +10,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,8 +30,9 @@ public class Tour {
     @Column(nullable = false)
     private String description;
 
-    //@OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = false)
-    //private List<Room> rooms = new ArrayList<>();         Soba jos ne postoji tek kada se bude spojila grana treba otkomentarisati
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tour_id")
+    private List<Exhibition> exhibitions = new ArrayList<>();
 
     @NotEmpty
     @Column(nullable = false)
@@ -47,7 +51,7 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "guide_id")
-    private Curator guide;          // Da li samo kustos ili moze da bude i recimo gostujuci predavac
+    private Curator guide;
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")
