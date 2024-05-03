@@ -3,7 +3,9 @@ package com.veljko121.backend.controller.tours;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.tours.PersonalTourCreateDTO;
 import com.veljko121.backend.dto.tours.PersonalTourResponseDTO;
+import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.service.ICuratorService;
+import com.veljko121.backend.service.IExhibitionService;
 import com.veljko121.backend.service.IOrganizerService;
 import com.veljko121.backend.service.tours.IPersonalTourService;
 import com.veljko121.backend.service.impl.GuestService;
@@ -27,6 +29,7 @@ public class PersonalTourController {
     private final IJwtService jwtService;
     private final IOrganizerService organizerService;
     private final ICuratorService curatorService;
+    private final IExhibitionService exhibitionService;
 
     private final ModelMapper modelMapper;
     private final GuestService guestService;
@@ -49,6 +52,11 @@ public class PersonalTourController {
         tour.setOrganizer(organizerService.findById(organizerId));
         tour.setProposer(guestService.findById(tourDTO.getProposerId()));
         tour.setGuide(curatorService.findById(tourDTO.getGuideId()));
+
+        List<Exhibition> fetchedExhibitions = tourDTO.getExhibitions().stream()
+                .map(exhibition -> exhibitionService.findById(exhibition.getId()))
+                .collect(Collectors.toList());
+        tour.setExhibitions(fetchedExhibitions);
 
         personalTourService.save(tour);
 
