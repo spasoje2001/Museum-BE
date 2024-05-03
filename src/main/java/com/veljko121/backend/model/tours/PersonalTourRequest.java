@@ -28,8 +28,10 @@ public class PersonalTourRequest {
     @Column(nullable = false)
     private String guestNumber;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "personal_tour_request_id")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "peronal_tour_requests_exhibitions",
+            joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
     private List<Exhibition> exhibitions = new ArrayList<>();
 
     @ManyToOne
