@@ -2,6 +2,7 @@ package com.veljko121.backend.model;
 
 import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.enums.ExhibitionTheme;
+import com.veljko121.backend.model.tours.PersonalTour;
 import com.veljko121.backend.model.tours.Tour;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -81,6 +82,12 @@ public class Exhibition {
     @JoinTable(name = "tours_exhibitions", joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
     private List<Tour> tours = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "peronal_tours_exhibitions",
+            joinColumns = @JoinColumn(name = "personal_tour_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    private List<PersonalTour> personalTours = new ArrayList<>();
 
     public boolean isPermanent() {
         return endDate == null;

@@ -23,8 +23,9 @@ public class PersonalTour {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "personal_tour_id")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "tours_exhibitions", joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
     private List<Exhibition> exhibitions = new ArrayList<>();
 
     @NotEmpty
