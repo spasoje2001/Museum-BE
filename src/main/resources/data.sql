@@ -93,5 +93,5 @@ VALUES (-3, '2024-09-01 09:00:00', '2024-09-30 17:00:00', 3);
 -- Insert an exhibition focusing on military history
 
 
-
-
+INSERT INTO tour_pricelist(id, adult_ticket_price, minor_ticket_price)
+VALUES (0, 100, 60);
