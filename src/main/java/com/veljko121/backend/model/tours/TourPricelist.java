@@ -18,24 +18,10 @@ public class TourPricelist {
 
     @NotEmpty
     @Column(nullable = false)
-    private String name;
-
-    @NotEmpty
-    @Column(nullable = false)
-    private String description;
-
-    @NotEmpty
-    @Column(nullable = false)
     private String adultTicketPrice;
 
     @NotEmpty
     @Column(nullable = false)
     private String minorTicketPrice;
-
-    @Column(nullable = false)
-    private LocalDate startDate;
-
-    @Column(nullable = false)
-    private LocalDate expirationDate;
 
 }

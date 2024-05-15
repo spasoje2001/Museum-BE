@@ -11,16 +11,8 @@ public class TourPricelistUpdateDTO {
 
     private Integer id;
 
-    private String name;
-
-    private String description;
-
     private String adultTicketPrice;
 
     private String minorTicketPrice;
-
-    private LocalDate startDate;
-
-    private LocalDate expirationDate;
 
 }

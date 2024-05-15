@@ -19,4 +19,16 @@ public class TourPricelistService extends CRUDService<TourPricelist, Integer> im
         this.tourPricelistRepository = tourPricelistRepository;
     }
 
+    @Override
+    public TourPricelist save(TourPricelist pricelist) {
+        return tourPricelistRepository.save(pricelist);
+    }
+
+    @Override
+    public TourPricelist update(TourPricelist updated) {
+        return tourPricelistRepository.save(updated);
+    }
+
+    @Override
+    public TourPricelist findById(Integer id) { return tourPricelistRepository.findById(id).orElse(null); }
 }
