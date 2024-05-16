@@ -39,6 +39,11 @@ INSERT INTO room_reservation(room_id, start_date_time, end_date_time) VALUES
 INSERT INTO event(name, description, start_date_time, duration_minutes, tickets_number, price, organizer_id, room_reservation_id, status) VALUES
     ('Salvador Dalí - Genius or Insane?', 'By visiting this event you will find out a lot about a very controversial individual by the name of Salvador Dalí. Many consider him to be a genius, but just as much portay him as a complete madman. Not sure about that? We invite you to make your own conclusion!', '2024-06-15 18:00:00', 120, 100, 20, 6, 1, 0);
 
+INSERT INTO event_picture(event_id, path) VALUES
+    (1, 'https://imgs.search.brave.com/UupCySTyka0Y3kYdz-mblmbklauAYxB3wT8z1DwcLbU/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNTE1/NDY2MjYwL3Bob3Rv/L3NhbHZhZG9yLWRh/bGktc3BhbmlzaC1z/dXJyZWFsaXN0LXBh/aW50ZXItcGhvdG9n/cmFwaC1jYS0xOTUw/cy0xOTYwcy5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9djF2/OTEwdGx5MFhGa2Q1/S0xhQzY0b0xHd0s1/cWptX29vdDd4NzBQ/bFgyaz0'),
+    (1, 'https://imgs.search.brave.com/5c7SBFNaiCxyxKaXMxErfIhm-fhVmXmi2H0PQ5UlnD0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/ZGFsaXBhaW50aW5n/cy5jb20vYXNzZXRz/L2ltZy9zYWx2YWRv/ci1kYWxpLmpwZw'),
+    (1, 'https://imgs.search.brave.com/FCrtKpHDATtFKiQn4cpy07ebDypWk-W5hCenI2c4aww/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zYWx2/YWRvcmRhbGlwcmlu/dHMub3JnL1NhbHZh/ZG9yJTIwRGFsaSUy/MFBhaW50aW5ncy5q/cGc_ZXppbWdmbXQ9/bmc6d2VicC9uZ2Ni/NC9yczpkZXZpY2Uv/cnNjYjQtMQ');
+
 INSERT INTO exhibition
 (name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
 VALUES
