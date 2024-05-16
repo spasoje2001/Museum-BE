@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.veljko121.backend.dto.ItemCreateDTO;
 import com.veljko121.backend.dto.ItemResponseDTO;
+import com.veljko121.backend.dto.ItemUpdateDTO;
 import com.veljko121.backend.model.Item;
 import com.veljko121.backend.service.IItemService;
 import org.modelmapper.ModelMapper;
@@ -66,10 +67,10 @@ public class ItemController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateItem(@RequestBody ItemResponseDTO itemResponseDTO){
-        var item = modelMapper.map(itemResponseDTO, Item.class);
+    public ResponseEntity<?> updateItem(@RequestBody ItemUpdateDTO itemDTO){
+        var item = modelMapper.map(itemDTO, Item.class);
         itemService.update(item);
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemDTO);
     }
 
 

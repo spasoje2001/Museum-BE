@@ -66,8 +66,6 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
                 if(item.getCleaning().getStatus() == CleaningStatus.CLEANSED && item.getRoom() == null){
                     itemsForDisplaying.add(item);
                 }
-            }else{
-                itemsForDisplaying.add(item);
             }
         }
         return itemsForDisplaying;
