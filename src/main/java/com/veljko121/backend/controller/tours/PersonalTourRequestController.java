@@ -65,6 +65,7 @@ public class PersonalTourRequestController {
         var id = jwtService.getLoggedInUserId();
         request.setOrganizer(organizerService.findById(id));
         request.setStatus(requestDTO.getStatus());
+        request.setDenialReason(requestDTO.getDenialReason());
 
         personalTourRequestService.update(request);
 

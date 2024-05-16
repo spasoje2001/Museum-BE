@@ -44,7 +44,6 @@ public class PersonalTourController {
 
         PersonalTour tour = new PersonalTour();
 
-        tour.setDuration(tourDTO.getDuration());
         tour.setOccurrenceDateTime(tourDTO.getOccurrenceDateTime());
         tour.setAdultTicketPrice(tourDTO.getAdultTicketPrice());
         tour.setMinorTicketPrice(tourDTO.getMinorTicketPrice());
@@ -59,6 +58,8 @@ public class PersonalTourController {
                 .map(exhibition -> exhibitionService.findById(exhibition.getId()))
                 .collect(Collectors.toList());
         tour.setExhibitions(fetchedExhibitions);
+
+        tour.setDuration(String.valueOf(exhibitionDTOs.size() * 45 + (exhibitionDTOs.size() - 1) * 5));
 
         personalTourService.save(tour);
 

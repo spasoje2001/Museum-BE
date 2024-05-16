@@ -52,6 +52,8 @@ public class TourController {
         var id = jwtService.getLoggedInUserId();
         tour.setOrganizer(organizerService.findById(id));
 
+        tour.setDuration(String.valueOf(exhibitionDTOs.size() * 45 + (exhibitionDTOs.size() - 1) * 5));
+
         tourService.save(tour);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tourCreateDTO);
@@ -79,7 +81,15 @@ public class TourController {
     @PutMapping
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> update(@RequestBody TourUpdateDTO tourUpdateDTO) {
+        var exhibitionDTOs = tourUpdateDTO.getExhibitions();
+        // mora zbog mapiranja
+        tourUpdateDTO.setExhibitions(null);
         var tour = modelMapper.map(tourUpdateDTO, Tour.class);
+
+        List<Exhibition> fetchedExhibitions = exhibitionDTOs.stream()
+                .map(exhibition -> exhibitionService.findById(exhibition.getId()))
+                .collect(Collectors.toList());
+        tour.setExhibitions(fetchedExhibitions);
 
         var id = jwtService.getLoggedInUserId();
         tour.setOrganizer(organizerService.findById(id));
