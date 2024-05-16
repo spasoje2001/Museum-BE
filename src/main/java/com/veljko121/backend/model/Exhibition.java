@@ -55,8 +55,12 @@ public class Exhibition {
     @JoinColumn(name = "curator_id")
     private Curator curator;
 
-    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    private List<RoomReservation> roomReservations;
+    /* VELJKO ZAKOMENTARISAO!
+       Pojašnjenje u RoomReservation.java.
+       Uz to, ovo može napraviti problem sa rekurzijom ako se nalazi u obe klase, dovoljno je imati samo 1 referencu u nekoj od klasa.
+    */
+    // @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    // private List<RoomReservation> roomReservations;
 
     public void setOrganizer(Organizer organizer) {
         this.organizer = organizer;
