@@ -37,6 +37,8 @@ public class PersonalTourController {
     @PostMapping
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> create(@RequestBody PersonalTourCreateDTO tourDTO) {
+        var exhibitionDTOs = tourDTO.getExhibitions();
+        tourDTO.setExhibitions(null);
         //var tour = modelMapper.map(tourDTO, PersonalTour.class);
         // Nece da mapira iz nekog razloga
 
@@ -53,7 +55,7 @@ public class PersonalTourController {
         tour.setProposer(guestService.findById(tourDTO.getProposerId()));
         tour.setGuide(curatorService.findById(tourDTO.getGuideId()));
 
-        List<Exhibition> fetchedExhibitions = tourDTO.getExhibitions().stream()
+        List<Exhibition> fetchedExhibitions = exhibitionDTOs.stream()
                 .map(exhibition -> exhibitionService.findById(exhibition.getId()))
                 .collect(Collectors.toList());
         tour.setExhibitions(fetchedExhibitions);
