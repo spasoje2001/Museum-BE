@@ -3,7 +3,6 @@ package com.veljko121.backend.service.impl;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.enums.EventStatus;
@@ -23,10 +22,9 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
     private final RoomRepository roomRepository;
     private final IRoomReservationService roomReservationService;
 
-    @Autowired
     public EventService(EventRepository repository, RoomRepository roomRepository, IRoomReservationService roomReservationService) {
         super(repository);
-        eventRepository = repository;
+        this.eventRepository = repository;
         this.roomRepository = roomRepository;
         this.roomReservationService = roomReservationService;
     }
