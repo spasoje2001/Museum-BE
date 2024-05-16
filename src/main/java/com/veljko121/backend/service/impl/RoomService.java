@@ -13,10 +13,9 @@ public class RoomService extends CRUDService<Room, Integer> implements IRoomServ
 
     private final RoomRepository roomRepository;
         
-    @Autowired
     public RoomService(RoomRepository repository) {
         super(repository);
-        roomRepository = repository;
+        this.roomRepository = repository;
     }
     
 }
