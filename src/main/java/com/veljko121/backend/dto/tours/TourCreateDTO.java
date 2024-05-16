@@ -1,9 +1,13 @@
 package com.veljko121.backend.dto.tours;
 
+import com.veljko121.backend.dto.ExhibitionResponseDTO;
+import com.veljko121.backend.model.Exhibition;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +17,7 @@ public class TourCreateDTO {
 
     private String description;
 
-    //private List<Integer> roomIds = new ArrayList<>();
+    private List<ExhibitionResponseDTO> exhibitions = new ArrayList<>();
 
     private String duration;
 

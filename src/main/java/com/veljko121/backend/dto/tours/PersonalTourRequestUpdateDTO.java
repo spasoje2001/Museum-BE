@@ -12,4 +12,6 @@ public class PersonalTourRequestUpdateDTO {
 
     private PersonalTourRequestStatus status;
 
+    private String denialReason;
+
 }
