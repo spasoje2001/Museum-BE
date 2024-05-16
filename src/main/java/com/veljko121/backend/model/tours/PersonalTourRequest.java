@@ -32,7 +32,7 @@ public class PersonalTourRequest {
     private String guestNumber;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinTable(name = "peronal_tour_requests_exhibitions",
+    @JoinTable(name = "personal_tour_requests_exhibitions",
             joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
     @ToString.Exclude
