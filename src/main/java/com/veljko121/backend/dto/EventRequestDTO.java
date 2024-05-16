@@ -1,6 +1,7 @@
 package com.veljko121.backend.dto;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -30,5 +31,18 @@ public class EventRequestDTO {
     private Integer price;
 
     private Integer roomId;
+
+    private Collection<String> picturePaths;
+
+    public EventRequestDTO(EventUpdateRequestDTO eventUpdateRequestDTO) {
+        this.name = eventUpdateRequestDTO.getName();
+        this.description = eventUpdateRequestDTO.getDescription();
+        this.startDateTime = eventUpdateRequestDTO.getStartDateTime();
+        this.durationMinutes = eventUpdateRequestDTO.getDurationMinutes();
+        this.ticketsNumber = eventUpdateRequestDTO.getTicketsNumber();
+        this.price = eventUpdateRequestDTO.getPrice();
+        this.roomId = eventUpdateRequestDTO.getRoomId();
+        this.picturePaths = eventUpdateRequestDTO.getPicturePaths();
+    }
     
 }
