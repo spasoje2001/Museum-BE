@@ -12,4 +12,6 @@ public interface ICleaningService extends ICRUDService<Cleaning, Integer> {
     public Cleaning declineCleaning(Integer cleaningId, Integer curatorId);
     public Cleaning acceptCleaning(Integer cleaningId, Integer curatorId);
     public List<Cleaning> getAllNewCleanings();
+    public Cleaning putItemToCleaning(Integer cleaningId);
+    public Cleaning finishleaning(Integer cleaningId);
 }

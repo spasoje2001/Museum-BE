@@ -9,4 +9,7 @@ public interface IItemService extends ICRUDService<Item, Integer>{
 
     List<Item> findAll();
     List<Item> getAllItemsForCleaning();
+    public List<Item> getAllItemsForDisplay();
+    public Item update(Item item);
+    public Item putItemIntoRoom(Integer itemId,Integer roomId);
 }

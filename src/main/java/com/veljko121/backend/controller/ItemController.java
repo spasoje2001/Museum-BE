@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.veljko121.backend.dto.ItemCreateDTO;
+import com.veljko121.backend.dto.ItemResponseDTO;
 import com.veljko121.backend.model.Item;
 import com.veljko121.backend.service.IItemService;
 import org.modelmapper.ModelMapper;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,5 +54,27 @@ public class ItemController {
     @GetMapping("/{itemId}")
     public Item getItem(@PathVariable Integer itemId) {
         return itemService.findById(itemId);
+    }
+
+    @GetMapping("/forDisplay")
+    public ResponseEntity<?> getAllItemsForDisplay() {
+        List<Item> items = itemService.getAllItemsForDisplay();
+        var itemResponse = items.stream()
+                .map(tour -> modelMapper.map(tour, Item.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponse);
+    }
+
+    @PutMapping()
+    public ResponseEntity<?> updateItem(@RequestBody ItemResponseDTO itemResponseDTO){
+        var item = modelMapper.map(itemResponseDTO, Item.class);
+        itemService.update(item);
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponseDTO);
+    }
+
+
+    @PutMapping("/putIntoRoom/{itemId}/{roomId}")
+    public Item putItemIntoRoom(@PathVariable Integer itemId, @PathVariable Integer roomId){
+        return itemService.putItemIntoRoom(itemId, roomId);
     }
 }

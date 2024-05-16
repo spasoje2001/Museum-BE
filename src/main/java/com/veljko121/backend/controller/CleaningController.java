@@ -57,4 +57,17 @@ public class CleaningController {
     public List<Cleaning> getAllNewCleanings() {
         return cleaningService.getAllNewCleanings();
     }
+
+    @PutMapping("/putToCleaning/{cleaningId}")
+    public ResponseEntity<Void> putItemToCleaning(@PathVariable Integer cleaningId) {
+        cleaningService.putItemToCleaning(cleaningId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/finishCleaning/{cleaningId}")
+    public ResponseEntity<Void> finishCleaning(@PathVariable Integer cleaningId) {
+        cleaningService.finishleaning(cleaningId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
 }

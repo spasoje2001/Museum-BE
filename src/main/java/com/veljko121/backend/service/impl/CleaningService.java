@@ -89,5 +89,27 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
                 .filter(cleaning -> cleaning.getStatus() == CleaningStatus.NEW)
                 .collect(Collectors.toList());
     }
-    
+
+
+    public Cleaning putItemToCleaning(Integer cleaningId) {
+        Cleaning cleaning = cleaningRepository.findById(cleaningId)
+                .orElseThrow(() -> new RuntimeException("Cleaning not found with id: " + cleaningId));
+        Item item = itemRepository.findById(cleaning.getItemId()).orElseThrow(() -> new RuntimeException("Item not found with id: " + cleaning.getItemId()));
+        // Update the status and curator of the cleaning
+        cleaning.setStatus(CleaningStatus.INCLEANING);
+        item.getCleaning().setStatus(CleaningStatus.INCLEANING);
+        // Save the updated cleaning
+        return cleaningRepository.save(cleaning);
+    }
+
+    public Cleaning finishleaning(Integer cleaningId) {
+        Cleaning cleaning = cleaningRepository.findById(cleaningId)
+                .orElseThrow(() -> new RuntimeException("Cleaning not found with id: " + cleaningId));
+        Item item = itemRepository.findById(cleaning.getItemId()).orElseThrow(() -> new RuntimeException("Item not found with id: " + cleaning.getItemId()));
+        // Update the status and curator of the cleaning
+        cleaning.setStatus(CleaningStatus.CLEANSED);
+        item.getCleaning().setStatus(CleaningStatus.CLEANSED);
+        // Save the updated cleaning
+        return cleaningRepository.save(cleaning);
+    }
 }
