@@ -7,6 +7,9 @@ import com.veljko121.backend.model.Organizer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,10 +31,11 @@ public class PersonalTourRequest {
     @Column(nullable = false)
     private String guestNumber;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "peronal_tour_requests_exhibitions",
             joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    @ToString.Exclude
     private List<Exhibition> exhibitions = new ArrayList<>();
 
     @ManyToOne
@@ -46,7 +50,7 @@ public class PersonalTourRequest {
     @Column(nullable = false, columnDefinition = "varchar(20) default 'ON_HOLD'")
     private PersonalTourRequestStatus status;
 
-    @Column(nullable = false)
+    @Column()
     private String denialReason;
 
     @NotEmpty

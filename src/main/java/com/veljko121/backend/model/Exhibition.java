@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -90,10 +91,11 @@ public class Exhibition {
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
     private List<PersonalTour> personalTours = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "peronal_tour_requests_exhibitions",
             joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    @ToString.Exclude
     private List<PersonalTourRequest> personalTourRequests = new ArrayList<>();
 
     public boolean isPermanent() {

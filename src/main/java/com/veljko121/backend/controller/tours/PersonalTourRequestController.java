@@ -5,7 +5,9 @@ import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.tours.PersonalTourRequestCreateDTO;
 import com.veljko121.backend.dto.tours.PersonalTourRequestResponseDTO;
 import com.veljko121.backend.dto.tours.PersonalTourRequestUpdateDTO;
+import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.tours.PersonalTourRequest;
+import com.veljko121.backend.service.IExhibitionService;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
 import com.veljko121.backend.service.tours.IPersonalTourRequestService;
@@ -25,18 +27,27 @@ import java.util.stream.Collectors;
 public class PersonalTourRequestController {
 
     private final IPersonalTourRequestService personalTourRequestService;
+    private final IGuestService guestService;
+    private final IOrganizerService organizerService;
+    private final IExhibitionService exhibitionService;
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
-    private final IGuestService guestService;
-    private final IOrganizerService organizerService;
 
     @PostMapping
     @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> create(@RequestBody PersonalTourRequestCreateDTO requestDTO) {
-        var request = modelMapper.map(requestDTO, PersonalTourRequest.class);
+        var exhibitionDTOs = requestDTO.getExhibitions();
+        // mora zbog mapiranja
+        requestDTO.setExhibitions(null);
+        PersonalTourRequest request = modelMapper.map(requestDTO, PersonalTourRequest.class);
 
-        var id = jwtService.getLoggedInUserId();
+        List<Exhibition> fetchedExhibitions = exhibitionDTOs.stream()
+                .map(exhibition -> exhibitionService.findById(exhibition.getId()))
+                .collect(Collectors.toList());
+        request.setExhibitions(fetchedExhibitions);
+
+        Integer id = jwtService.getLoggedInUserId();
         request.setProposer(guestService.findById(id));
         request.setStatus(PersonalTourRequestStatus.IN_PROGRESS);
 
