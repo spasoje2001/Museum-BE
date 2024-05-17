@@ -11,6 +11,9 @@ public interface IEventInvitationService extends ICRUDService<EventInvitation, I
     
     void acceptInvitation(Integer id);
 
+    
     void declineInvitation(Integer id, String explanation);
     
+    void cancelInvitation(Integer id);
+
 }

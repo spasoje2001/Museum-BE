@@ -148,6 +148,18 @@ public class EventController {
             return ResponseEntity.badRequest().build();
         }
     }
+    
+    @PatchMapping("invitations/cancel/{id}")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> cancelInvitation(@PathVariable Integer id) {
+        try {
+            if (!loggedInOrganizerCreatedInvitation(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            this.eventInvitationService.cancelInvitation(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     private Organizer getLoggedInOrganizer() {
         return organizerService.findById(jwtService.getLoggedInUserId());
@@ -195,6 +207,11 @@ public class EventController {
         var eventInvitation = eventInvitationService.findById(id);
         if (!eventInvitation.getCurator().equals(getLoggedInCurator())) return false;
         return true;
+    }
+
+    private Boolean loggedInOrganizerCreatedInvitation(Integer eventInvitationId) {
+        var eventInvitation = eventInvitationService.findById(eventInvitationId);
+        return loggedInOrganizerCreatedEvent(eventInvitation.getEvent().getId());
     }
 
 }

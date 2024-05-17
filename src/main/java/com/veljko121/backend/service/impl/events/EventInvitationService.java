@@ -59,4 +59,12 @@ public class EventInvitationService extends CRUDService<EventInvitation, Integer
         eventInvitationRepository.save(eventInvitation);
     }
 
+    @Override
+    public void cancelInvitation(Integer id) {
+        var eventInvitation = findById(id);
+        if (!eventInvitation.getStatus().equals(EventInvitationStatus.PENDING)) throw new RuntimeException("Invitation has already been responded on.");
+        eventInvitation.setStatus(EventInvitationStatus.CANCELED);
+        eventInvitationRepository.save(eventInvitation);
+    }
+
 }
