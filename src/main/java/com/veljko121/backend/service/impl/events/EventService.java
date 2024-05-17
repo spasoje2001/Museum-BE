@@ -1,4 +1,4 @@
-package com.veljko121.backend.service.impl;
+package com.veljko121.backend.service.impl.events;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.veljko121.backend.core.enums.EventStatus;
 import com.veljko121.backend.core.exception.RoomNotAvailableException;
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Organizer;
+import com.veljko121.backend.model.events.Event;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.repository.events.EventPictureRepository;
 import com.veljko121.backend.repository.events.EventRepository;

@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import com.veljko121.backend.dto.events.EventPictureResponseDTO;
 import com.veljko121.backend.dto.events.EventRequestDTO;
 import com.veljko121.backend.dto.events.EventUpdateRequestDTO;
-import com.veljko121.backend.model.Event;
-import com.veljko121.backend.model.EventPicture;
+import com.veljko121.backend.model.events.Event;
+import com.veljko121.backend.model.events.EventPicture;
 
 @Configuration
 public class ModelMapperConfig {

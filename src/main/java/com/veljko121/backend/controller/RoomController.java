@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.service.IRoomReservationService;
-import com.veljko121.backend.service.impl.EventService;
+import com.veljko121.backend.service.impl.events.EventService;
 
 import lombok.RequiredArgsConstructor;
 
