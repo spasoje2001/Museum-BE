@@ -104,5 +104,7 @@ INSERT INTO item(category, cleaning_id, id, room_id, authors_name, description, 
 -- Insert an exhibition focusing on military history
 
 
+
 INSERT INTO tour_pricelist(id, adult_ticket_price, minor_ticket_price)
 VALUES (0, 100, 60);
+
