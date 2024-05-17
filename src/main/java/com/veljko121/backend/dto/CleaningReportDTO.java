@@ -9,5 +9,5 @@ public class CleaningReportDTO {
 
     private String text;
     private Integer cleaningId;
-    private Integer restaurteurId;
+    private Integer restaurateurId;
 }

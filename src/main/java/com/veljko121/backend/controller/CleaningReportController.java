@@ -24,7 +24,7 @@ public class CleaningReportController {
         CleaningReport cleaningReport = new CleaningReport();
         cleaningReport.setText(cleaningReportDTO.getText());
         cleaningReport.setCleaningId(cleaningReportDTO.getCleaningId());
-        cleaningReport.setRestaurteurId(cleaningReportDTO.getRestaurteurId());
+        cleaningReport.setRestaurteurId(cleaningReportDTO.getRestaurateurId());
         CleaningReport report = cleaningReportService.save(cleaningReport);
         return new ResponseEntity<>(report, HttpStatus.CREATED);
     }
