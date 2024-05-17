@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.veljko121.backend.core.enums.EventInvitationStatus;
 import com.veljko121.backend.model.Curator;
 
 import jakarta.persistence.Column;
@@ -29,6 +30,10 @@ public class EventInvitation {
 
     @ManyToOne
     private Curator curator;
+
+    private EventInvitationStatus status;
+
+    private String declinationExplanation;
 
     @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp

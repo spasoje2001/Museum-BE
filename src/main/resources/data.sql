@@ -106,3 +106,7 @@ INSERT INTO item(category, cleaning_id, id, room_id, authors_name, description, 
 
 INSERT INTO tour_pricelist(id, adult_ticket_price, minor_ticket_price)
 VALUES (0, 100, 60);
+
+
+INSERT INTO event_invitation(event_id, curator_id, status) VALUES
+    (1, 7, 0);

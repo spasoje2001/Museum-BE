@@ -19,14 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.core.service.IJwtService;
+import com.veljko121.backend.dto.events.EventInvitationDeclinationRequestDTO;
 import com.veljko121.backend.dto.events.EventInvitationRequestDTO;
 import com.veljko121.backend.dto.events.EventRequestDTO;
 import com.veljko121.backend.dto.events.EventResponseDTO;
 import com.veljko121.backend.dto.events.EventUpdateRequestDTO;
+import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.model.events.Event;
 import com.veljko121.backend.model.events.EventPicture;
+import com.veljko121.backend.service.ICuratorService;
 import com.veljko121.backend.service.IOrganizerService;
+import com.veljko121.backend.service.events.IEventInvitationService;
 import com.veljko121.backend.service.events.IEventService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +41,9 @@ import lombok.RequiredArgsConstructor;
 public class EventController {
     
     private final IEventService eventService;
+    private final IEventInvitationService eventInvitationService;
     private final IOrganizerService organizerService;
+    private final ICuratorService curatorService;
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
@@ -52,9 +58,7 @@ public class EventController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         var events = eventService.findAll();
-        var response = events.stream()
-            .map(tour -> modelMapper.map(tour, Event.class))
-            .collect(Collectors.toList());
+        var response = events.stream().map(tour -> modelMapper.map(tour, Event.class)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
@@ -93,9 +97,7 @@ public class EventController {
     @GetMapping(path = "published")
     public ResponseEntity<?> getAllPublished() {
         var events = eventService.findPublished();
-        var response = events.stream()
-        .map(tour -> modelMapper.map(tour, Event.class))
-        .collect(Collectors.toList());
+        var response = events.stream().map(tour -> modelMapper.map(tour, Event.class)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
@@ -103,9 +105,7 @@ public class EventController {
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> getEventsByLoggedInOrganizer() {
         var events = eventService.findByOrganizer(getLoggedInOrganizer());
-        var response = events.stream()
-            .map(tour -> modelMapper.map(tour, Event.class))
-            .collect(Collectors.toList());
+        var response = events.stream().map(tour -> modelMapper.map(tour, Event.class)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
@@ -121,12 +121,40 @@ public class EventController {
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> inviteCurator(@PathVariable Integer id, @RequestBody EventInvitationRequestDTO requestDTO) {
         if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        this.eventService.inviteCurators(id, requestDTO.getCuratorIds());
+        this.eventInvitationService.inviteCurators(id, requestDTO.getCuratorIds());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
+    @PatchMapping("invitations/accept/{id}")
+    @PreAuthorize("hasRole('CURATOR')")
+    public ResponseEntity<?> acceptInvitation(@PathVariable Integer id) {
+        try {
+            if (!loggedInCuratorReceivedInvitation(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            this.eventInvitationService.acceptInvitation(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    
+    @PatchMapping("invitations/decline/{id}")
+    @PreAuthorize("hasRole('CURATOR')")
+    public ResponseEntity<?> declineInvitation(@PathVariable Integer id, @RequestBody EventInvitationDeclinationRequestDTO requestDTO) {
+        try {
+            if (!loggedInCuratorReceivedInvitation(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            this.eventInvitationService.declineInvitation(id, requestDTO.getDeclinationExplanation());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     private Organizer getLoggedInOrganizer() {
         return organizerService.findById(jwtService.getLoggedInUserId());
+    }
+    
+    private Curator getLoggedInCurator() {
+        return curatorService.findById(jwtService.getLoggedInUserId());
     }
 
     private Event mapRequestToEvent(EventRequestDTO requestDTO) {
@@ -159,11 +187,13 @@ public class EventController {
 
     private Boolean loggedInOrganizerCreatedEvent(Integer id) {
         var event = eventService.findById(id);
-        return loggedInOrganizerCreatedEvent(event);
+        if (!event.getOrganizer().equals(getLoggedInOrganizer())) return false;
+        return true;
     }
 
-    private Boolean loggedInOrganizerCreatedEvent(Event event) {
-        if (!event.getOrganizer().equals(getLoggedInOrganizer())) return false;
+    private Boolean loggedInCuratorReceivedInvitation(Integer id) {
+        var eventInvitation = eventInvitationService.findById(id);
+        if (!eventInvitation.getCurator().equals(getLoggedInCurator())) return false;
         return true;
     }
 
