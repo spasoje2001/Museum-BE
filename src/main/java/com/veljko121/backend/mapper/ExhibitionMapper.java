@@ -29,11 +29,11 @@ public class ExhibitionMapper {
         dto.setOrganizer(mapToOrganizerDTO(exhibition.getOrganizer()));
         dto.setCurator(mapToCuratorDTO(exhibition.getCurator()));
         // Map roomReservations and other properties as needed
-        List<RoomReservationResponseDTO> roomReservationsDTO = exhibition.getRoomReservations()
-                .stream()
-                .map(this::mapToRoomReservationDTO)
-                .collect(Collectors.toList());
-        dto.setRoomReservations(roomReservationsDTO);
+        // List<RoomReservationResponseDTO> roomReservationsDTO = exhibition.getRoomReservations()
+        //         .stream()
+        //         .map(this::mapToRoomReservationDTO)
+        //         .collect(Collectors.toList());
+        // dto.setRoomReservations(roomReservationsDTO);
         return dto;
     }
 

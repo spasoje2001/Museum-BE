@@ -1,5 +1,7 @@
 package com.veljko121.backend.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import com.veljko121.backend.dto.EventRequestDTO;
 import com.veljko121.backend.dto.EventResponseDTO;
 import com.veljko121.backend.dto.EventUpdateRequestDTO;
 import com.veljko121.backend.model.Event;
+import com.veljko121.backend.model.EventPicture;
 import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.service.IEventService;
 import com.veljko121.backend.service.IOrganizerService;
@@ -57,8 +60,7 @@ public class EventController {
     @PostMapping
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> create(@RequestBody EventRequestDTO requestDTO) {
-        var event = modelMapper.map(requestDTO, Event.class);
-        event.setOrganizer(getLoggedInOrganizer());
+        var event = mapRequestToEvent(requestDTO);
         eventService.save(event);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -66,13 +68,11 @@ public class EventController {
     @PutMapping
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> update(@RequestBody EventUpdateRequestDTO requestDTO) {
-        var event = modelMapper.map(requestDTO, Event.class);
-        event.setOrganizer(getLoggedInOrganizer());
+        var event = mapUpdateRequestToEvent(requestDTO);
         eventService.update(event);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
-    // TODO: samo vlasnik dogadjaja sme da publish-uje dogadjaj
     @PatchMapping(path = "{id}/publish")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> publish(@PathVariable Integer id) {
@@ -86,7 +86,6 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
     
-    // TODO: samo vlasnik dogadjaja sme da archive-ira dogadjaj
     @PatchMapping(path = "{id}/archive")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> archive(@PathVariable Integer id) {
@@ -109,10 +108,6 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
-    private Organizer getLoggedInOrganizer() {
-        return organizerService.findById(jwtService.getLoggedInUserId());
-    }
-    
     @GetMapping(path = "my")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> getEventsByLoggedInOrganizer() {
@@ -123,12 +118,48 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
-    // TODO: samo vlasnik dogadjaja sme da delete-uje dogadjaj
     @DeleteMapping(path = "{id}")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> deleteEvent(@PathVariable Integer id) {
+        var organizer = getLoggedInOrganizer();
+        var event = eventService.findById(id);
+        
+        if (!event.getOrganizer().equals(organizer)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
         eventService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+    
+    private Organizer getLoggedInOrganizer() {
+        return organizerService.findById(jwtService.getLoggedInUserId());
+    }
+
+    private Event mapRequestToEvent(EventRequestDTO requestDTO) {
+        var event = modelMapper.map(requestDTO, Event.class);
+        event.setOrganizer(getLoggedInOrganizer());
+
+        Collection<EventPicture> eventPictures = new ArrayList<>();
+        for (var picturePath : requestDTO.getPicturePaths()) {
+            var eventPicture = new EventPicture();
+            eventPicture.setPath(picturePath);
+            eventPictures.add(eventPicture);
+        }
+        event.setPictures(eventPictures);
+        return event;
+    }
+
+    private Event mapUpdateRequestToEvent(EventUpdateRequestDTO updateRequestDTO) {
+        var event = mapRequestToEvent(new EventRequestDTO(updateRequestDTO));
+        event.setId(updateRequestDTO.getId());
+        event.setOrganizer(getLoggedInOrganizer());
+        Collection<EventPicture> eventPictures = new ArrayList<>();
+        for (var picturePath : updateRequestDTO.getPicturePaths()) {
+            var eventPicture = new EventPicture();
+            eventPicture.setPath(picturePath);
+            eventPictures.add(eventPicture);
+        }
+        event.setPictures(eventPictures);
+        return event;
     }
 
 }

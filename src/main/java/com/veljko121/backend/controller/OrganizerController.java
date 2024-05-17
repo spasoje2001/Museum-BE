@@ -35,7 +35,8 @@ public class OrganizerController {
     private final ModelMapper modelMapper;
     private final Logger logger;
 
-    @GetMapping(path = "{username}")
+    @GetMapping(path = "{id}")
+    @PreAuthorize("hasAnyRole('ORGANIZER', 'GUEST')")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         var organizer = organizerService.findById(id);
         var organizerResponse = modelMapper.map(organizer, OrganizerResponseDTO.class);
