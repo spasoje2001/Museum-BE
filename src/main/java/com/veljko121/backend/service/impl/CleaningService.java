@@ -68,7 +68,7 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         return cleaningRepository.save(cleaning);
     }
 
-    public Cleaning declineCleaning(Integer cleaningId, Integer curatorId) {
+    public Cleaning declineCleaning(Integer cleaningId, Integer curatorId, String denialReason) {
         Cleaning cleaning = cleaningRepository.findById(cleaningId)
                 .orElseThrow(() -> new RuntimeException("Cleaning not found with id: " + cleaningId));
 
@@ -78,18 +78,17 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         // Update the status and curator of the cleaning
         cleaning.setStatus(CleaningStatus.REJECTED);
         cleaning.setCurator(curator);
+        cleaning.setDenialReason(denialReason);
 
         // Save the updated cleaning
         return cleaningRepository.save(cleaning);
     }
-
 
     public List<Cleaning> getAllNewCleanings() {
         return cleaningRepository.findAll().stream()
                 .filter(cleaning -> cleaning.getStatus() == CleaningStatus.NEW)
                 .collect(Collectors.toList());
     }
-
 
     public Cleaning putItemToCleaning(Integer cleaningId) {
         Cleaning cleaning = cleaningRepository.findById(cleaningId)
@@ -112,4 +111,5 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         // Save the updated cleaning
         return cleaningRepository.save(cleaning);
     }
+
 }
