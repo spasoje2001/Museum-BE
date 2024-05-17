@@ -30,11 +30,19 @@ INSERT INTO restaurateur(id, biography) VALUES
 INSERT INTO room(name, floor, number) VALUES
     ('Main room', '1', '10');
 
-INSERT INTO room_reservation(room_id, start_date_time, end_date_time, exhibition_id) VALUES
-    (1, '2024-06-15 18:00:00', '2024-06-15 20:00:00', NULL);
+-- VELJKO ZAKOMENTARISAO!
+-- INSERT INTO room_reservation(room_id, start_date_time, end_date_time, exhibition_id) VALUES
+--     (1, '2024-06-15 18:00:00', '2024-06-15 20:00:00', NULL);
+INSERT INTO room_reservation(room_id, start_date_time, end_date_time) VALUES
+    (1, '2024-06-15 18:00:00', '2024-06-15 20:00:00');
 
 INSERT INTO event(name, description, start_date_time, duration_minutes, tickets_number, price, organizer_id, room_reservation_id, status) VALUES
     ('Salvador Dalí - Genius or Insane?', 'By visiting this event you will find out a lot about a very controversial individual by the name of Salvador Dalí. Many consider him to be a genius, but just as much portay him as a complete madman. Not sure about that? We invite you to make your own conclusion!', '2024-06-15 18:00:00', 120, 100, 20, 6, 1, 0);
+
+INSERT INTO event_picture(event_id, path) VALUES
+    (1, 'https://imgs.search.brave.com/UupCySTyka0Y3kYdz-mblmbklauAYxB3wT8z1DwcLbU/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNTE1/NDY2MjYwL3Bob3Rv/L3NhbHZhZG9yLWRh/bGktc3BhbmlzaC1z/dXJyZWFsaXN0LXBh/aW50ZXItcGhvdG9n/cmFwaC1jYS0xOTUw/cy0xOTYwcy5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9djF2/OTEwdGx5MFhGa2Q1/S0xhQzY0b0xHd0s1/cWptX29vdDd4NzBQ/bFgyaz0'),
+    (1, 'https://imgs.search.brave.com/5c7SBFNaiCxyxKaXMxErfIhm-fhVmXmi2H0PQ5UlnD0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/ZGFsaXBhaW50aW5n/cy5jb20vYXNzZXRz/L2ltZy9zYWx2YWRv/ci1kYWxpLmpwZw'),
+    (1, 'https://imgs.search.brave.com/FCrtKpHDATtFKiQn4cpy07ebDypWk-W5hCenI2c4aww/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zYWx2/YWRvcmRhbGlwcmlu/dHMub3JnL1NhbHZh/ZG9yJTIwRGFsaSUy/MFBhaW50aW5ncy5q/cGc_ZXppbWdmbXQ9/bmc6d2VicC9uZ2Ni/NC9yczpkZXZpY2Uv/cnNjYjQtMQ');
 
 INSERT INTO exhibition
 (name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
@@ -63,13 +71,15 @@ VALUES
      'Explore pivotal moments of military history, showcasing the tactics, artifacts, and personal stories that echo through time.',
      'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 6, 7);
 
-INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
-VALUES (1, '2024-04-01 09:00:00', '2024-04-30 17:00:00', 1);
-INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
-VALUES (1, '2024-05-15 09:00:00', '2024-06-15 17:00:00', 2);
-INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
-VALUES (1, '2024-09-01 09:00:00', '2024-09-30 17:00:00', 3);
+-- VELJKO ZAKOMENTARISAO!
+-- INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
+-- VALUES (1, '2024-04-01 09:00:00', '2024-04-30 17:00:00', 1);
+-- INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
+-- VALUES (1, '2024-05-15 09:00:00', '2024-06-15 17:00:00', 2);
+-- INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
+-- VALUES (1, '2024-09-01 09:00:00', '2024-09-30 17:00:00', 3);
 
+-- NIJE VELJKO ZAKOMENTARISAO :)
 -- INSERT INTO item (name, description, authors_name, year_of_creation, period, category, picture, room_id)
 -- VALUES ('Ancient Artifact', 'A unique artifact from an ancient civilization', 'Unknown', '1000 BC', 'Ancient', 'POTTERY', 'https://cdn.pixabay.com/photo/2022/02/08/17/00/nefertiti-statue-7001723_640.jpg', 1);
 -- INSERT INTO item (name, description, authors_name, year_of_creation, period, category, picture, room_id)
@@ -83,12 +93,13 @@ INSERT INTO item(category, cleaning_id, id, room_id, authors_name, description, 
 (0, null, -3, null,'Vincent van Gogh', 'Pogled sa istocnog prozora azilantske sobe', 'Zvezdana noc', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fde%2FVincent_van_Gogh_Starry_Night.jpg&f=1&nofb=1&ipt=5cc303de5ac08f9b5cc8a5c90dabb9e38ef72fa5b9d06e3752bb42d942bf820e&ipo=images', '1889');
 
 
-INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
-VALUES (-1, '2024-04-01 09:00:00', '2024-04-30 17:00:00', 1);
-INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
-VALUES (-2, '2024-05-15 09:00:00', '2024-06-15 17:00:00', 2);
-INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
-VALUES (-3, '2024-09-01 09:00:00', '2024-09-30 17:00:00', 3);
+-- VELJKO ZAKOMENTARISAO!
+-- INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
+-- VALUES (-1, '2024-04-01 09:00:00', '2024-04-30 17:00:00', 1);
+-- INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
+-- VALUES (-2, '2024-05-15 09:00:00', '2024-06-15 17:00:00', 2);
+-- INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
+-- VALUES (-3, '2024-09-01 09:00:00', '2024-09-30 17:00:00', 3);
 
 -- Insert an exhibition focusing on military history
 
