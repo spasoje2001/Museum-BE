@@ -57,7 +57,6 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         return itemRepository.findById(itemId).orElseThrow();
     }
 
-
     public List<Item> getAllItemsForDisplay() {
         List<Item> itemsForDisplaying = new ArrayList<>();
         List<Item> allItems = itemRepository.findAll();
@@ -75,12 +74,15 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         return itemRepository.save(item);
     }
 
-
     public Item putItemIntoRoom(Integer itemId,Integer roomId){
         Room room = roomRepository.findById(roomId).orElseThrow();
         Item item = itemRepository.findById(itemId).orElseThrow();
         item.setRoom(room);
         return itemRepository.save(item);
+    }
+
+    public List<Item> findByName(String name) {
+        return itemRepository.findByName(name);
     }
 
 }
