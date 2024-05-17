@@ -1,6 +1,7 @@
 package com.veljko121.backend.service.impl.events;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -10,7 +11,10 @@ import com.veljko121.backend.core.exception.RoomNotAvailableException;
 import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.model.events.Event;
+import com.veljko121.backend.model.events.EventInvitation;
+import com.veljko121.backend.repository.CuratorRepository;
 import com.veljko121.backend.repository.RoomRepository;
+import com.veljko121.backend.repository.events.EventInvitationRepository;
 import com.veljko121.backend.repository.events.EventPictureRepository;
 import com.veljko121.backend.repository.events.EventRepository;
 import com.veljko121.backend.service.IRoomReservationService;
@@ -22,14 +26,19 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
     private final EventRepository eventRepository;
     private final RoomRepository roomRepository;
     private final EventPictureRepository eventPictureRepository;
+    private final EventInvitationRepository eventInvitationRepository;
+    private final CuratorRepository curatorRepository;
+
     private final IRoomReservationService roomReservationService;
 
-    public EventService(EventRepository repository, RoomRepository roomRepository, IRoomReservationService roomReservationService, EventPictureRepository eventPictureRepository) {
+    public EventService(EventRepository repository, RoomRepository roomRepository, IRoomReservationService roomReservationService, EventPictureRepository eventPictureRepository, EventInvitationRepository eventInvitationRepository, CuratorRepository curatorRepository) {
         super(repository);
         this.eventRepository = repository;
         this.roomRepository = roomRepository;
         this.roomReservationService = roomReservationService;
         this.eventPictureRepository = eventPictureRepository;
+        this.eventInvitationRepository = eventInvitationRepository;
+        this.curatorRepository = curatorRepository;
     }
 
     @Override
@@ -107,6 +116,20 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
         entity.setId(id);
 
         return super.save(entity);
+    }
+
+    @Override
+    public void inviteCurators(Integer eventId, Collection<Integer> curatorIds) {
+        var event = findById(eventId);
+        var eventInvitations = new ArrayList<EventInvitation>();
+        for (var curatorId : curatorIds) {
+            var curator = curatorRepository.findById(curatorId).orElseThrow();
+            var eventInvitation = new EventInvitation();
+            eventInvitation.setCurator(curator);
+            eventInvitation.setEvent(event);
+            eventInvitations.add(eventInvitation);
+        }
+        this.eventInvitationRepository.saveAll(eventInvitations);
     }
     
 }

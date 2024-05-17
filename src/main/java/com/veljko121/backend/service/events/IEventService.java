@@ -17,5 +17,7 @@ public interface IEventService extends ICRUDService<Event, Integer> {
     Collection<Event> findByOrganizer(Organizer organizer);
 
     Event update(Event entity);
+
+    void inviteCurators(Integer eventId, Collection<Integer> curatorIds);
     
 }

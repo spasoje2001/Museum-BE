@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.core.service.IJwtService;
+import com.veljko121.backend.dto.events.EventInvitationRequestDTO;
 import com.veljko121.backend.dto.events.EventRequestDTO;
 import com.veljko121.backend.dto.events.EventResponseDTO;
 import com.veljko121.backend.dto.events.EventUpdateRequestDTO;
@@ -76,26 +77,16 @@ public class EventController {
     @PatchMapping(path = "{id}/publish")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> publish(@PathVariable Integer id) {
-        var organizer = getLoggedInOrganizer();
-        var event = eventService.findById(id);
-        
-        if (!event.getOrganizer().equals(organizer)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        
+        if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         eventService.publish(id);
-        
         return ResponseEntity.ok().build();
     }
     
     @PatchMapping(path = "{id}/archive")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> archive(@PathVariable Integer id) {
-        var organizer = getLoggedInOrganizer();
-        var event = eventService.findById(id);
-        
-        if (!event.getOrganizer().equals(organizer)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        
+        if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         eventService.archive(id);
-        
         return ResponseEntity.ok().build();
     }
     
@@ -121,13 +112,17 @@ public class EventController {
     @DeleteMapping(path = "{id}")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> deleteEvent(@PathVariable Integer id) {
-        var organizer = getLoggedInOrganizer();
-        var event = eventService.findById(id);
-        
-        if (!event.getOrganizer().equals(organizer)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
+        if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         eventService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+    
+    @PostMapping(path = "{id}/invite-curators")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> inviteCurator(@PathVariable Integer id, @RequestBody EventInvitationRequestDTO requestDTO) {
+        if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        this.eventService.inviteCurators(id, requestDTO.getCuratorIds());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
     private Organizer getLoggedInOrganizer() {
@@ -160,6 +155,16 @@ public class EventController {
         }
         event.setPictures(eventPictures);
         return event;
+    }
+
+    private Boolean loggedInOrganizerCreatedEvent(Integer id) {
+        var event = eventService.findById(id);
+        return loggedInOrganizerCreatedEvent(event);
+    }
+
+    private Boolean loggedInOrganizerCreatedEvent(Event event) {
+        if (!event.getOrganizer().equals(getLoggedInOrganizer())) return false;
+        return true;
     }
 
 }
