@@ -2,6 +2,7 @@ package com.veljko121.backend.controller;
 
 import java.util.List;
 
+import com.veljko121.backend.dto.CleaningDeclineDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,6 @@ public class CleaningController {
     private final ICleaningService cleaningService;
     private final IJwtService jwtService;
 
-
      // POST method to add a cleaning to an item
     @PostMapping("/{itemId}")
     public ResponseEntity<Cleaning> addCleaningToItem(@PathVariable Integer itemId, @RequestBody CleaningCreateDTO cleaningDTO) {
@@ -39,10 +39,10 @@ public class CleaningController {
         return new ResponseEntity<>(savedCleaning, HttpStatus.CREATED);
     }
 
-   // PUT method to decline cleaning for an item
-    @PutMapping("/decline/{cleaningId}/{curatorId}")
-    public ResponseEntity<Void> declineCleaning(@PathVariable Integer cleaningId, @PathVariable Integer curatorId) {
-        cleaningService.declineCleaning(cleaningId, curatorId);
+    // PUT method to decline cleaning for an item
+    @PutMapping("/decline")
+    public ResponseEntity<Void> declineCleaning(@RequestBody CleaningDeclineDTO cleaningDeclineDTO) {
+        cleaningService.declineCleaning(cleaningDeclineDTO.getCleaningId(), cleaningDeclineDTO.getCuratorId(), cleaningDeclineDTO.getDenialExplanation());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

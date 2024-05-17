@@ -38,7 +38,7 @@ public class CuratorController {
     private final Logger logger;
 
     @GetMapping(path = "/{id}")
-    @PreAuthorize("hasAnyRole('ORGANIZER', 'GUEST')")
+    @PreAuthorize("hasAnyRole('ORGANIZER', 'GUEST', 'RESTAURATEUR')")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         var curator = curatorService.findById(id);
         var curatorResponse = modelMapper.map(curator, Curator.class);
