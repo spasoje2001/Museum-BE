@@ -1,4 +1,4 @@
-package com.veljko121.backend.controller;
+package com.veljko121.backend.controller.events;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.core.service.IJwtService;
-import com.veljko121.backend.dto.EventRequestDTO;
-import com.veljko121.backend.dto.EventResponseDTO;
-import com.veljko121.backend.dto.EventUpdateRequestDTO;
+import com.veljko121.backend.dto.events.EventRequestDTO;
+import com.veljko121.backend.dto.events.EventResponseDTO;
+import com.veljko121.backend.dto.events.EventUpdateRequestDTO;
 import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.EventPicture;
 import com.veljko121.backend.model.Organizer;
-import com.veljko121.backend.service.IEventService;
 import com.veljko121.backend.service.IOrganizerService;
+import com.veljko121.backend.service.events.IEventService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,7 +1,10 @@
-package com.veljko121.backend.dto;
+package com.veljko121.backend.dto.events;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+
+import com.veljko121.backend.dto.OrganizerResponseDTO;
+import com.veljko121.backend.dto.RoomReservationResponseDTO;
 
 import lombok.Data;
 

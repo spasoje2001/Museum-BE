@@ -1,4 +1,4 @@
-package com.veljko121.backend.service;
+package com.veljko121.backend.service.events;
 
 import java.util.Collection;
 

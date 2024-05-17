@@ -1,4 +1,4 @@
-package com.veljko121.backend.repository;
+package com.veljko121.backend.repository.events;
 
 import java.util.List;
 
