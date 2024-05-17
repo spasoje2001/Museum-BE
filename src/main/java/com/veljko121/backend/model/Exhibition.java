@@ -2,11 +2,16 @@ package com.veljko121.backend.model;
 
 import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.enums.ExhibitionTheme;
+import com.veljko121.backend.model.tours.PersonalTour;
+import com.veljko121.backend.model.tours.PersonalTourRequest;
+import com.veljko121.backend.model.tours.Tour;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +83,25 @@ public class Exhibition {
 //            newCurator.getExhibitions().add(this);
 //        }
     }
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "tours_exhibitions", joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    private List<Tour> tours = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "personal_tours_exhibitions",
+            joinColumns = @JoinColumn(name = "personal_tour_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    @ToString.Exclude
+    private List<PersonalTour> personalTours = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "personal_tour_requests_exhibitions",
+            joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    @ToString.Exclude
+    private List<PersonalTourRequest> personalTourRequests = new ArrayList<>();
 
     public boolean isPermanent() {
         return endDate == null;
