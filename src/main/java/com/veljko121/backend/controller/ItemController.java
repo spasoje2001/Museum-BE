@@ -66,9 +66,16 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemResponse);
     }
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<?> updateItem(@RequestBody ItemUpdateDTO itemDTO){
-        var item = modelMapper.map(itemDTO, Item.class);
+        var item =itemService.findById(itemDTO.getId());
+        item.setAuthorsName(itemDTO.getAuthorsName());
+        item.setCategory(itemDTO.getCategory());
+        item.setDescription(itemDTO.getDescription());
+        item.setName(itemDTO.getName());
+        item.setPeriod(itemDTO.getPeriod());
+        item.setPicture(itemDTO.getPicture());
+        item.setYearOfCreation(itemDTO.getYearOfCreation());
         itemService.update(item);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemDTO);
     }
