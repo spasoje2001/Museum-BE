@@ -73,9 +73,18 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemDTO);
     }
 
-
     @PutMapping("/putIntoRoom/{itemId}/{roomId}")
     public Item putItemIntoRoom(@PathVariable Integer itemId, @PathVariable Integer roomId){
         return itemService.putItemIntoRoom(itemId, roomId);
     }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> findByName(@PathVariable String name) {
+        List<Item> items = itemService.findByName(name);
+        var itemResponse = items.stream()
+                .map(tour -> modelMapper.map(tour, Item.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
+
 }
