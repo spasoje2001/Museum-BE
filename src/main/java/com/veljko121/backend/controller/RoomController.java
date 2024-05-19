@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.veljko121.backend.model.Item;
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.service.IRoomReservationService;
+import com.veljko121.backend.service.impl.events.EventService;
 import com.veljko121.backend.service.IRoomService;
-import com.veljko121.backend.service.impl.EventService;
 
 import lombok.RequiredArgsConstructor;
 

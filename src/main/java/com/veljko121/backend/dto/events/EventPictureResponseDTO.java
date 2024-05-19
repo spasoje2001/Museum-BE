@@ -1,4 +1,4 @@
-package com.veljko121.backend.dto;
+package com.veljko121.backend.dto.events;
 
 import lombok.Data;
 

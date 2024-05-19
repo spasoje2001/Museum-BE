@@ -1,4 +1,4 @@
-package com.veljko121.backend.service.impl;
+package com.veljko121.backend.service.impl.events;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.veljko121.backend.core.enums.EventStatus;
 import com.veljko121.backend.core.exception.RoomNotAvailableException;
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Organizer;
-import com.veljko121.backend.repository.EventPictureRepository;
-import com.veljko121.backend.repository.EventRepository;
+import com.veljko121.backend.model.events.Event;
 import com.veljko121.backend.repository.RoomRepository;
-import com.veljko121.backend.service.IEventService;
+import com.veljko121.backend.repository.events.EventPictureRepository;
+import com.veljko121.backend.repository.events.EventRepository;
 import com.veljko121.backend.service.IRoomReservationService;
+import com.veljko121.backend.service.events.IEventService;
 
 @Service
 public class EventService extends CRUDService<Event, Integer> implements IEventService {
@@ -22,6 +22,7 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
     private final EventRepository eventRepository;
     private final RoomRepository roomRepository;
     private final EventPictureRepository eventPictureRepository;
+
     private final IRoomReservationService roomReservationService;
 
     public EventService(EventRepository repository, RoomRepository roomRepository, IRoomReservationService roomReservationService, EventPictureRepository eventPictureRepository) {

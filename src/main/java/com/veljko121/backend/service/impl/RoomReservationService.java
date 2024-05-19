@@ -7,9 +7,9 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.model.RoomReservation;
+import com.veljko121.backend.model.events.Event;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.repository.RoomReservationRepository;
 import com.veljko121.backend.service.IRoomReservationService;

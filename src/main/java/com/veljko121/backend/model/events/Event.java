@@ -1,4 +1,4 @@
-package com.veljko121.backend.model;
+package com.veljko121.backend.model.events;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -6,6 +6,8 @@ import java.util.Collection;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.veljko121.backend.core.enums.EventStatus;
+import com.veljko121.backend.model.Organizer;
+import com.veljko121.backend.model.RoomReservation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

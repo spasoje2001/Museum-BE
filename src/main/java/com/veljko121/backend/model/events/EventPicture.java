@@ -1,4 +1,4 @@
-package com.veljko121.backend.model;
+package com.veljko121.backend.model.events;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
