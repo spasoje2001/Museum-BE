@@ -1,6 +1,7 @@
 package com.veljko121.backend.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -12,9 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.veljko121.backend.model.Item;
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.service.IRoomReservationService;
+<<<<<<< HEAD
 import com.veljko121.backend.service.impl.events.EventService;
+=======
+import com.veljko121.backend.service.IRoomService;
+>>>>>>> development
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class RoomController {
 
     private final IRoomReservationService roomReservationService;
+    private final IRoomService roomService;
     private final EventService eventService;
 
     private final ModelMapper modelMapper;
@@ -45,6 +52,15 @@ public class RoomController {
             .map(room -> modelMapper.map(room, Room.class))
             .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findAll() {
+        List<Room> rooms = roomService.findAll();
+        var roomsResponse = rooms.stream()
+                .map(tour -> modelMapper.map(tour, Room.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(roomsResponse);
     }
     
 }

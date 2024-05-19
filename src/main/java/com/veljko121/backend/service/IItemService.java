@@ -8,5 +8,15 @@ import com.veljko121.backend.model.Item;
 public interface IItemService extends ICRUDService<Item, Integer>{
 
     List<Item> findAll();
+
     List<Item> getAllItemsForCleaning();
+
+    List<Item> getAllItemsForDisplay();
+
+    Item update(Item item);
+
+    Item putItemIntoRoom(Integer itemId,Integer roomId);
+
+    List<Item> findByName(String name);
+
 }

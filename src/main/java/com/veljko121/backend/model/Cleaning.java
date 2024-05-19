@@ -50,4 +50,7 @@ public class Cleaning {
     @Column(name = "item_id")
     private Integer itemId;
 
+    @Column()
+    private String denialReason;
+
 }
