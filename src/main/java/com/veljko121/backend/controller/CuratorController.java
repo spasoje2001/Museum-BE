@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.veljko121.backend.core.dto.BooleanResponseDTO;
 import com.veljko121.backend.core.dto.ErrorResponseDTO;
 import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/users/curators")
@@ -73,7 +75,15 @@ public class CuratorController {
         }
     }
 
-    @GetMapping()
+    @GetMapping("by-username/{username}")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> findCuratorByUsername(@PathVariable String username) {
+        var curator = curatorService.findByUsername(username);
+        var curatorResponse = modelMapper.map(curator, Curator.class);
+        return ResponseEntity.ok().body(curatorResponse);
+    }
+
+    @GetMapping
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> findAll() {
         List<Curator> curators = curatorService.findAll();
@@ -82,5 +92,17 @@ public class CuratorController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(curatorResponses);
     }
+
+    @GetMapping("exists-by-username/{username}")
+    @PreAuthorize("hasAnyRole('ORGANIZER', 'CURATOR', 'ADMINISTRATOR')")
+    public ResponseEntity<?> existsByUsername(@PathVariable String username) {
+        try {
+            this.curatorService.findByUsername(username);
+            return ResponseEntity.ok().body(new BooleanResponseDTO(true));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(new BooleanResponseDTO(false));
+        }
+    }
+    
 
 }

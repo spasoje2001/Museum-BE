@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import com.veljko121.backend.core.enums.EventInvitationStatus;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.events.EventInvitationDeclinationRequestDTO;
-import com.veljko121.backend.dto.events.EventInvitationRequestDTO;
 import com.veljko121.backend.dto.events.EventInvitationResponseDTO;
 import com.veljko121.backend.dto.events.EventRequestDTO;
 import com.veljko121.backend.dto.events.EventResponseDTO;
@@ -119,11 +119,11 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
     
-    @PostMapping(path = "{id}/invite-curators")
+    @PostMapping(path = "invitations/invite/{eventId}/{curatorId}")
     @PreAuthorize("hasRole('ORGANIZER')")
-    public ResponseEntity<?> inviteCurator(@PathVariable Integer id, @RequestBody EventInvitationRequestDTO requestDTO) {
-        if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        this.eventInvitationService.inviteCurators(id, requestDTO.getCuratorIds());
+    public ResponseEntity<?> inviteCurator(@PathVariable Integer eventId, @PathVariable Integer curatorId) {
+        if (!loggedInOrganizerCreatedEvent(eventId)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        this.eventInvitationService.inviteCurator(eventId, curatorId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
@@ -151,7 +151,7 @@ public class EventController {
         }
     }
     
-    @PatchMapping("invitations/cancel/{id}")
+    @DeleteMapping("invitations/cancel/{id}")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> cancelInvitation(@PathVariable Integer id) {
         try {
@@ -164,11 +164,19 @@ public class EventController {
     }
     
     @GetMapping("invitations/pending")
-    @PreAuthorize("hasRole('CURATOR')")
+    @PreAuthorize("hasAnyRole('CURATOR', 'ORGANIZER')")
     public ResponseEntity<?> getPendingInvitations() {
-        var eventInvitations = eventInvitationService.findByCuratorAndStatus(getLoggedInCurator(), EventInvitationStatus.PENDING);
-        var response = eventInvitations.stream().map(eventInvitation -> modelMapper.map(eventInvitation, EventInvitationResponseDTO.class)).collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        try {
+            var curator = getLoggedInCurator();
+            var eventInvitations = eventInvitationService.findByCuratorAndStatus(curator, EventInvitationStatus.PENDING);
+            var response = eventInvitations.stream().map(eventInvitation -> modelMapper.map(eventInvitation, EventInvitationResponseDTO.class)).collect(Collectors.toList());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            var organizer = getLoggedInOrganizer();
+            var eventInvitations = eventInvitationService.findByOrganizerAndStatus(organizer, EventInvitationStatus.PENDING);
+            var response = eventInvitations.stream().map(eventInvitation -> modelMapper.map(eventInvitation, EventInvitationResponseDTO.class)).collect(Collectors.toList());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
     }
     
     @GetMapping("invitations/responded")

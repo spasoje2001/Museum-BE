@@ -11,6 +11,8 @@ import com.veljko121.backend.model.events.EventInvitation;
 public interface IEventInvitationService extends ICRUDService<EventInvitation, Integer> {
 
     void inviteCurators(Integer eventId, Collection<Integer> curatorIds);
+
+    void inviteCurator(Integer eventId, Integer curatorId);
     
     void acceptInvitation(Integer id);
     

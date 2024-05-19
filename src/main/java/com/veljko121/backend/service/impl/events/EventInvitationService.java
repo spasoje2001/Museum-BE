@@ -79,4 +79,15 @@ public class EventInvitationService extends CRUDService<EventInvitation, Integer
         return eventInvitationRepository.findByOrganizerAndStatus(organizer, status);
     }
 
+    @Override
+    public void inviteCurator(Integer eventId, Integer curatorId) {
+        var event = eventService.findById(eventId);
+        var curator = curatorService.findById(curatorId);
+        var eventInvitation = new EventInvitation();
+        eventInvitation.setCurator(curator);
+        eventInvitation.setEvent(event);
+        eventInvitation.setStatus(EventInvitationStatus.PENDING);
+        this.eventInvitationRepository.save(eventInvitation);
+    }
+
 }
