@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.veljko121.backend.core.enums.EventInvitationStatus;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.events.EventInvitationDeclinationRequestDTO;
-import com.veljko121.backend.dto.events.EventInvitationRequestDTO;
 import com.veljko121.backend.dto.events.EventInvitationResponseDTO;
 import com.veljko121.backend.dto.events.EventRequestDTO;
 import com.veljko121.backend.dto.events.EventResponseDTO;
@@ -119,11 +118,11 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
     
-    @PostMapping(path = "{id}/invite-curators")
+    @PostMapping(path = "invitations/invite/{eventId}/{curatorId}")
     @PreAuthorize("hasRole('ORGANIZER')")
-    public ResponseEntity<?> inviteCurator(@PathVariable Integer id, @RequestBody EventInvitationRequestDTO requestDTO) {
-        if (!loggedInOrganizerCreatedEvent(id)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        this.eventInvitationService.inviteCurators(id, requestDTO.getCuratorIds());
+    public ResponseEntity<?> inviteCurator(@PathVariable Integer eventId, @PathVariable Integer curatorId) {
+        if (!loggedInOrganizerCreatedEvent(eventId)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        this.eventInvitationService.inviteCurator(eventId, curatorId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
