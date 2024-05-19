@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.veljko121.backend.core.enums.EventInvitationStatus;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.events.EventInvitationDeclinationRequestDTO;
 import com.veljko121.backend.dto.events.EventInvitationRequestDTO;
+import com.veljko121.backend.dto.events.EventInvitationResponseDTO;
 import com.veljko121.backend.dto.events.EventRequestDTO;
 import com.veljko121.backend.dto.events.EventResponseDTO;
 import com.veljko121.backend.dto.events.EventUpdateRequestDTO;
@@ -58,7 +60,7 @@ public class EventController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         var events = eventService.findAll();
-        var response = events.stream().map(tour -> modelMapper.map(tour, Event.class)).collect(Collectors.toList());
+        var response = events.stream().map(tour -> modelMapper.map(tour, EventResponseDTO.class)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
@@ -97,7 +99,7 @@ public class EventController {
     @GetMapping(path = "published")
     public ResponseEntity<?> getAllPublished() {
         var events = eventService.findPublished();
-        var response = events.stream().map(tour -> modelMapper.map(tour, Event.class)).collect(Collectors.toList());
+        var response = events.stream().map(tour -> modelMapper.map(tour, EventResponseDTO.class)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
@@ -105,7 +107,7 @@ public class EventController {
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> getEventsByLoggedInOrganizer() {
         var events = eventService.findByOrganizer(getLoggedInOrganizer());
-        var response = events.stream().map(tour -> modelMapper.map(tour, Event.class)).collect(Collectors.toList());
+        var response = events.stream().map(tour -> modelMapper.map(tour, EventResponseDTO.class)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
@@ -159,6 +161,25 @@ public class EventController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+    
+    @GetMapping("invitations/pending")
+    @PreAuthorize("hasRole('CURATOR')")
+    public ResponseEntity<?> getPendingInvitations() {
+        var eventInvitations = eventInvitationService.findByCuratorAndStatus(getLoggedInCurator(), EventInvitationStatus.PENDING);
+        var response = eventInvitations.stream().map(eventInvitation -> modelMapper.map(eventInvitation, EventInvitationResponseDTO.class)).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+    
+    @GetMapping("invitations/responded")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> getRespondedInvitations() {
+        var organizer = getLoggedInOrganizer();
+        var eventInvitations = eventInvitationService.findByOrganizerAndStatus(organizer, EventInvitationStatus.ACCEPTED);
+        var declinedEventInvitations = eventInvitationService.findByOrganizerAndStatus(organizer, EventInvitationStatus.DECLINED);
+        eventInvitations.addAll(declinedEventInvitations);
+        var response = eventInvitations.stream().map(eventInvitation -> modelMapper.map(eventInvitation, EventInvitationResponseDTO.class)).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     private Organizer getLoggedInOrganizer() {

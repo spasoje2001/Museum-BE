@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.enums.EventInvitationStatus;
 import com.veljko121.backend.core.service.impl.CRUDService;
+import com.veljko121.backend.model.Curator;
+import com.veljko121.backend.model.Organizer;
 import com.veljko121.backend.model.events.EventInvitation;
 import com.veljko121.backend.repository.events.EventInvitationRepository;
 import com.veljko121.backend.service.ICuratorService;
@@ -65,6 +67,16 @@ public class EventInvitationService extends CRUDService<EventInvitation, Integer
         if (!eventInvitation.getStatus().equals(EventInvitationStatus.PENDING)) throw new RuntimeException("Invitation has already been responded on.");
         eventInvitation.setStatus(EventInvitationStatus.CANCELED);
         eventInvitationRepository.save(eventInvitation);
+    }
+
+    @Override
+    public Collection<EventInvitation> findByCuratorAndStatus(Curator curator, EventInvitationStatus status) {
+        return eventInvitationRepository.findByCuratorAndStatus(curator, status);
+    }
+
+    @Override
+    public Collection<EventInvitation> findByOrganizerAndStatus(Organizer organizer, EventInvitationStatus status) {
+        return eventInvitationRepository.findByOrganizerAndStatus(organizer, status);
     }
 
 }
