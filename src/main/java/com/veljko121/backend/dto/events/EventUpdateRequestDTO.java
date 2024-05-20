@@ -1,6 +1,7 @@
-package com.veljko121.backend.dto;
+package com.veljko121.backend.dto.events;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -32,5 +33,7 @@ public class EventUpdateRequestDTO {
     private Integer price;
 
     private Integer roomId;
+
+    private Collection<String> picturePaths;
     
 }

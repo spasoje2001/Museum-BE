@@ -1,10 +1,10 @@
-package com.veljko121.backend.service;
+package com.veljko121.backend.service.events;
 
 import java.util.Collection;
 
 import com.veljko121.backend.core.service.ICRUDService;
-import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Organizer;
+import com.veljko121.backend.model.events.Event;
 
 public interface IEventService extends ICRUDService<Event, Integer> {
 

@@ -1,6 +1,7 @@
 package com.veljko121.backend.model.tours;
 
 import com.veljko121.backend.model.Curator;
+import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.model.Organizer;
 import jakarta.persistence.*;
@@ -8,8 +9,11 @@ import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,8 +24,12 @@ public class PersonalTour {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = false)
-    //private List<Exhibition> exhibitions = new ArrayList<>();  Izlozba jos ne postoji tek kada se bude spojila grana treba otkomentarisati
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "personal_tours_exhibitions",
+            joinColumns = @JoinColumn(name = "personal_tour_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    @ToString.Exclude
+    private List<Exhibition> exhibitions = new ArrayList<>();
 
     @NotEmpty
     @Column(nullable = false)

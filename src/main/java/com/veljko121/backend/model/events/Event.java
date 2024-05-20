@@ -1,18 +1,24 @@
-package com.veljko121.backend.model;
+package com.veljko121.backend.model.events;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.veljko121.backend.core.enums.EventStatus;
+import com.veljko121.backend.model.Organizer;
+import com.veljko121.backend.model.RoomReservation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -67,6 +73,10 @@ public class Event {
     @CreationTimestamp
     @Setter(value = AccessLevel.PRIVATE)
     private LocalDateTime createdDateTime;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id")
+    private Collection<EventPicture> pictures;
 
     public LocalDateTime getEndDateTime() {
         return startDateTime.plusMinutes(durationMinutes);

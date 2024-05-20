@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 public class ItemReservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,7 +24,8 @@ public class ItemReservation {
     @Column
     private LocalDateTime endDateTime; // Changed from durationMinutes to endDateTime
 
-    @ManyToOne
-    @JoinColumn(name = "room_reservation_id")
-    private RoomReservation roomReservation;
+    // @ManyToOne
+    // @JoinColumn(name = "room_reservation_id")
+    // private RoomReservation roomReservation;
+
 }

@@ -1,16 +1,18 @@
 package com.veljko121.backend.dto.tours;
 
+import com.veljko121.backend.dto.ExhibitionResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 public class PersonalTourCreateDTO {
 
-    //@OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = false)
-    //private List<Exhibition> exhibitions = new ArrayList<>();  Izlozba jos ne postoji tek kada se bude spojila grana treba otkomentarisati
+    private List<ExhibitionResponseDTO> exhibitions = new ArrayList<>();
 
     private String duration;
 

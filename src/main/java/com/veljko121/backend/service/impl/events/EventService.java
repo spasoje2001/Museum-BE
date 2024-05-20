@@ -1,48 +1,55 @@
-package com.veljko121.backend.service.impl;
+package com.veljko121.backend.service.impl.events;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.enums.EventStatus;
 import com.veljko121.backend.core.exception.RoomNotAvailableException;
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Organizer;
-import com.veljko121.backend.repository.EventRepository;
+import com.veljko121.backend.model.events.Event;
 import com.veljko121.backend.repository.RoomRepository;
-import com.veljko121.backend.service.IEventService;
+import com.veljko121.backend.repository.events.EventPictureRepository;
+import com.veljko121.backend.repository.events.EventRepository;
 import com.veljko121.backend.service.IRoomReservationService;
+import com.veljko121.backend.service.events.IEventService;
 
 @Service
 public class EventService extends CRUDService<Event, Integer> implements IEventService {
 
     private final EventRepository eventRepository;
     private final RoomRepository roomRepository;
+    private final EventPictureRepository eventPictureRepository;
+
     private final IRoomReservationService roomReservationService;
 
-    @Autowired
-    public EventService(EventRepository repository, RoomRepository roomRepository, IRoomReservationService roomReservationService) {
+    public EventService(EventRepository repository, RoomRepository roomRepository, IRoomReservationService roomReservationService, EventPictureRepository eventPictureRepository) {
         super(repository);
-        eventRepository = repository;
+        this.eventRepository = repository;
         this.roomRepository = roomRepository;
         this.roomReservationService = roomReservationService;
+        this.eventPictureRepository = eventPictureRepository;
     }
 
     @Override
     public Event save(Event entity) throws RoomNotAvailableException {
         var room = roomRepository.findById(entity.getRoomReservation().getRoom().getId()).orElseThrow();
         var roomReservation = entity.getRoomReservation();
+        
+        LocalDateTime endDateTime = entity.getStartDateTime().plusMinutes(entity.getDurationMinutes());
+        roomReservation.setEndDateTime(endDateTime);
+        roomReservation.setStartDateTime(entity.getStartDateTime());
+
         if (!roomReservationService.isRoomAvailable(room, entity.getStartDateTime(), entity.getDurationMinutes())) {
             throw new RoomNotAvailableException(roomReservation);
         }
 
-        LocalDateTime endDateTime = entity.getStartDateTime().plusMinutes(entity.getDurationMinutes());
-        roomReservation.setEndDateTime(endDateTime);
-        roomReservation.setStartDateTime(entity.getStartDateTime());
         roomReservation = roomReservationService.save(roomReservation);
+        for (var eventPicture : entity.getPictures()) {
+            eventPictureRepository.save(eventPicture);
+        }
 
         entity.setRoomReservation(roomReservation);
         entity.setStatus(EventStatus.DRAFT);
@@ -80,21 +87,25 @@ public class EventService extends CRUDService<Event, Integer> implements IEventS
         var room = roomRepository.findById(entity.getRoomReservation().getRoom().getId()).orElseThrow();
         var roomReservation = oldEvent.getRoomReservation();
 
-        eventRepository.delete(oldEvent);
-        roomReservationService.delete(roomReservation);
+        var id = oldEvent.getId();
         
-        if (!roomReservationService.isRoomAvailable(room, entity.getStartDateTime(), entity.getDurationMinutes())) {
-            eventRepository.save(oldEvent);
-            roomReservationService.save(roomReservation);
+        if (!roomReservationService.isRoomAvailableForUpdating(room, entity.getStartDateTime(), entity.getDurationMinutes(), roomReservation)) {
             throw new RoomNotAvailableException(roomReservation);
         }
 
         roomReservation.setEndDateTime(entity.getStartDateTime().plusMinutes(entity.getDurationMinutes()));
         roomReservation.setStartDateTime(entity.getStartDateTime());
         roomReservation = roomReservationService.save(roomReservation);
+        for (var eventPicture : oldEvent.getPictures()) {
+            eventPictureRepository.delete(eventPicture);
+        }
+        for (var eventPicture : entity.getPictures()) {
+            eventPictureRepository.save(eventPicture);
+        }
 
         entity.setRoomReservation(roomReservation);
         entity.setStatus(EventStatus.DRAFT);
+        entity.setId(id);
 
         return super.save(entity);
     }

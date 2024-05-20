@@ -1,5 +1,7 @@
 package com.veljko121.backend.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,14 @@ public class RoomService extends CRUDService<Room, Integer> implements IRoomServ
 
     private final RoomRepository roomRepository;
         
-    @Autowired
     public RoomService(RoomRepository repository) {
         super(repository);
-        roomRepository = repository;
+        this.roomRepository = repository;
+    }
+
+    
+    public List<Room> findAll() {
+        return roomRepository.findAll();
     }
     
 }

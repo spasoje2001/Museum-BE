@@ -7,9 +7,11 @@ import com.veljko121.backend.model.Cleaning;
 
 public interface ICleaningService extends ICRUDService<Cleaning, Integer> {
 
-    public void addCleaningToItem(Integer itemId, Cleaning cleaning);
-    public Cleaning save(Integer itemId, Cleaning cleaning ,Integer restaurateurId);
-    public Cleaning declineCleaning(Integer cleaningId, Integer curatorId);
-    public Cleaning acceptCleaning(Integer cleaningId, Integer curatorId);
-    public List<Cleaning> getAllNewCleanings();
+    void addCleaningToItem(Integer itemId, Cleaning cleaning);
+    Cleaning save(Integer itemId, Cleaning cleaning ,Integer restaurateurId);
+    Cleaning declineCleaning(Integer cleaningId, Integer curatorId, String denialReason);
+    Cleaning acceptCleaning(Integer cleaningId, Integer curatorId);
+    List<Cleaning> getAllNewCleanings();
+    Cleaning putItemToCleaning(Integer cleaningId);
+    Cleaning finishleaning(Integer cleaningId);
 }

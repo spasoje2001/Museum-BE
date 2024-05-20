@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PersonalTourRepository extends JpaRepository<PersonalTour, Integer> {
 
-    @Query("SELECT t FROM PersonalTour t WHERE t.proposer.id = ?1")
+    @Query("SELECT t FROM PersonalTour t LEFT JOIN FETCH t.exhibitions WHERE t.proposer.id = ?1")
     List<PersonalTour> findByGuestId(Integer guestId);
 
 }

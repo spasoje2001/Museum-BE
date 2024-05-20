@@ -3,15 +3,13 @@ package com.veljko121.backend.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.veljko121.backend.core.service.impl.CRUDService;
-import com.veljko121.backend.model.Event;
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.model.RoomReservation;
+import com.veljko121.backend.model.events.Event;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.repository.RoomReservationRepository;
 import com.veljko121.backend.service.IRoomReservationService;
@@ -22,7 +20,6 @@ public class RoomReservationService extends CRUDService<RoomReservation, Integer
     private final RoomReservationRepository roomReservationRepository;
     private final RoomRepository roomRepository;
     
-    @Autowired
     public RoomReservationService(RoomReservationRepository repository, RoomRepository roomRepository) {
         super(repository);
         this.roomReservationRepository = repository;
