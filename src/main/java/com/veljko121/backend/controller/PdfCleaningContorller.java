@@ -41,4 +41,17 @@ public class PdfCleaningContorller {
         return ResponseEntity.ok("PDF saved to Desktop with a unique name.");
     }
 
+    @GetMapping("/generate-pdf-personal/{userId}")
+    public ResponseEntity<InputStreamResource> generatePdfPersonal(@PathVariable Integer userId) throws DocumentException, IOException {
+        ByteArrayInputStream bis = pdfCleaningService.generateCleansedItemsPdfForPersonal(userId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=cleansed-items.pdf");
+    
+        return ResponseEntity
+            .ok()
+            .headers(headers)
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(new InputStreamResource(bis));
+    }
+
 }

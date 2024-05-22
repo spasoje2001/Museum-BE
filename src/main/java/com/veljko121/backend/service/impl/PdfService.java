@@ -52,6 +52,22 @@ public class PdfService implements IPdfService {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
+
+    @Override
+    public ByteArrayInputStream generateCleansedItemsPdfForPersonal(Integer requestedBy) throws DocumentException, IOException {
+        List<Item> cleansedItems = itemService.getCleansedItemsForRestaurateur(requestedBy);
+        Document document = new Document(PageSize.A4);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PdfWriter.getInstance(document, out);
+        
+        document.open();
+        addContentToDocumentPersonal(document, requestedBy, cleansedItems);
+        document.close();
+        
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+
     @Override
     public void saveCleansedItemsPdf(Integer requestedBy) throws DocumentException, IOException {
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now());
@@ -100,11 +116,11 @@ public class PdfService implements IPdfService {
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
         
-        hcell = new PdfPCell(new Phrase("Cleaning Duration", tableHeaderFont));
+        hcell = new PdfPCell(new Phrase("Cleaning started", tableHeaderFont));
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
         
-        hcell = new PdfPCell(new Phrase("Cleaning Date", tableHeaderFont));
+        hcell = new PdfPCell(new Phrase("Cleaning ended", tableHeaderFont));
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
         
@@ -135,7 +151,7 @@ public class PdfService implements IPdfService {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase(item.getCleaning().getCurator().getFirstName(), tableFont));
+            cell = new PdfPCell(new Phrase(item.getCleaning().getRestaurateur().getFirstName() + ' ' + item.getCleaning().getRestaurateur().getLastName() , tableFont));
             cell.setPaddingLeft(5);
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -144,5 +160,84 @@ public class PdfService implements IPdfService {
         
         document.add(table);
     }
+
+
+    private void addContentToDocumentPersonal(Document document, Integer requestedBy, List<Item> cleansedItems) throws DocumentException {
+        // Add heading
+        User user = userService.findById(requestedBy);
+        Font font = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+        Paragraph heading = new Paragraph("Cleansed Items Report for " + user.getFirstName() + ' ' + user.getLastName(), font);
+        heading.setAlignment(Element.ALIGN_CENTER);
+        document.add(heading);
+        
+        document.add(new Paragraph(" "));
+        
+        // Add meta information
+        Font metaFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);        
+        
+
+        document.add(new Paragraph("Generated on: " + LocalDate.now().format(DateTimeFormatter.ISO_DATE), metaFont));
+        document.add(new Paragraph("Requested by: " + user.getFirstName() + ' ' + user.getLastName(), metaFont));
+        //document.add(new Paragraph("For the month: " + previousMonth.format(formatter), metaFont));
+        
+        document.add(new Paragraph(" "));
+        
+        // Create table
+        PdfPTable table = new PdfPTable(4);
+        table.setWidthPercentage(100);
+        table.setWidths(new int[]{3, 2, 2, 2});
+        
+        Font tableHeaderFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+        
+        PdfPCell hcell;
+        hcell = new PdfPCell(new Phrase("Item", tableHeaderFont));
+        hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(hcell);
+        
+        hcell = new PdfPCell(new Phrase("Cleaning started", tableHeaderFont));
+        hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(hcell);
+        
+        hcell = new PdfPCell(new Phrase("Cleaning ended", tableHeaderFont));
+        hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(hcell);
+        
+        hcell = new PdfPCell(new Phrase("Cleaned By", tableHeaderFont));
+        hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(hcell);
+        
+        Font tableFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+        
+        for (Item item : cleansedItems) {
+            PdfPCell cell;
+            
+            cell = new PdfPCell(new Phrase(item.getName(), tableFont));
+            cell.setPaddingLeft(5);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(item.getCleaning().getPutToCleaningTime().toString(), tableFont));
+            cell.setPaddingLeft(5);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(item.getCleaning().getFinishCleaningTime().toString(), tableFont));
+            cell.setPaddingLeft(5);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(item.getCleaning().getRestaurateur().getFirstName() + ' ' + item.getCleaning().getRestaurateur().getLastName(), tableFont));
+            cell.setPaddingLeft(5);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+        }
+        
+        document.add(table);
+    }
+    
 
 }

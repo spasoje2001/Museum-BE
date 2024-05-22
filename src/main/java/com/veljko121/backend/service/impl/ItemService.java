@@ -104,4 +104,18 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         return itemsForDisplaying;
     }
 
+    public List<Item> getCleansedItemsForRestaurateur(Integer userId){
+
+        List<Item> itemsForDisplaying = new ArrayList<>();
+        List<Item> allItems = itemRepository.findAll();
+        for(Item item : allItems){
+            if(item.getCleaning() != null){
+                if(item.getCleaning().getStatus() == CleaningStatus.CLEANSED && item.getCleaning().getRestaurateur().getId() == userId){
+                    itemsForDisplaying.add(item);
+                }
+            }
+        }
+        return itemsForDisplaying;
+    }
+
 }
