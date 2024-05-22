@@ -1,5 +1,7 @@
 package com.veljko121.backend.service.impl;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,7 +98,9 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         Item item = itemRepository.findById(cleaning.getItemId()).orElseThrow(() -> new RuntimeException("Item not found with id: " + cleaning.getItemId()));
         // Update the status and curator of the cleaning
         cleaning.setStatus(CleaningStatus.INCLEANING);
+        cleaning.setPutToCleaningTime(LocalDate.now());
         item.getCleaning().setStatus(CleaningStatus.INCLEANING);
+        item.getCleaning().setPutToCleaningTime(LocalDate.now());
         // Save the updated cleaning
         return cleaningRepository.save(cleaning);
     }
@@ -107,7 +111,9 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         Item item = itemRepository.findById(cleaning.getItemId()).orElseThrow(() -> new RuntimeException("Item not found with id: " + cleaning.getItemId()));
         // Update the status and curator of the cleaning
         cleaning.setStatus(CleaningStatus.CLEANSED);
+        cleaning.setFinishCleaningTime(LocalDate.now());
         item.getCleaning().setStatus(CleaningStatus.CLEANSED);
+        item.getCleaning().setFinishCleaningTime(LocalDate.now());
         // Save the updated cleaning
         return cleaningRepository.save(cleaning);
     }

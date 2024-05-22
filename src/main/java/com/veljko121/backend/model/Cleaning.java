@@ -1,6 +1,7 @@
 package com.veljko121.backend.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.veljko121.backend.core.enums.CleaningStatus;
 
@@ -53,4 +54,9 @@ public class Cleaning {
     @Column()
     private String denialReason;
 
+    @Column()
+    private LocalDate putToCleaningTime;
+
+    @Column()
+    private LocalDate finishCleaningTime;
 }
