@@ -28,7 +28,13 @@ INSERT INTO restaurateur(id, biography) VALUES
     (8, 'I love restoring stuff.');
 
 INSERT INTO room(name, floor, number) VALUES
-    ('Main room', '1', '10');
+    ('Main room', '1', '11');
+
+INSERT INTO room(name, floor, number) VALUES
+    ('Side room', '1', '12');
+
+INSERT INTO room(name, floor, number) VALUES
+    ('Front room', '1', '13');
 
 -- VELJKO ZAKOMENTARISAO!
 -- INSERT INTO room_reservation(room_id, start_date_time, end_date_time, exhibition_id) VALUES
