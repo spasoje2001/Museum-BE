@@ -9,5 +9,8 @@ import com.itextpdf.text.DocumentException;
 public interface IPdfService {
     ByteArrayInputStream generateCleansedItemsPdf(Integer requestedBy) throws DocumentException, IOException;
     void saveCleansedItemsPdf(Integer requestedBy) throws DocumentException, IOException;
+    void saveRequestsPdf(Integer organizerId) throws DocumentException, IOException;
     ByteArrayInputStream generateCleansedItemsPdfForPersonal(Integer requestedBy) throws DocumentException, IOException;
-} 
+    ByteArrayInputStream generateRequestsPdf(Integer organizerId) throws DocumentException, IOException;
+    ByteArrayInputStream generateHandledRequestsPdf(Integer requestedBy) throws DocumentException, IOException;
+}
