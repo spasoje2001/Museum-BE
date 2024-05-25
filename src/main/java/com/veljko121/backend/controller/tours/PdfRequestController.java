@@ -40,13 +40,6 @@ public class PdfRequestController {
                 .body(new InputStreamResource(bis));
     }
 
-    @GetMapping("/save-pdf")
-    public ResponseEntity<String> savePdf() throws DocumentException, IOException {
-        Integer userId = jwtService.getLoggedInUserId();
-        pdfService.saveRequestsPdf(userId);
-        return ResponseEntity.ok("PDF saved to Desktop with a unique name.");
-    }
-
     @GetMapping("/generate-pdf-personal")
     public ResponseEntity<InputStreamResource> generatePdfPersonal() throws DocumentException, IOException {
         Integer userId = jwtService.getLoggedInUserId();
@@ -59,6 +52,13 @@ public class PdfRequestController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(bis));
+    }
+
+    @GetMapping("/save-pdf")
+    public ResponseEntity<String> savePdf() throws DocumentException, IOException {
+        Integer userId = jwtService.getLoggedInUserId();
+        pdfService.saveRequestsPdf(userId);
+        return ResponseEntity.ok("PDF saved to Desktop with a unique name.");
     }
 
 }

@@ -73,7 +73,7 @@ public class PdfService implements IPdfService {
 
     @Override
     public ByteArrayInputStream generateRequestsPdf(Integer organizerId) throws DocumentException, IOException {
-        List<PersonalTourRequest> requests = requestService.findByOrganizerId(organizerId);
+        List<PersonalTourRequest> requests = requestService.findRequestsForPreviousMonth();
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, out);
@@ -87,7 +87,7 @@ public class PdfService implements IPdfService {
 
     @Override
     public ByteArrayInputStream generateHandledRequestsPdf(Integer organizerId) throws DocumentException, IOException {
-        List<PersonalTourRequest> requests = requestService.findRequestsForPreviousMonth();
+        List<PersonalTourRequest> requests = requestService.findByOrganizerId(organizerId);
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, out);
@@ -284,16 +284,15 @@ public class PdfService implements IPdfService {
     private void addContentToRequestsDocument(Document document, Integer requestedBy, List<PersonalTourRequest> requests, boolean personal) throws DocumentException {
         User user = userService.findById(requestedBy);
         Font font = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+        Paragraph heading;
         if (!personal){
-            Paragraph heading = new Paragraph("Handled Personal Tour Requests Report", font);
-            heading.setAlignment(Element.ALIGN_CENTER);
-            document.add(heading);
+            heading = new Paragraph("Handled Personal Tour Requests Report", font);
         }
         else{
-            Paragraph heading = new Paragraph("Handled Personal Tour Requests Report for " + user.getFirstName() + ' ' + user.getLastName(), font);
-            heading.setAlignment(Element.ALIGN_CENTER);
-            document.add(heading);
+            heading = new Paragraph("Handled Personal Tour Requests Report by " + user.getFirstName() + ' ' + user.getLastName(), font);
         }
+        heading.setAlignment(Element.ALIGN_CENTER);
+        document.add(heading);
 
         document.add(new Paragraph(" "));
 
@@ -310,9 +309,18 @@ public class PdfService implements IPdfService {
 
         document.add(new Paragraph(" "));
 
-        PdfPTable table = new PdfPTable(6);
-        table.setWidthPercentage(100);
-        table.setWidths(new int[]{3, 2, 2, 2, 2, 4});
+        PdfPTable table;
+
+        if(personal){
+            table = new PdfPTable(6);
+            table.setWidthPercentage(100);
+            table.setWidths(new int[]{3, 2, 2, 2, 2, 4});
+        }
+        else{
+            table = new PdfPTable(7);
+            table.setWidthPercentage(100);
+            table.setWidths(new int[]{3, 2, 2, 2, 2, 4, 3});
+        }
 
         Font tableHeaderFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
@@ -340,6 +348,12 @@ public class PdfService implements IPdfService {
         hcell = new PdfPCell(new Phrase("Denial Reason", tableHeaderFont));
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
+
+        if(!personal){
+            hcell = new PdfPCell(new Phrase("Organizer", tableHeaderFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+        }
 
         Font tableFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
@@ -378,11 +392,25 @@ public class PdfService implements IPdfService {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(request.getDenialReason(), tableFont));
+            if(request.getDenialReason() != null){
+                cell = new PdfPCell(new Phrase(request.getDenialReason(), tableFont));
+            }
+            else{
+                cell = new PdfPCell(new Phrase("None", tableFont));
+            }
             cell.setPaddingLeft(5);
             cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
+
+            if(!personal){
+                cell = new PdfPCell(new Phrase(request.getOrganizer().getFirstName() + ' ' +
+                        request.getOrganizer().getLastName()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
         }
 
         document.add(table);
