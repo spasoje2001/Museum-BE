@@ -14,4 +14,5 @@ public interface ICleaningService extends ICRUDService<Cleaning, Integer> {
     List<Cleaning> getAllNewCleanings();
     Cleaning putItemToCleaning(Integer cleaningId);
     Cleaning finishleaning(Integer cleaningId);
+
 }

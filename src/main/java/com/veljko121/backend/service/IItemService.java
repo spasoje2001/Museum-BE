@@ -19,4 +19,7 @@ public interface IItemService extends ICRUDService<Item, Integer>{
 
     List<Item> findByName(String name);
 
+    List<Item> getCleansedItemsForPreviousMonth();
+    List<Item> getCleansedItemsForRestaurateur(Integer userId);
+
 }

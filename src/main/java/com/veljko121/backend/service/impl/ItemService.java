@@ -11,6 +11,8 @@ import com.veljko121.backend.repository.ItemRepository;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.service.IItemService;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +85,37 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
 
     public List<Item> findByName(String name) {
         return itemRepository.findByName(name);
+    }
+
+    public List<Item> getCleansedItemsForPreviousMonth() {
+        YearMonth previousMonth = YearMonth.now().minusMonths(1);
+        LocalDate startDate = previousMonth.atDay(1);
+        LocalDate endDate = previousMonth.atEndOfMonth();
+
+        List<Item> itemsForDisplaying = new ArrayList<>();
+        List<Item> allItems = itemRepository.findAll();
+        for(Item item : allItems){
+            if(item.getCleaning() != null){
+                if(item.getCleaning().getStatus() == CleaningStatus.CLEANSED && item.getCleaning().getFinishCleaningTime().isBefore(endDate) && item.getCleaning().getFinishCleaningTime().isAfter(startDate)){
+                    itemsForDisplaying.add(item);
+                }
+            }
+        }
+        return itemsForDisplaying;
+    }
+
+    public List<Item> getCleansedItemsForRestaurateur(Integer userId){
+
+        List<Item> itemsForDisplaying = new ArrayList<>();
+        List<Item> allItems = itemRepository.findAll();
+        for(Item item : allItems){
+            if(item.getCleaning() != null){
+                if(item.getCleaning().getStatus() == CleaningStatus.CLEANSED && item.getCleaning().getRestaurateur().getId() == userId){
+                    itemsForDisplaying.add(item);
+                }
+            }
+        }
+        return itemsForDisplaying;
     }
 
 }

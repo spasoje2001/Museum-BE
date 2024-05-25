@@ -112,3 +112,17 @@ INSERT INTO event_invitation(event_id, curator_id, status) VALUES
     (1, 7, 1),
     (1, 7, 0),
     (1, 7, 2);
+
+-- PDF Report za April
+INSERT INTO personal_tour_request(id, organizer_id, proposer_id, occurrence_date_time, denial_reason,
+                                  guest_number, proposer_contact_phone, status)
+VALUES (-1, 6, 2, '2024-04-10 16:00:00', NULL, 30, '0659443197', 'ACCEPTED'),
+       (-2, 6, 2, '2024-04-04 13:30:00', NULL, 20, '0659443197', 'ACCEPTED'),
+       (-3, 6, 2, '2024-04-20 12:00:00', 'Jer mi se moze muahahahaha', 15, '0659443197', 'DECLINED'),
+       (-4, 6, 4, '2024-04-24 11:00:00', 'Osoba koja je predlozila ovaj zahtev je ozloglaseni nub', 5, '0659443197', 'DECLINED'),
+       (-5, 6, 4, '2024-04-13 10:00:00', 'Tad smo prebukirani, pokusajte ponovo za nedelju dana!', 35, '0659443197', 'DECLINED'),
+       (-6, 6, 4, '2024-04-22 09:00:00', NULL, 27, '0659443197', 'ACCEPTED');
+
+INSERT INTO personal_tour_requests_exhibitions(exhibition_id, personal_tour_request_id)
+VALUES (1, -1), (2, -1), (1, -2), (2, -2), (3, -2), (2, -3), (3, -3),
+       (1, -4), (3, -4), (1, -5), (2, -5), (3, -6), (1, -6), (2, -6);
