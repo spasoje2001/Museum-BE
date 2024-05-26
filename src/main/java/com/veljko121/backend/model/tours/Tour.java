@@ -1,5 +1,6 @@
 package com.veljko121.backend.model.tours;
 
+import com.veljko121.backend.core.enums.TourCategory;
 import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.Organizer;
@@ -65,5 +66,9 @@ public class Tour {
     @NotEmpty
     @Column(nullable = false)
     private String capacity;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(20) default 'ON_HOLD'")
+    private TourCategory category;
 
 }
