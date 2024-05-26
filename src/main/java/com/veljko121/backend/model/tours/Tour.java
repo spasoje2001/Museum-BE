@@ -9,6 +9,7 @@ import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,9 +32,10 @@ public class Tour {
     @Column(nullable = false)
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "tours_exhibitions", joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
+    @ToString.Exclude
     private List<Exhibition> exhibitions = new ArrayList<>();
 
     @NotEmpty
@@ -68,7 +70,7 @@ public class Tour {
     private String capacity;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'ON_HOLD'")
+    @Column(nullable = false, columnDefinition = "varchar(20)")
     private TourCategory category;
 
 }
