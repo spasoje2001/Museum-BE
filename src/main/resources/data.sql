@@ -35,6 +35,10 @@ INSERT INTO room(name, floor, number) VALUES
 --     (1, '2024-06-15 18:00:00', '2024-06-15 20:00:00', NULL);
 INSERT INTO room_reservation(room_id, start_date_time, end_date_time) VALUES
     (1, '2024-06-15 18:00:00', '2024-06-15 20:00:00');
+INSERT INTO room_reservation (room_id, start_date_time, end_date_time) VALUES
+                                                                           (1, '2024-04-01 09:00', '2024-04-30 17:00'),
+                                                                           (1, '2024-05-15 09:00', '2024-06-15 17:00'),
+                                                                           (1, '2024-09-01 09:00', '2024-09-30 17:00');
 
 INSERT INTO event(name, description, start_date_time, duration_minutes, tickets_number, price, organizer_id, room_reservation_id, status) VALUES
     ('Salvador Dalí - Genius or Insane?', 'By visiting this event you will find out a lot about a very controversial individual by the name of Salvador Dalí. Many consider him to be a genius, but just as much portay him as a complete madman. Not sure about that? We invite you to make your own conclusion!', '2024-06-15 18:00:00', 120, 100, 20, 6, 1, 0);
@@ -45,31 +49,31 @@ INSERT INTO event_picture(event_id, path) VALUES
     (1, 'https://imgs.search.brave.com/FCrtKpHDATtFKiQn4cpy07ebDypWk-W5hCenI2c4aww/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zYWx2/YWRvcmRhbGlwcmlu/dHMub3JnL1NhbHZh/ZG9yJTIwRGFsaSUy/MFBhaW50aW5ncy5q/cGc_ZXppbWdmbXQ9/bmc6d2VicC9uZ2Ni/NC9yczpkZXZpY2Uv/cnNjYjQtMQ');
 
 INSERT INTO exhibition
-(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id, room_reservation_id)
 VALUES
     ('Ancient Civilizations Unveiled',
      'https://cdn.pixabay.com/photo/2024/03/27/01/21/ai-generated-8657978_640.png',
      'Discover the secrets of ancient civilizations',
      'Unearth the legacies of ancient societies through immersive exhibits and authentic artifacts that tell a story of innovation and discovery.',
-     'ANCIENT_HISTORY', 'OPEN', '2024-04-01', '2024-04-30', 10, 6, 7);
+     'ANCIENT_HISTORY', 'OPEN', '2024-04-01', '2024-04-30', 10, 6, 7, 1);
 
 INSERT INTO exhibition
-(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id, room_reservation_id)
 VALUES
     ('Medieval Treasures',
      'https://cdn.pixabay.com/photo/2024/04/02/02/24/ai-generated-8669925_640.png',
      'Explore the medieval era',
      'Delve into the Middle Ages with treasures that reveal the daily life, art, and the grandeur of a time cloaked in both darkness and enlightenment.',
-     'MEDIEVAL_HISTORY', 'READY_TO_OPEN', '2024-05-15', '2024-06-15', 12, 6, 7);
+     'MEDIEVAL_HISTORY', 'READY_TO_OPEN', '2024-05-15', '2024-06-15', 12, 6, 7, 2);
 
 INSERT INTO exhibition
-(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id)
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id, room_reservation_id)
 VALUES
     ('Military History: Triumphs and Tragedies',
      'https://cdn.pixabay.com/photo/2020/04/19/17/44/war-5064697_640.jpg',
      'Explore the triumphs and tragedies of military history',
      'Explore pivotal moments of military history, showcasing the tactics, artifacts, and personal stories that echo through time.',
-     'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 6, 7);
+     'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 6, 7, 3);
 
 -- VELJKO ZAKOMENTARISAO!
 -- INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
@@ -92,6 +96,10 @@ INSERT INTO item(category, cleaning_id, id, room_id, authors_name, description, 
 (0, null, -2, null,'Lenoardo da Vinci', 'Momenat Judine izdaje', 'Tajna vecera', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbanjalucanke.com%2Fwp-content%2Fuploads%2F2018%2F04%2Ftajna-vecera.jpg&f=1&nofb=1&ipt=c1c4810e054d5fc837614e051123e735ec0b9c4fb967e8a5d227ed45ee689a8a&ipo=images', '1498'),
 (0, null, -3, null,'Vincent van Gogh', 'Pogled sa istocnog prozora azilantske sobe', 'Zvezdana noc', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fde%2FVincent_van_Gogh_Starry_Night.jpg&f=1&nofb=1&ipt=5cc303de5ac08f9b5cc8a5c90dabb9e38ef72fa5b9d06e3752bb42d942bf820e&ipo=images', '1889');
 
+INSERT INTO item_reservation (item_id, start_date_time, end_date_time, exhibition_id) VALUES
+                                                                                          (-1, '2024-04-01 09:00', '2024-04-30 17:00', 1),
+                                                                                          (-2, '2024-05-15 09:00', '2024-06-15 17:00', 2),
+                                                                                          (-3, '2024-09-01 09:00', '2024-09-30 17:00', 3);
 
 -- VELJKO ZAKOMENTARISAO!
 -- INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)

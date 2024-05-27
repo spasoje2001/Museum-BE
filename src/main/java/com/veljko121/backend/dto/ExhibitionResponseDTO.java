@@ -20,5 +20,5 @@ public class ExhibitionResponseDTO {
     private Integer price;
     private OrganizerResponseDTO organizer; // Assuming OrganizerResponseDTO is defined
     private CuratorResponseDTO curator; // Assuming CuratorResponseDTO is defined
-    private List<RoomReservationResponseDTO> roomReservations; // Assuming RoomReservationResponseDTO is defined
+    private RoomReservationResponseDTO roomReservation; // Assuming RoomReservationResponseDTO is defined
 }

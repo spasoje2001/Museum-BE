@@ -1,10 +1,14 @@
 package com.veljko121.backend.controller;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.veljko121.backend.util.DateUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +42,31 @@ public class RoomController {
             .map(room -> modelMapper.map(room, Room.class))
             .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/availableDates")
+    public ResponseEntity<?> getAvailableRooms(
+            @RequestParam("startDate") @DateTimeFormat(pattern = "dd.MM.yyyy.") String startDateStr,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "dd.MM.yyyy.") String endDateStr) {
+        try {
+            // Convert String to Date
+            Date startDate = DateUtil.stringToDate(startDateStr);
+            Date endDate = DateUtil.stringToDate(endDateStr);
+
+            // Call the service method to find available rooms
+            List<Room> availableRooms = roomService.findAvailableRooms(startDate, endDate);
+
+            // If you have a RoomDTO, map the Room entities to RoomDTOs
+            // Otherwise, directly return the Room entities
+            // Replace 'RoomResponse' with your actual DTO class if you have one
+            var response = availableRooms.stream()
+                    .map(room -> modelMapper.map(room, Room.class))
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(response);
+        } catch (ParseException e) {
+            return ResponseEntity.badRequest().body("Invalid date format. Please use the pattern dd.MM.yyyy.");
+        }
     }
 
     @GetMapping(path = "/available-for-update/{eventId}")

@@ -24,8 +24,8 @@ public class ItemReservation {
     @Column
     private LocalDateTime endDateTime; // Changed from durationMinutes to endDateTime
 
-    // @ManyToOne
-    // @JoinColumn(name = "room_reservation_id")
-    // private RoomReservation roomReservation;
+    @ManyToOne
+    @JoinColumn(name = "exhibition_id")
+    private Exhibition exhibition;
 
 }

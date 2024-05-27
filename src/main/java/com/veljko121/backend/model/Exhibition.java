@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.Remove;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,8 +25,6 @@ public class Exhibition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
-    @Column(nullable = false)
     private String name;
 
     private String picture;
@@ -46,7 +45,7 @@ public class Exhibition {
     private Date startDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate; // Nullable, null means it's a permanent exhibition
+    private Date endDate;
 
     @PositiveOrZero
     @Column(nullable = false)
@@ -60,28 +59,15 @@ public class Exhibition {
     @JoinColumn(name = "curator_id")
     private Curator curator;
 
-    /* VELJKO ZAKOMENTARISAO!
-       Pojašnjenje u RoomReservation.java.
-       Uz to, ovo može napraviti problem sa rekurzijom ako se nalazi u obe klase, dovoljno je imati samo 1 referencu u nekoj od klasa.
-    */
-    // @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    // private List<RoomReservation> roomReservations;
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "room_reservation_id")
+    private RoomReservation roomReservation;
+
+    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemReservation> itemReservations = new ArrayList<>();
 
     public void setOrganizer(Organizer organizer) {
         this.organizer = organizer;
-    }
-
-    public void assignCurator(Curator newCurator) {
-        // If there's an existing curator, remove this exhibition from their list
-//        if (this.curator != null) {
-//            this.curator.getExhibitions().remove(this);
-//        }
-//        // Assign the new curator
-//        this.curator = newCurator;
-//        // If the new curator is not null, add this exhibition to their list
-//        if (newCurator != null) {
-//            newCurator.getExhibitions().add(this);
-//        }
     }
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})

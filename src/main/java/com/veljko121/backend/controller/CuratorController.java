@@ -1,5 +1,6 @@
 package com.veljko121.backend.controller;
 
+import com.veljko121.backend.dto.CuratorResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -46,11 +47,15 @@ public class CuratorController {
         var curatorResponse = modelMapper.map(curator, Curator.class);
         return ResponseEntity.ok().body(curatorResponse);
     }
-    
+
+
+
     @GetMapping(path = "profile")
     public ResponseEntity<?> getProfile() {
         return getById(jwtService.getLoggedInUserId());
     }
+
+
     
     @PutMapping
     public ResponseEntity<?> updateProfile(@RequestBody CuratorUpdateProfileRequestDTO requestDTO) {
