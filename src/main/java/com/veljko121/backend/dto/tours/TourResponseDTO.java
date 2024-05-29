@@ -1,5 +1,6 @@
 package com.veljko121.backend.dto.tours;
 
+import com.veljko121.backend.core.enums.TourCategory;
 import com.veljko121.backend.dto.ExhibitionResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,4 +34,7 @@ public class TourResponseDTO {
     private String capacity;
 
     private String picturePath;
+
+    private TourCategory category;
+
 }
