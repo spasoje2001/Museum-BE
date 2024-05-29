@@ -118,3 +118,8 @@ INSERT INTO event_invitation(event_id, curator_id, status) VALUES
     (1, 7, 1),
     (1, 7, 0),
     (1, 7, 2);
+
+
+CREATE OR REPLACE TRIGGER trg_cleaning_audit
+BEFORE INSERT OR UPDATE OR DELETE ON cleaning
+FOR EACH ROW EXECUTE FUNCTION trg_cleaning_audit_func();
