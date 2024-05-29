@@ -11,6 +11,7 @@ import com.veljko121.backend.model.tours.Tour;
 import com.veljko121.backend.service.IExhibitionService;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
+import com.veljko121.backend.service.impl.tours.TourService;
 import com.veljko121.backend.service.tours.IPersonalTourRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,6 +35,7 @@ public class PersonalTourRequestController {
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
+    private final TourService tourService;
 
     @PostMapping
     @PreAuthorize("hasRole('GUEST')")
@@ -60,11 +62,12 @@ public class PersonalTourRequestController {
     @PutMapping
     @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> update(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
-        var exhibitionDTOs = requestDTO.getExhibitions();
-        // mora zbog mapiranja
-        requestDTO.setExhibitions(null);
-        PersonalTourRequest request = modelMapper.map(requestDTO, PersonalTourRequest.class);
+        var request = personalTourRequestService.findById(requestDTO.getId());
+        request.setGuestNumber(requestDTO.getGuestNumber());
+        request.setOccurrenceDateTime(requestDTO.getOccurrenceDateTime());
+        request.setProposerContactPhone(requestDTO.getProposerContactPhone());
 
+        var exhibitionDTOs = requestDTO.getExhibitions();
         List<Exhibition> fetchedExhibitions = exhibitionDTOs.stream()
                 .map(exhibition -> exhibitionService.findById(exhibition.getId()))
                 .collect(Collectors.toList());
@@ -75,7 +78,7 @@ public class PersonalTourRequestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
     }
 
-    @PutMapping("handle")
+    @PutMapping("/handle")
     @PreAuthorize("hasRole('ORGANIZER')")
     public ResponseEntity<?> handle(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
         var request = personalTourRequestService.findById(requestDTO.getId());
