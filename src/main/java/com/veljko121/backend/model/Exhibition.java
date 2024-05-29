@@ -97,7 +97,7 @@ public class Exhibition {
     @ToString.Exclude
     private List<PersonalTour> personalTours = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
     @JoinTable(name = "personal_tour_requests_exhibitions",
             joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))

@@ -2,6 +2,7 @@ package com.veljko121.backend.service.impl.tours;
 
 import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.model.tours.PersonalTourRequest;
+import com.veljko121.backend.model.tours.Tour;
 import com.veljko121.backend.repository.tours.PersonalTourRequestRepository;
 import com.veljko121.backend.service.tours.IPersonalTourRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,11 @@ public class PersonalTourRequestService extends CRUDService<PersonalTourRequest,
 
     public List<PersonalTourRequest> findByOrganizerId(Integer organizerId){
         return personalTourRequestRepository.findByOrganizerId(organizerId);
+    }
+
+    @Override
+    public void delete(PersonalTourRequest request){
+        personalTourRequestRepository.delete(request);
     }
 
 }
