@@ -7,6 +7,7 @@ import com.veljko121.backend.dto.tours.PersonalTourRequestResponseDTO;
 import com.veljko121.backend.dto.tours.PersonalTourRequestUpdateDTO;
 import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.tours.PersonalTourRequest;
+import com.veljko121.backend.model.tours.Tour;
 import com.veljko121.backend.service.IExhibitionService;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
@@ -57,9 +58,18 @@ public class PersonalTourRequestController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ORGANIZER')")
+    @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> update(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
+        var request = personalTourRequestService.findById(requestDTO.getId());
 
+        personalTourRequestService.update(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
+    }
+
+    @PutMapping("handle")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> handle(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
         var request = personalTourRequestService.findById(requestDTO.getId());
 
         var id = jwtService.getLoggedInUserId();
@@ -100,6 +110,19 @@ public class PersonalTourRequestController {
                 .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(requestResponse);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('GUEST')")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        PersonalTourRequest request = personalTourRequestService.findById(id);
+
+        if (request != null) {
+            personalTourRequestService.delete(request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
