@@ -64,7 +64,7 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         List<Item> allItems = itemRepository.findAll();
         for(Item item : allItems){
             if(item.getCleaning() != null){
-                if(item.getCleaning().getStatus() == CleaningStatus.CLEANSED && item.getRoom() == null){
+                if(item.getCleaning().getStatus() == CleaningStatus.CLEANSED){
                     itemsForDisplaying.add(item);
                 }
             }

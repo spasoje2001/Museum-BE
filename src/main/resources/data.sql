@@ -28,7 +28,13 @@ INSERT INTO restaurateur(id, biography) VALUES
     (8, 'I love restoring stuff.');
 
 INSERT INTO room(name, floor, number) VALUES
-    ('Main room', '1', '10');
+    ('Main room', '1', '11');
+
+INSERT INTO room(name, floor, number) VALUES
+    ('Side room', '1', '12');
+
+INSERT INTO room(name, floor, number) VALUES
+    ('Front room', '1', '13');
 
 -- VELJKO ZAKOMENTARISAO!
 -- INSERT INTO room_reservation(room_id, start_date_time, end_date_time, exhibition_id) VALUES
@@ -113,6 +119,11 @@ INSERT INTO event_invitation(event_id, curator_id, status) VALUES
     (1, 7, 0),
     (1, 7, 2);
 
+
+CREATE OR REPLACE TRIGGER trg_cleaning_audit
+BEFORE INSERT OR UPDATE OR DELETE ON cleaning
+FOR EACH ROW EXECUTE FUNCTION trg_cleaning_audit_func();
+
 -- PDF Report za April
 INSERT INTO personal_tour_request(id, organizer_id, proposer_id, occurrence_date_time, denial_reason,
                                   guest_number, proposer_contact_phone, status)
@@ -134,3 +145,4 @@ CREATE TRIGGER personal_tour_request_trigger
     ON personal_tour_request
     FOR EACH ROW
 EXECUTE FUNCTION ptr_trigger_fn();
+
