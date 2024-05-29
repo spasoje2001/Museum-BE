@@ -60,7 +60,15 @@ public class PersonalTourRequestController {
     @PutMapping
     @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> update(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
-        var request = personalTourRequestService.findById(requestDTO.getId());
+        var exhibitionDTOs = requestDTO.getExhibitions();
+        // mora zbog mapiranja
+        requestDTO.setExhibitions(null);
+        PersonalTourRequest request = modelMapper.map(requestDTO, PersonalTourRequest.class);
+
+        List<Exhibition> fetchedExhibitions = exhibitionDTOs.stream()
+                .map(exhibition -> exhibitionService.findById(exhibition.getId()))
+                .collect(Collectors.toList());
+        request.setExhibitions(fetchedExhibitions);
 
         personalTourRequestService.update(request);
 
