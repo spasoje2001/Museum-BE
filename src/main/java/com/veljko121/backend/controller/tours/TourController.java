@@ -63,7 +63,7 @@ public class TourController {
     public ResponseEntity<?> findAll() {
         List<Tour> tours = tourService.findAll();
         var tourResponse = tours.stream()
-                .map(tour -> modelMapper.map(tour, Tour.class))
+                .map(tour -> modelMapper.map(tour, TourResponseDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(tourResponse);
     }

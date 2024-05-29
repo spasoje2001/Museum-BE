@@ -14,4 +14,7 @@ public interface PersonalTourRequestRepository extends JpaRepository<PersonalTou
     @Query("SELECT r FROM PersonalTourRequest r WHERE r.status = 'IN_PROGRESS'")
     List<PersonalTourRequest> findInProgress();
 
+    @Query("SELECT r FROM PersonalTourRequest r WHERE r.organizer.id = ?1")
+    List<PersonalTourRequest> findByOrganizerId(Integer organizerId);
+
 }

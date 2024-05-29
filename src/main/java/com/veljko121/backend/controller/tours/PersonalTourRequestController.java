@@ -7,9 +7,11 @@ import com.veljko121.backend.dto.tours.PersonalTourRequestResponseDTO;
 import com.veljko121.backend.dto.tours.PersonalTourRequestUpdateDTO;
 import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.tours.PersonalTourRequest;
+import com.veljko121.backend.model.tours.Tour;
 import com.veljko121.backend.service.IExhibitionService;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
+import com.veljko121.backend.service.impl.tours.TourService;
 import com.veljko121.backend.service.tours.IPersonalTourRequestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,6 +35,7 @@ public class PersonalTourRequestController {
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
+    private final TourService tourService;
 
     @PostMapping
     @PreAuthorize("hasRole('GUEST')")
@@ -57,9 +60,27 @@ public class PersonalTourRequestController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ORGANIZER')")
+    @PreAuthorize("hasRole('GUEST')")
     public ResponseEntity<?> update(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
+        var request = personalTourRequestService.findById(requestDTO.getId());
+        request.setGuestNumber(requestDTO.getGuestNumber());
+        request.setOccurrenceDateTime(requestDTO.getOccurrenceDateTime());
+        request.setProposerContactPhone(requestDTO.getProposerContactPhone());
 
+        var exhibitionDTOs = requestDTO.getExhibitions();
+        List<Exhibition> fetchedExhibitions = exhibitionDTOs.stream()
+                .map(exhibition -> exhibitionService.findById(exhibition.getId()))
+                .collect(Collectors.toList());
+        request.setExhibitions(fetchedExhibitions);
+
+        personalTourRequestService.update(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
+    }
+
+    @PutMapping("/handle")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> handle(@RequestBody PersonalTourRequestUpdateDTO requestDTO) {
         var request = personalTourRequestService.findById(requestDTO.getId());
 
         var id = jwtService.getLoggedInUserId();
@@ -100,6 +121,19 @@ public class PersonalTourRequestController {
                 .map(request -> modelMapper.map(request, PersonalTourRequestResponseDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(requestResponse);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('GUEST')")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        PersonalTourRequest request = personalTourRequestService.findById(id);
+
+        if (request != null) {
+            personalTourRequestService.delete(request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
