@@ -7,12 +7,11 @@ import com.veljko121.backend.dto.tours.PersonalTourRequestResponseDTO;
 import com.veljko121.backend.dto.tours.PersonalTourRequestUpdateDTO;
 import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.tours.PersonalTourRequest;
-import com.veljko121.backend.model.tours.Tour;
 import com.veljko121.backend.service.IExhibitionService;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
-import com.veljko121.backend.service.impl.tours.TourService;
 import com.veljko121.backend.service.tours.IPersonalTourRequestService;
+import com.veljko121.backend.service.tours.ITourService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,6 @@ public class PersonalTourRequestController {
     private final IJwtService jwtService;
 
     private final ModelMapper modelMapper;
-    private final TourService tourService;
 
     @PostMapping
     @PreAuthorize("hasRole('GUEST')")
