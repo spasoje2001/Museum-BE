@@ -1,7 +1,6 @@
 package com.veljko121.backend.service.impl;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -116,6 +115,14 @@ public class CleaningService extends CRUDService<Cleaning, Integer> implements I
         item.getCleaning().setFinishCleaningTime(LocalDate.now());
         // Save the updated cleaning
         return cleaningRepository.save(cleaning);
+    }
+
+    @Override
+    public void delete(Cleaning cleaning){
+        Item item = itemRepository.findById(cleaning.getItemId()).orElseThrow();
+        item.setCleaning(null);
+        itemRepository.save(item);
+        cleaningRepository.delete(cleaning);
     }
 
 }
