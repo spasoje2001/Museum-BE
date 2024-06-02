@@ -19,6 +19,7 @@ import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.CleaningCreateDTO;
 import com.veljko121.backend.model.Cleaning;
 import com.veljko121.backend.model.CleaningJournal;
+import com.veljko121.backend.model.tours.PersonalTourRequest;
 import com.veljko121.backend.service.ICleaningJournalService;
 import com.veljko121.backend.service.ICleaningService;
 
@@ -79,11 +80,18 @@ public class CleaningController {
         return cleaningJournalService.findAll();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Cleaning> deleteCleaning(@RequestBody CleaningCreateDTO cleaningDTO) {
-        var cleaning = modelMapper.map(cleaningDTO, Cleaning.class);
-        cleaningService.delete(cleaning);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Cleaning> deleteCleaning(@PathVariable Integer id) {
+         Cleaning cleaning = cleaningService.findById(id);
+
+        if (cleaning != null) {
+            cleaningService.delete(cleaning);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
+    
     
 }
