@@ -51,6 +51,10 @@ public class Exhibition {
     @Column(nullable = false)
     private Integer price; // The price in whole euros
 
+    @PositiveOrZero
+    @Column(nullable = false)
+    private Integer ticketsSold; // The price in whole euros
+
     @ManyToOne
     @JoinColumn(name = "organizer_id")
     private Organizer organizer;
@@ -63,7 +67,7 @@ public class Exhibition {
     @JoinColumn(name = "room_reservation_id")
     private RoomReservation roomReservation;
 
-    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemReservation> itemReservations = new ArrayList<>();
 
     public void setOrganizer(Organizer organizer) {
@@ -102,6 +106,10 @@ public class Exhibition {
         Date currentDate = new Date();
         // The exhibition is ongoing if it has started and either has no end date (permanent) or hasn't ended yet (temporary).
         return !currentDate.before(startDate) && (endDate == null || currentDate.before(endDate));
+    }
+
+    public Double getRevenue() {
+        return (double)price*ticketsSold;
     }
 
     public boolean isFree() {

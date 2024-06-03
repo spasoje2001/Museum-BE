@@ -14,11 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExhibitionService extends CRUDService<Exhibition, Integer> implements IExhibitionService {
@@ -74,6 +73,55 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         savedExhibition.setName("Exhibition Proposal: " + savedExhibition.getId());
 
         return exhibitionRepository.save(savedExhibition);
+    }
+
+    @Override
+    public List<Exhibition> getExhibitionsForPreviousMonth() {
+        YearMonth previousMonth = YearMonth.now().minusMonths(1);
+        LocalDate startOfMonth = previousMonth.atDay(1);
+        LocalDate endOfMonth = previousMonth.atEndOfMonth();
+
+        Date startDateOfPreviousMonth = Date.from(startOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDateOfPreviousMonth = Date.from(endOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<Exhibition> allExhibitions = exhibitionRepository.findAll();
+
+        return allExhibitions.stream()
+                .filter(exhibition -> isValidStatus(exhibition.getStatus()) && isOverlapping(exhibition.getStartDate(), exhibition.getEndDate(), startDateOfPreviousMonth, endDateOfPreviousMonth))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Exhibition> getExhibitionsForPreviousYear(Integer curatorId) {
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the start and end dates for the previous year
+        LocalDate startDateOfPreviousYear = currentDate.minusYears(1);
+
+        // Convert LocalDate to Date
+        Date startDate = Date.from(startDateOfPreviousYear.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<Exhibition> allExhibitions = exhibitionRepository.findAll();
+
+        // Get all exhibitions for the previous year
+        return allExhibitions.stream()
+                .filter(exhibition -> exhibition.getCurator().getId().equals(curatorId))
+                .filter(exhibition -> isValidStatus(exhibition.getStatus()))
+                .filter(exhibition -> isOverlapping(exhibition.getStartDate(), exhibition.getEndDate(), startDate, endDate))
+                .collect(Collectors.toList());
+    }
+
+    private boolean isOverlapping(Date exhibitionStartDate, Date exhibitionEndDate, Date startDateOfPreviousMonth, Date endDateOfPreviousMonth) {
+        return (exhibitionStartDate.before(endDateOfPreviousMonth) || exhibitionStartDate.equals(endDateOfPreviousMonth)) &&
+                (exhibitionEndDate.after(startDateOfPreviousMonth) || exhibitionEndDate.equals(startDateOfPreviousMonth));
+    }
+
+
+    private boolean isValidStatus(ExhibitionStatus status) {
+        return status == ExhibitionStatus.OPEN ||
+                status == ExhibitionStatus.CLOSED ||
+                status == ExhibitionStatus.ARCHIVED;
     }
 
     @Override

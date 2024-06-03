@@ -55,31 +55,31 @@ INSERT INTO event_picture(event_id, path) VALUES
     (1, 'https://imgs.search.brave.com/FCrtKpHDATtFKiQn4cpy07ebDypWk-W5hCenI2c4aww/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zYWx2/YWRvcmRhbGlwcmlu/dHMub3JnL1NhbHZh/ZG9yJTIwRGFsaSUy/MFBhaW50aW5ncy5q/cGc_ZXppbWdmbXQ9/bmc6d2VicC9uZ2Ni/NC9yczpkZXZpY2Uv/cnNjYjQtMQ');
 
 INSERT INTO exhibition
-(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id, room_reservation_id)
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, tickets_sold, organizer_id, curator_id, room_reservation_id)
 VALUES
     ('Ancient Civilizations Unveiled',
      'https://cdn.pixabay.com/photo/2024/03/27/01/21/ai-generated-8657978_640.png',
      'Discover the secrets of ancient civilizations',
      'Unearth the legacies of ancient societies through immersive exhibits and authentic artifacts that tell a story of innovation and discovery.',
-     'ANCIENT_HISTORY', 'OPEN', '2024-04-01', '2024-04-30', 10, 6, 7, 1);
+     'ANCIENT_HISTORY', 'OPEN', '2024-04-01', '2024-04-30', 10, 760, 6, 7, 1);
 
 INSERT INTO exhibition
-(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id, room_reservation_id)
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, tickets_sold, organizer_id, curator_id, room_reservation_id)
 VALUES
     ('Medieval Treasures',
      'https://cdn.pixabay.com/photo/2024/04/02/02/24/ai-generated-8669925_640.png',
      'Explore the medieval era',
      'Delve into the Middle Ages with treasures that reveal the daily life, art, and the grandeur of a time cloaked in both darkness and enlightenment.',
-     'MEDIEVAL_HISTORY', 'READY_TO_OPEN', '2024-05-15', '2024-06-15', 12, 6, 7, 2);
+     'MEDIEVAL_HISTORY', 'OPEN', '2024-05-15', '2024-06-15', 12, 800, 6, 7, 2);
 
 INSERT INTO exhibition
-(name, picture, short_description, long_description, theme, status, start_date, end_date, price, organizer_id, curator_id, room_reservation_id)
+(name, picture, short_description, long_description, theme, status, start_date, end_date, price, tickets_sold, organizer_id, curator_id, room_reservation_id)
 VALUES
     ('Military History: Triumphs and Tragedies',
      'https://cdn.pixabay.com/photo/2020/04/19/17/44/war-5064697_640.jpg',
      'Explore the triumphs and tragedies of military history',
      'Explore pivotal moments of military history, showcasing the tactics, artifacts, and personal stories that echo through time.',
-     'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 6, 7, 3);
+     'MILITARY_HISTORY', 'READY_TO_OPEN', '2024-09-01', '2024-09-30', 12, 900, 6, 7, 3);
 
 -- VELJKO ZAKOMENTARISAO!
 -- INSERT INTO room_reservation (room_id, start_date_time, end_date_time, exhibition_id)
@@ -103,6 +103,17 @@ INSERT INTO item(category, cleaning_id, id, room_id, authors_name, description, 
 (0, NULL, -3, null,'Vincent van Gogh', 'Pogled sa istocnog prozora azilantske sobe', 'Zvezdana noc', 'Novi vek', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fde%2FVincent_van_Gogh_Starry_Night.jpg&f=1&nofb=1&ipt=5cc303de5ac08f9b5cc8a5c90dabb9e38ef72fa5b9d06e3752bb42d942bf820e&ipo=images', '1889'),
 (0, NULL, -4, null,'Gustav Klimt', 'Najsladji poljubac', 'Poljubac', 'Novi vek', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/The_Scream.jpg/450px-The_Scream.jpg', '1889'),
 (0, NULL, -5, null,'Edvard Munk', 'Vrisak koji su culi svi na svetu', 'Vrisak', 'Novi vek', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/El_beso%28Gustav_Klimt%29.jpg/640px-El_beso%28Gustav_Klimt%29.jpg', '1889');
+
+
+INSERT INTO item_reservation (item_id, start_date_time, end_date_time, exhibition_id)
+SELECT item.id, '2024-05-15 09:00:00', '2024-06-15 17:00:00', 2
+FROM item
+LIMIT 2;
+
+INSERT INTO item_reservation (item_id, start_date_time, end_date_time, exhibition_id)
+SELECT item.id, '2024-06-01 09:00:00', '2024-06-30 17:00:00', 1
+FROM item
+LIMIT 3;
 
 -- VELJKO ZAKOMENTARISAO!
 -- INSERT INTO item_reservation (item_id, start_date_time, end_date_time, room_reservation_id)
@@ -169,7 +180,7 @@ WHERE id = -3;
 --FOR EACH ROW
 --EXECUTE FUNCTION ptr_trigger_fn();
 
-CREATE OR REPLACE TRIGGER trg_cleaning_audit
-BEFORE INSERT OR UPDATE OR DELETE ON cleaning
-FOR EACH ROW
-EXECUTE FUNCTION trg_cleaning_audit_func();
+--CREATE OR REPLACE TRIGGER trg_cleaning_audit
+--BEFORE INSERT OR UPDATE OR DELETE ON cleaning
+--FOR EACH ROW
+--EXECUTE FUNCTION trg_cleaning_audit_func();
