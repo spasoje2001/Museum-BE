@@ -174,13 +174,13 @@ WHERE id = -3;
 
 -- SBP TRIGGERS
 
---CREATE TRIGGER personal_tour_request_trigger
---BEFORE INSERT OR DELETE OR UPDATE OF denial_reason, status, organizer_id
---ON personal_tour_request
---FOR EACH ROW
---EXECUTE FUNCTION ptr_trigger_fn();
+CREATE TRIGGER personal_tour_request_trigger
+BEFORE INSERT OR DELETE OR UPDATE OF denial_reason, status, organizer_id
+ON personal_tour_request
+FOR EACH ROW
+EXECUTE FUNCTION ptr_trigger_fn();
 
---CREATE OR REPLACE TRIGGER trg_cleaning_audit
---BEFORE INSERT OR UPDATE OR DELETE ON cleaning
---FOR EACH ROW
---EXECUTE FUNCTION trg_cleaning_audit_func();
+CREATE OR REPLACE TRIGGER trg_cleaning_audit
+BEFORE INSERT OR UPDATE OR DELETE ON cleaning
+FOR EACH ROW
+EXECUTE FUNCTION trg_cleaning_audit_func();
