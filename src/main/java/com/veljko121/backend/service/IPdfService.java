@@ -13,4 +13,7 @@ public interface IPdfService {
     ByteArrayInputStream generateCleansedItemsPdfForPersonal(Integer requestedBy) throws DocumentException, IOException;
     ByteArrayInputStream generateRequestsPdf(Integer organizerId) throws DocumentException, IOException;
     ByteArrayInputStream generateHandledRequestsPdf(Integer requestedBy) throws DocumentException, IOException;
+    ByteArrayInputStream generateExhibitionReport(Integer organizerId) throws DocumentException, IOException;
+    ByteArrayInputStream generateCuratorExhibitionReport(Integer curatorId) throws DocumentException, IOException;
+
 }

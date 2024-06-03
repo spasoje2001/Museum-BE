@@ -3,6 +3,8 @@ package com.veljko121.backend.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -80,6 +82,25 @@ public class RoomReservationService extends CRUDService<RoomReservation, Integer
             }
         }
         return true;
+    }
+
+    public Collection<Room> findAvailableRoomsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        Set<Room> availableRooms = new HashSet<>(); // Use a Set to avoid duplicates
+        for (var room : roomRepository.findAll()) {
+            boolean isAvailable = true;
+            for (var reservation : roomReservationRepository.findByRoom(room)) {
+                if (startDate.isBefore(reservation.getEndDateTime()) &&
+                        endDate.isAfter(reservation.getStartDateTime())) {
+                    isAvailable = false;
+                    break;
+                }
+            }
+            if (isAvailable) {
+                availableRooms.add(room); // HashSet will only add unique rooms
+            }
+
+        }
+        return availableRooms; // Return the Set, which contains only distinct rooms
     }
     
 }

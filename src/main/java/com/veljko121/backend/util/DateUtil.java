@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
-    private static final String DATE_FORMAT = "dd.MM.yyyy"; // Define the date format
+    private static final String DATE_FORMAT = "dd.MM.yyyy."; // Define the date format
 
     public static String dateToString(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -14,7 +14,11 @@ public class DateUtil {
 
     public static Date stringToDate(String dateString) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        return sdf.parse(dateString);
+        try {
+            return sdf.parse(dateString);
+        } catch (ParseException e) {
+            // Log the exception, handle it, or throw an unchecked exception
+            throw new IllegalArgumentException("Invalid date format. Please use this pattern: " + DATE_FORMAT, e);
+        }
     }
-
 }
