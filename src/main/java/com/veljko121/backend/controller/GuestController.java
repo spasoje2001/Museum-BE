@@ -36,6 +36,7 @@ public class GuestController {
     private final Logger logger;
 
     @GetMapping(path = "{id}")
+    @PreAuthorize("hasAnyRole('GUEST', 'ORGANIZER', 'ADMIN')")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         var guest = guestService.findById(id);
         var guestResponse = modelMapper.map(guest, GuestResponseDTO.class);

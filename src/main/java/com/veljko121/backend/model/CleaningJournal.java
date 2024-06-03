@@ -1,5 +1,6 @@
 package com.veljko121.backend.model;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,12 +20,15 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "cleaning")
-public class Cleaning {
+@Table(name = "cleaning_journal")
+public class CleaningJournal {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false)
+    private Integer cleaningId;
 
     @NotEmpty
     @Column(nullable = false)
@@ -59,4 +63,14 @@ public class Cleaning {
 
     @Column()
     private LocalDate finishCleaningTime;
+
+    @Column(name = "version")
+    private Integer version;
+
+    @Column()
+    private String operationType;
+
+    @Column()
+    private LocalDateTime changeDate;
+
 }

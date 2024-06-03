@@ -28,6 +28,7 @@ public class ExhibitionMapper {
         dto.setPrice(exhibition.getPrice());
         dto.setOrganizer(mapToOrganizerDTO(exhibition.getOrganizer()));
         dto.setCurator(mapToCuratorDTO(exhibition.getCurator()));
+        dto.setRoomReservation(mapToRoomReservationDTO(exhibition.getRoomReservation()));
         // Map roomReservations and other properties as needed
         // List<RoomReservationResponseDTO> roomReservationsDTO = exhibition.getRoomReservations()
         //         .stream()

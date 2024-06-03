@@ -18,4 +18,6 @@ public interface IRoomReservationService extends ICRUDService<RoomReservation, I
 
     Boolean isRoomAvailableForUpdating(Room room, LocalDateTime startDateTime, Integer durationMinutes, RoomReservation roomReservation);
 
+    Collection<Room> findAvailableRoomsBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+
 }

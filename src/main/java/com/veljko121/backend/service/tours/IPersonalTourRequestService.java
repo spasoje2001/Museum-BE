@@ -14,4 +14,8 @@ public interface IPersonalTourRequestService extends ICRUDService<PersonalTourRe
     List<PersonalTourRequest> findAll();
 
     List<PersonalTourRequest> findInProgress();
+
+    List<PersonalTourRequest> findRequestsForPreviousMonth();
+
+    List<PersonalTourRequest> findByOrganizerId(Integer organizerId);
 }
