@@ -15,10 +15,7 @@ public class ExhibitionResponseDTO {
     private String longDescription;
     private ExhibitionTheme theme;
     private ExhibitionStatus status;
-    private String startDate;
-    private String endDate;
-    private Integer price;
-    private OrganizerResponseDTO organizer; // Assuming OrganizerResponseDTO is defined
+    private ExhibitionProposalResponseDTO proposal;
     private CuratorResponseDTO curator; // Assuming CuratorResponseDTO is defined
-    private RoomReservationResponseDTO roomReservation; // Assuming RoomReservationResponseDTO is defined
+    private List<ItemReservationResponseDTO> itemReservations;
 }

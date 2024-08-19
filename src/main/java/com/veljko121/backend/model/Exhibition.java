@@ -2,9 +2,6 @@ package com.veljko121.backend.model;
 
 import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.enums.ExhibitionTheme;
-import com.veljko121.backend.model.tours.PersonalTour;
-import com.veljko121.backend.model.tours.PersonalTourRequest;
-import com.veljko121.backend.model.tours.Tour;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -13,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.Remove;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,9 +58,12 @@ public class Exhibition {
     private List<Review> reviews = new ArrayList<>();
 
     public boolean isOngoing() {
-        Date currentDate = new Date();
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate = exhibitionProposal.getStartDate();
+        LocalDate endDate = exhibitionProposal.getEndDate();
+
         // The exhibition is ongoing if it has started and either has no end date (permanent) or hasn't ended yet (temporary).
-        return !currentDate.before(exhibitionProposal.getStartDate()) && (exhibitionProposal.getEndDate() == null || currentDate.before(exhibitionProposal.getEndDate()));
+        return !currentDate.isBefore(startDate) && (endDate == null || currentDate.isBefore(endDate));
     }
 
     public BigDecimal getRevenue() {

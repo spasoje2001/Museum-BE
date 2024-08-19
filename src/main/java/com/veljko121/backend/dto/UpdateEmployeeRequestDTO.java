@@ -11,9 +11,4 @@ public class UpdateEmployeeRequestDTO {
     private String username;
     private String password;
     private Role role;
-
-
-    // Optionally include currentPassword and newPassword fields if you want to allow password change
-    // private String currentPassword;
-    // private String newPassword;
 }

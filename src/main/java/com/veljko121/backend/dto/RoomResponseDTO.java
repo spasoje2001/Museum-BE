@@ -7,7 +7,6 @@ public class RoomResponseDTO {
 
     private Integer id;
     private String name;
-    private String floor;
     private String number;
     
 }

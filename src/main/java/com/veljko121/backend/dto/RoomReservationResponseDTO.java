@@ -9,14 +9,8 @@ import org.springframework.cglib.core.Local;
 public class RoomReservationResponseDTO {
 
     private Integer id;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private String startDate;
+    private String endDate;
     private RoomResponseDTO room;
-/*
-    public LocalDateTime getEndDateTime() {
-        return startDateTime.plusMinutes(durationMinutes);
-    }
 
- */
-    
 }

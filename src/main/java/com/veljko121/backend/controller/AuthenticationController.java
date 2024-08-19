@@ -18,7 +18,6 @@ import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.model.Organizer;
-import com.veljko121.backend.model.Restaurateur;
 import com.veljko121.backend.service.IAuthenticationService;
 import com.veljko121.backend.service.IUserService;
 
@@ -90,10 +89,6 @@ public class AuthenticationController {
             }else if(requestDTO.getRole() == Role.ORGANIZER){
                 var user = modelMapper.map(requestDTO, Organizer.class);
                 authenticationService.registerOrganizer(user);
-                jwt = jwtService.generateJwt(user);
-            }else if(requestDTO.getRole() == Role.RESTAURATEUR){
-                var user = modelMapper.map(requestDTO, Restaurateur.class);
-                authenticationService.registerRestaurateur(user);
                 jwt = jwtService.generateJwt(user);
             }
 

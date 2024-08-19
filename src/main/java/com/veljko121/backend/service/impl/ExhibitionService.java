@@ -38,7 +38,7 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         super(repository);
         exhibitionRepository = repository;
     }
-
+    /*
     @Transactional
     public Exhibition proposeExhibition(ExhibitionProposalDTO proposalDTO) {
         Exhibition exhibition = new Exhibition();
@@ -112,6 +112,8 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
                 .collect(Collectors.toList());
     }
 
+     */
+
     private boolean isOverlapping(Date exhibitionStartDate, Date exhibitionEndDate, Date startDateOfPreviousMonth, Date endDateOfPreviousMonth) {
         return (exhibitionStartDate.before(endDateOfPreviousMonth) || exhibitionStartDate.equals(endDateOfPreviousMonth)) &&
                 (exhibitionEndDate.after(startDateOfPreviousMonth) || exhibitionEndDate.equals(startDateOfPreviousMonth));
@@ -127,5 +129,20 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     @Override
     public List<Exhibition> findAll() {
         return exhibitionRepository.findAll();
+    }
+
+    @Override
+    public Exhibition proposeExhibition(ExhibitionProposalDTO proposalDTO) {
+        return null;
+    }
+
+    @Override
+    public List<Exhibition> getExhibitionsForPreviousMonth() {
+        return null;
+    }
+
+    @Override
+    public List<Exhibition> getExhibitionsForPreviousYear(Integer curatorId) {
+        return null;
     }
 }

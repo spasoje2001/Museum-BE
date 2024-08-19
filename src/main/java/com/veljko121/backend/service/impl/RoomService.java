@@ -1,6 +1,7 @@
 package com.veljko121.backend.service.impl;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -38,14 +39,9 @@ public class RoomService extends CRUDService<Room, Integer> implements IRoomServ
     }
 
     @Override
-    public List<Room> findAvailableRooms(Date startDate, Date endDate) {
-        LocalDateTime startDateTime = startDate.toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime endDateTime = endDate.toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-
+    public List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate) {
         // Use the RoomReservationService to find available rooms
-        Collection<Room> availableRooms = roomReservationService.findAvailableRoomsBetweenDates(startDateTime, endDateTime);
+        Collection<Room> availableRooms = roomReservationService.findAvailableRoomsBetweenDates(startDate, endDate);
 
         // Convert to List if necessary or directly return the collection
         return new ArrayList<>(availableRooms);

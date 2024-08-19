@@ -12,13 +12,11 @@ import com.veljko121.backend.dto.CredentialsDTO;
 import com.veljko121.backend.model.Curator;
 import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.model.Organizer;
-import com.veljko121.backend.model.Restaurateur;
 import com.veljko121.backend.model.User;
 import com.veljko121.backend.service.IAuthenticationService;
 import com.veljko121.backend.service.ICuratorService;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IOrganizerService;
-import com.veljko121.backend.service.IRestaurateurService;
 import com.veljko121.backend.service.IUserService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,8 +31,6 @@ public class AuthenticationService implements IAuthenticationService {
     private final IGuestService guestService;
 
     private final ICuratorService curatorService;
-
-    private final IRestaurateurService restaurateurService;
 
     private final IOrganizerService organizerService;
 
@@ -61,13 +57,6 @@ public class AuthenticationService implements IAuthenticationService {
         //organizer.setRole(Role.ORGANIZER);
         organizer.setPassword(passwordEncoder.encode(organizer.getPassword()));
         return organizerService.save(organizer);
-    }
-
-    @Override
-    public User registerRestaurateur(Restaurateur restaurateur) {
-        //restaurateur.setRole(Role.RESTAURATEUR);
-        restaurateur.setPassword(passwordEncoder.encode(restaurateur.getPassword()));
-        return restaurateurService.save(restaurateur);
     }
 
     @Transactional
@@ -105,11 +94,6 @@ public class AuthenticationService implements IAuthenticationService {
                     organizerService.deleteById(id);
                     break;
                 // ... other cases
-                case RESTAURATEUR:
-                    Restaurateur restaurateur = restaurateurService.findById(id);
-                    biography = restaurateur.getBiography();
-                    restaurateurService.deleteById(id);
-                    break;
             }
 
             switch (requestDTO.getRole()) {
@@ -127,13 +111,6 @@ public class AuthenticationService implements IAuthenticationService {
                     organizer.setBiography(biography);
                     organizerService.save(organizer);
                     break;
-                case RESTAURATEUR:
-                    Restaurateur restaurateur = new Restaurateur();
-                    copyUserFieldsToSubclass(user, restaurateur);
-                    restaurateur.setBiography(biography);
-                    restaurateurService.save(restaurateur);
-                    break;
-                // ... other cases
             }
         }
     }

@@ -1,7 +1,9 @@
 package com.veljko121.backend.controller;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.service.IRoomReservationService;
-import com.veljko121.backend.service.impl.events.EventService;
 import com.veljko121.backend.service.IRoomService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,18 +32,8 @@ public class RoomController {
 
     private final IRoomReservationService roomReservationService;
     private final IRoomService roomService;
-    private final EventService eventService;
 
     private final ModelMapper modelMapper;
-
-    @GetMapping(path = "/available")
-    public ResponseEntity<?> getAvailableRoomsByTimespan(@RequestParam String startDateTime, @RequestParam Integer durationMinutes) {
-        var rooms = roomReservationService.findAvailableRoomsByTimespan(LocalDateTime.parse(startDateTime), durationMinutes);
-        var response = rooms.stream()
-            .map(room -> modelMapper.map(room, Room.class))
-            .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
 
     @GetMapping("/availableDates")
     public ResponseEntity<?> getAvailableRooms(
@@ -50,8 +41,8 @@ public class RoomController {
             @RequestParam("endDate") @DateTimeFormat(pattern = "dd.MM.yyyy.") String endDateStr) {
         try {
             // Convert String to Date
-            Date startDate = DateUtil.stringToDate(startDateStr);
-            Date endDate = DateUtil.stringToDate(endDateStr);
+            LocalDate startDate = DateUtil.stringToDate(startDateStr);
+            LocalDate endDate = DateUtil.stringToDate(endDateStr);
 
             // Call the service method to find available rooms
             List<Room> availableRooms = roomService.findAvailableRooms(startDate, endDate);
@@ -64,20 +55,11 @@ public class RoomController {
                     .collect(Collectors.toList());
 
             return ResponseEntity.ok(response);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             return ResponseEntity.badRequest().body("Invalid date format. Please use the pattern dd.MM.yyyy.");
         }
     }
 
-    @GetMapping(path = "/available-for-update/{eventId}")
-    public ResponseEntity<?> getAvailableRoomsForUpdating(@PathVariable Integer eventId, @RequestParam String startDateTime, @RequestParam Integer durationMinutes) {
-        var event = eventService.findById(eventId);
-        var rooms = roomReservationService.findAvailableRoomsForUpdating(event, LocalDateTime.parse(startDateTime), durationMinutes);
-        var response = rooms.stream()
-            .map(room -> modelMapper.map(room, Room.class))
-            .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
 
     @GetMapping
     public ResponseEntity<?> findAll() {

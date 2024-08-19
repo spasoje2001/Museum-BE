@@ -11,9 +11,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class ExhibitionMapper {
-
-
-
     public ExhibitionResponseDTO mapToDTO(Exhibition exhibition) {
         ExhibitionResponseDTO dto = new ExhibitionResponseDTO();
         dto.setId(exhibition.getId());
@@ -23,20 +20,44 @@ public class ExhibitionMapper {
         dto.setLongDescription(exhibition.getLongDescription());
         dto.setTheme(exhibition.getTheme());
         dto.setStatus(exhibition.getStatus());
-        dto.setStartDate(DateUtil.dateToString(exhibition.getStartDate()));
-        dto.setEndDate(DateUtil.dateToString(exhibition.getEndDate()));
-        dto.setPrice(exhibition.getPrice());
-        dto.setOrganizer(mapToOrganizerDTO(exhibition.getOrganizer()));
         dto.setCurator(mapToCuratorDTO(exhibition.getCurator()));
-        dto.setRoomReservation(mapToRoomReservationDTO(exhibition.getRoomReservation()));
-        // Map roomReservations and other properties as needed
-        // List<RoomReservationResponseDTO> roomReservationsDTO = exhibition.getRoomReservations()
-        //         .stream()
-        //         .map(this::mapToRoomReservationDTO)
-        //         .collect(Collectors.toList());
-        // dto.setRoomReservations(roomReservationsDTO);
+
+        // Map ExhibitionProposal properties
+        ExhibitionProposal proposal = exhibition.getExhibitionProposal();
+        dto.setProposal(mapToProposalDTO(proposal));
+
+        // Map item reservations
+        List<ItemReservationResponseDTO> itemReservationsDTO = exhibition.getItemReservations()
+                .stream()
+                .map(this::mapToItemReservationDTO)
+                .collect(Collectors.toList());
+        dto.setItemReservations(itemReservationsDTO);
+
         return dto;
     }
+
+    private ExhibitionProposalResponseDTO mapToProposalDTO(ExhibitionProposal proposal) {
+        if (proposal == null) {
+            return null;
+        }
+
+        ExhibitionProposalResponseDTO proposalDTO = new ExhibitionProposalResponseDTO();
+        proposalDTO.setId(proposal.getId());
+        proposalDTO.setStartDate(DateUtil.dateToString(proposal.getStartDate()));
+        proposalDTO.setEndDate(DateUtil.dateToString(proposal.getEndDate()));
+
+        // Map the organizer details to OrganizerResponseDTO
+        proposalDTO.setOrganizer(mapToOrganizerDTO(proposal.getOrganizer()));
+
+        // Map the room details to RoomResponseDTO
+        proposalDTO.setRoom(mapToRoomDTO(proposal.getRoomReservation().getRoom()));
+
+        // Map the price list details to ExhibitionPriceListResponseDTO
+        proposalDTO.setPriceList(mapToPriceListDTO(proposal.getExhibitionPriceList()));
+
+        return proposalDTO;
+    }
+
 
 
     private OrganizerResponseDTO mapToOrganizerDTO(Organizer organizer) {
@@ -70,17 +91,49 @@ public class ExhibitionMapper {
         // Map curator properties
         return curatorDTO;
     }
-    private RoomReservationResponseDTO mapToRoomReservationDTO(RoomReservation roomReservation) {
-        if (roomReservation == null) {
-            return null; // Return null if the input is null
+
+    private ExhibitionPriceListResponseDTO mapToPriceListDTO(ExhibitionPriceList priceList) {
+        if (priceList == null) {
+            return null;
         }
-        RoomReservationResponseDTO roomReservationDTO = new RoomReservationResponseDTO();
-        roomReservationDTO.setId(roomReservation.getId());
-        roomReservationDTO.setStartDateTime(roomReservation.getStartDateTime());
-        roomReservationDTO.setEndDateTime(roomReservation.getEndDateTime());
-        roomReservationDTO.setRoom(mapToRoomDTO(roomReservation.getRoom())); // Assuming method mapToRoomDTO exists
-        // Map other properties as needed
-        return roomReservationDTO;
+
+        ExhibitionPriceListResponseDTO priceListDTO = new ExhibitionPriceListResponseDTO();
+        priceListDTO.setAdultPrice(priceList.getAdultTicketPrice());  // Map the adult price
+        priceListDTO.setMinorPrice(priceList.getMinorTicketPrice());  // Map the children price
+
+        return priceListDTO;
+    }
+
+    private ItemReservationResponseDTO mapToItemReservationDTO(ItemReservation itemReservation) {
+        if (itemReservation == null) {
+            return null;
+        }
+
+        ItemReservationResponseDTO itemReservationDTO = new ItemReservationResponseDTO();
+        itemReservationDTO.setId(itemReservation.getId());
+        itemReservationDTO.setStartDate(DateUtil.dateToString(itemReservation.getStartDate()));  // Assuming LocalDate or LocalDateTime
+        itemReservationDTO.setEndDate(DateUtil.dateToString(itemReservation.getEndDate()));  // Assuming LocalDate or LocalDateTime
+        itemReservationDTO.setItem(mapToItemDTO(itemReservation.getItem()));  // Map the associated Item to ItemResponseDTO
+
+        return itemReservationDTO;
+    }
+
+    private ItemResponseDTO mapToItemDTO(Item item) {
+        if (item == null) {
+            return null;
+        }
+
+        ItemResponseDTO itemDTO = new ItemResponseDTO();
+        itemDTO.setId(item.getId());
+        itemDTO.setName(item.getName());
+        itemDTO.setDescription(item.getDescription());
+        itemDTO.setAuthorsName(item.getAuthorsName());
+        itemDTO.setYearOfCreation(item.getYearOfCreation());
+        itemDTO.setPeriod(item.getPeriod());
+        itemDTO.setCategory(item.getCategory());
+        itemDTO.setPicture(item.getPicture());
+
+        return itemDTO;
     }
 
     private RoomResponseDTO mapToRoomDTO(Room room) {
@@ -90,9 +143,7 @@ public class ExhibitionMapper {
         RoomResponseDTO roomDTO = new RoomResponseDTO();
         roomDTO.setId(room.getId());
         roomDTO.setName(room.getName());
-        roomDTO.setFloor(room.getFloor());
         roomDTO.setNumber(room.getNumber());
-        // Map other properties as needed
         return roomDTO;
     }
 
