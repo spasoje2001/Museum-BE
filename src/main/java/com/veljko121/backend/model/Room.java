@@ -13,13 +13,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "room")
+@NoArgsConstructor
 public class Room {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,13 +31,16 @@ public class Room {
     private String name;
 
     @NotEmpty
-    @Column(nullable = false)
-    private String floor;
-
-    @NotEmpty
+    @Pattern(regexp = "^[1-9][0-9]{2}$", message = "Room number must be in the format '101', '212', etc.")
     @Column(unique = true, nullable = false)
     private String number;
 
-//    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
-//    private List<Item> items;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomReservation> roomReservations = new ArrayList<>();
+
+    public Room(String name, String number) {
+        this.name = name;
+        this.number = number;
+    }
+
 }

@@ -2,23 +2,17 @@ package com.veljko121.backend.model;
 
 import com.veljko121.backend.core.enums.ItemCategory;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
-@Table(name = "item")
+@NoArgsConstructor
 public class Item {
     
     @Id
@@ -50,11 +44,17 @@ public class Item {
     @Column(nullable = false)
     private String picture;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemReservation> itemReservations = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cleaning_id")
-    private Cleaning cleaning;
+    public Item(String name, String description, String authorsName, String yearOfCreation, String period, ItemCategory category, String picture) {
+        this.name = name;
+        this.description = description;
+        this.authorsName = authorsName;
+        this.yearOfCreation = yearOfCreation;
+        this.period = period;
+        this.category = category;
+        this.picture = picture;
+    }
+
 }

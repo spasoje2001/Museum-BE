@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.Remove;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,11 +21,15 @@ import java.util.List;
 @Data
 public class Exhibition {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToOne
+    @JoinColumn(name = "exhibition_proposal_id", nullable = false)
+    private ExhibitionProposal exhibitionProposal;
+
+    @Column(nullable = false)
     private String name;
 
     private String picture;
@@ -41,79 +46,41 @@ public class Exhibition {
     @Enumerated(EnumType.STRING)
     private ExhibitionStatus status;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-
-    @PositiveOrZero
-    @Column(nullable = false)
-    private Integer price; // The price in whole euros
-
-    @PositiveOrZero
-    @Column(nullable = false)
-    private Integer ticketsSold; // The price in whole euros
-
-    @ManyToOne
-    @JoinColumn(name = "organizer_id")
-    private Organizer organizer;
-
     @ManyToOne
     @JoinColumn(name = "curator_id")
     private Curator curator;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "room_reservation_id")
-    private RoomReservation roomReservation;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemReservation> itemReservations = new ArrayList<>();
 
-    public void setOrganizer(Organizer organizer) {
-        this.organizer = organizer;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinTable(name = "tours_exhibitions", joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
-    @ToString.Exclude
-    private List<Tour> tours = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinTable(name = "personal_tours_exhibitions",
-            joinColumns = @JoinColumn(name = "personal_tour_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
-    @ToString.Exclude
-    private List<PersonalTour> personalTours = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
-    @JoinTable(name = "personal_tour_requests_exhibitions",
-            joinColumns = @JoinColumn(name = "personal_tour_request_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "exhibition_id", referencedColumnName = "id"))
-    @ToString.Exclude
-    private List<PersonalTourRequest> personalTourRequests = new ArrayList<>();
-
-    public boolean isPermanent() {
-        return endDate == null;
-    }
-
-    public boolean isTemporary() {
-        return endDate != null;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     public boolean isOngoing() {
         Date currentDate = new Date();
         // The exhibition is ongoing if it has started and either has no end date (permanent) or hasn't ended yet (temporary).
-        return !currentDate.before(startDate) && (endDate == null || currentDate.before(endDate));
+        return !currentDate.before(exhibitionProposal.getStartDate()) && (exhibitionProposal.getEndDate() == null || currentDate.before(exhibitionProposal.getEndDate()));
     }
 
-    public Double getRevenue() {
-        return (double)price*ticketsSold;
+    public BigDecimal getRevenue() {
+        return tickets.stream()
+                .map(Ticket::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public boolean isFree() {
-        return price == null || price == 0;
+        return tickets.isEmpty() || tickets.stream()
+                .allMatch(ticket -> BigDecimal.ZERO.compareTo(ticket.getTotalPrice()) == 0);
+    }
+
+    public double getAverageRating() {
+        return reviews.stream()
+                .mapToInt(Review::getRating)
+                .average()
+                .orElse(0.0);
     }
 
 }
