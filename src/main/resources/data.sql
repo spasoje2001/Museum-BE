@@ -37,14 +37,14 @@ INSERT INTO exhibition_pricelist(adult_ticket_price, minor_ticket_price) VALUES
 
 
 INSERT INTO room_reservation(room_id, start_date, end_date) VALUES
-    (1, '2024-06-15', '2024-06-15'),
-    (2, '2024-04-01', '2024-04-30'),
-    (3, '2024-05-15', '2024-06-15');
+    (1, '2024-04-01', '2024-04-30'),
+    (2, '2024-05-15', '2024-09-15'),
+    (3, '2024-09-01', '2024-09-30');
 
 
 INSERT INTO exhibition_proposal(start_date, end_date, organizer_id, room_reservation_id, pricelist_id, proposal_date) VALUES
     ('2024-04-01', '2024-04-30', 6, 1, 1, '2024-03-15'),
-    ('2024-05-15', '2024-06-15', 6, 2, 2, '2024-04-01'),
+    ('2024-05-15', '2024-09-15', 6, 2, 2, '2024-04-01'),
     ('2024-09-01', '2024-09-30', 6, 3, 3, '2024-08-01');
 
 
@@ -57,7 +57,7 @@ VALUES
      'https://cdn.pixabay.com/photo/2024/03/27/01/21/ai-generated-8657978_640.png',
      'Discover the secrets of ancient civilizations',
      'Unearth the legacies of ancient societies through immersive exhibits and authentic artifacts that tell a story of innovation and discovery.',
-     'ANCIENT_HISTORY', 'OPEN', 7, 1);
+     'ANCIENT_HISTORY', 'CLOSED', 7, 1);
 
 INSERT INTO exhibition
 (name, picture, short_description, long_description, theme, status, curator_id, exhibition_proposal_id)
@@ -66,7 +66,7 @@ VALUES
      'https://cdn.pixabay.com/photo/2024/04/02/02/24/ai-generated-8669925_640.png',
      'Explore the medieval era',
      'Delve into the Middle Ages with treasures that reveal the daily life, art, and the grandeur of a time cloaked in both darkness and enlightenment.',
-     'MEDIEVAL_HISTORY', 'OPEN', 7, 2);
+     'MEDIEVAL_HISTORY', 'OPENED', 7, 2);
 
 INSERT INTO exhibition
 (name, picture, short_description, long_description, theme, status, curator_id, exhibition_proposal_id)
@@ -87,14 +87,14 @@ INSERT INTO item(category, id, authors_name, description, name, period, picture,
 
 -- Insert Item Reservations for "Medieval Treasures" Exhibition (ID 2)
 INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALUES
-    (-1, '2024-05-15', '2024-06-15', 2),
-    (-2, '2024-05-15', '2024-06-15', 2);
+    (-1, '2024-05-15', '2024-09-15', 2),
+    (-2, '2024-05-15', '2024-09-15', 2);
 
 -- Insert Item Reservations for "Ancient Civilizations Unveiled" Exhibition (ID 1)
 INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALUES
-    (-3, '2024-06-01', '2024-06-30', 1),
-    (-4, '2024-06-01', '2024-06-30', 1),
-    (-5, '2024-06-01', '2024-06-30', 1);
+    (-3, '2024-04-01', '2024-04-30', 1),
+    (-4, '2024-04-01', '2024-04-30', 1),
+    (-5, '2024-04-01', '2024-04-30', 1);
 
 
 

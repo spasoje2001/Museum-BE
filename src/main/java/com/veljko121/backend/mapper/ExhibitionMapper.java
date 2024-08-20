@@ -50,7 +50,7 @@ public class ExhibitionMapper {
         proposalDTO.setOrganizer(mapToOrganizerDTO(proposal.getOrganizer()));
 
         // Map the room details to RoomResponseDTO
-        proposalDTO.setRoom(mapToRoomReservationDTO(proposal.getRoomReservation()));
+        proposalDTO.setRoomReservation(mapToRoomReservationDTO(proposal.getRoomReservation()));
 
         // Map the price list details to ExhibitionPriceListResponseDTO
         proposalDTO.setPriceList(mapToPriceListDTO(proposal.getExhibitionPriceList()));
@@ -155,10 +155,12 @@ public class ExhibitionMapper {
         }
         RoomResponseDTO roomDTO = new RoomResponseDTO();
         roomDTO.setId(room.getId());
-        roomDTO.setName(roomDTO.getName());
-        roomDTO.setNumber(roomDTO.getNumber());
+        roomDTO.setName(room.getName());
+        roomDTO.setNumber(room.getNumber());
         return roomDTO;
     }
+
+
 
 
 }

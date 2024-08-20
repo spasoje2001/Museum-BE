@@ -121,9 +121,9 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
 
 
     private boolean isValidStatus(ExhibitionStatus status) {
-        return status == ExhibitionStatus.OPEN ||
-                status == ExhibitionStatus.CLOSED ||
-                status == ExhibitionStatus.ARCHIVED;
+        return status == ExhibitionStatus.READY_TO_OPEN ||
+                status == ExhibitionStatus.OPENED ||
+                status == ExhibitionStatus.CLOSED;
     }
 
     @Override
