@@ -9,16 +9,15 @@ import java.util.Date;
 
 public class DateUtil {
     private static final String DATE_FORMAT = "dd.MM.yyyy."; // Define the date format
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     public static String dateToString(LocalDate date) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        return sdf.format(date);
+        return date.format(FORMATTER);
     }
 
     public static LocalDate stringToDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         try {
-            return LocalDate.parse(dateString, formatter);
+            return LocalDate.parse(dateString, FORMATTER);
         } catch (DateTimeParseException e) {
             // Log the exception, handle it, or throw an unchecked exception
             throw new IllegalArgumentException("Invalid date format. Please use this pattern: " + DATE_FORMAT, e);

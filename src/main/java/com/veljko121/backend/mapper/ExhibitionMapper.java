@@ -50,7 +50,7 @@ public class ExhibitionMapper {
         proposalDTO.setOrganizer(mapToOrganizerDTO(proposal.getOrganizer()));
 
         // Map the room details to RoomResponseDTO
-        proposalDTO.setRoom(mapToRoomDTO(proposal.getRoomReservation().getRoom()));
+        proposalDTO.setRoom(mapToRoomReservationDTO(proposal.getRoomReservation()));
 
         // Map the price list details to ExhibitionPriceListResponseDTO
         proposalDTO.setPriceList(mapToPriceListDTO(proposal.getExhibitionPriceList()));
@@ -136,14 +136,27 @@ public class ExhibitionMapper {
         return itemDTO;
     }
 
-    private RoomResponseDTO mapToRoomDTO(Room room) {
-        if (room == null) {
+    private RoomReservationResponseDTO mapToRoomReservationDTO(RoomReservation roomReservation) {
+        if (roomReservation == null) {
             return null; // Return null if the input is null
+        }
+        RoomReservationResponseDTO roomDTO = new RoomReservationResponseDTO();
+        roomDTO.setId(roomReservation.getId());
+        roomDTO.setStartDate(DateUtil.dateToString(roomReservation.getStartDate()));
+        roomDTO.setEndDate(DateUtil.dateToString(roomReservation.getEndDate()));
+        roomDTO.setRoom(mapToRoomDTO(roomReservation.getRoom()));
+
+        return roomDTO;
+    }
+
+    private RoomResponseDTO mapToRoomDTO(Room room){
+        if (room == null){
+            return null;
         }
         RoomResponseDTO roomDTO = new RoomResponseDTO();
         roomDTO.setId(room.getId());
-        roomDTO.setName(room.getName());
-        roomDTO.setNumber(room.getNumber());
+        roomDTO.setName(roomDTO.getName());
+        roomDTO.setNumber(roomDTO.getNumber());
         return roomDTO;
     }
 

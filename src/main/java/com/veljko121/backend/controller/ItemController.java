@@ -36,15 +36,16 @@ public class ItemController {
         itemService.save(item);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemDTO);
     }
-    
+
     @GetMapping
     public ResponseEntity<?> findAll() {
         List<Item> items = itemService.findAll();
         var itemResponse = items.stream()
-                .map(tour -> modelMapper.map(tour, Item.class))
+                .map(item -> modelMapper.map(item, ItemResponseDTO.class))
                 .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
     }
+
 
     @GetMapping("/{itemId}")
     public Item getItem(@PathVariable Integer itemId) {
