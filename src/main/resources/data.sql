@@ -1,4 +1,8 @@
 -- var password = username;
+--ALTER TABLE exhibition ALTER COLUMN long_description TYPE TEXT;
+
+
+
 INSERT INTO _user(email, username, password, first_name, last_name, role, is_account_locked) VALUES
     ('nikolicveljko01@gmail.com', 'veljko', '$2a$10$kVZ6MkAdppKk5GtbzjsgbubBx1Uos0EOTdiY9mIBA5XwWy1ezVQam', 'Veljko', 'Nikolić', 0, false),
     ('vule.dok@gmail.com', 'dokma', '$2a$10$jicdgzoNyODhfwtEuXsYHelIRjzFZ5zIgqcXlHfoy9BROPAnWV2y2', 'Vukašin', 'Dokmanović', 0, false),
@@ -83,8 +87,9 @@ INSERT INTO item(category, id, authors_name, description, name, period, picture,
     (0, -2, 'Leonardo da Vinci', 'Momenat Judine izdaje', 'Tajna večera', 'Renaissance', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbanjalucanke.com%2Fwp-content%2Fuploads%2F2018%2F04%2Ftajna-vecera.jpg&f=1&nofb=1&ipt=c1c4810e054d5fc837614e051123e735ec0b9c4fb967e8a5d227ed45ee689a8a&ipo=images', '1498'),
     (0, -3, 'Vincent van Gogh', 'Pogled sa istočnog prozora azilantske sobe', 'Zvezdana noć', 'Post-Impressionism', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fde%2FVincent_van_Gogh_Starry_Night.jpg&f=1&nofb=1&ipt=5cc303de5ac08f9b5cc8a5c90dabb9e38ef72fa5b9d06e3752bb42d942bf820e&ipo=images', '1889'),
     (0, -4, 'Gustav Klimt', 'Najsladji poljubac', 'Poljubac', 'Symbolism', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/The_Scream.jpg/450px-The_Scream.jpg', '1907'),
-    (0, -5, 'Edvard Munch', 'Vrisak koji su čuli svi na svetu', 'Vrisak', 'Expressionism', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/El_beso%28Gustav_Klimt%29.jpg/640px-El_beso%28Gustav_Klimt%29.jpg', '1893');
-
+    (0, -5, 'Edvard Munch', 'Vrisak koji su čuli svi na svetu', 'Vrisak', 'Expressionism', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/El_beso%28Gustav_Klimt%29.jpg/640px-El_beso%28Gustav_Klimt%29.jpg', '1893'),
+    (0, -6, 'Vincent Van Gogh', 'Auto portret', 'Ja', 'Expressionism', 'https://upload.wikimedia.org/wikipedia/commons/3/38/VanGogh_1887_Selbstbildnis.jpg', '1933'),
+    (0, -7, 'Cukioka', 'Divna slika', 'Onogawa', 'Renaissance', 'https://uploads7.wikiart.org/images/tsukioka-yoshitoshi/onogawa.jpg', '1650');
 -- Insert Item Reservations for "Medieval Treasures" Exhibition (ID 2)
 INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALUES
     (-1, '2024-05-15', '2024-09-15', 2),
@@ -94,7 +99,11 @@ INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALU
 INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALUES
     (-3, '2024-04-01', '2024-04-30', 1),
     (-4, '2024-04-01', '2024-04-30', 1),
-    (-5, '2024-04-01', '2024-04-30', 1);
+    (-5, '2024-04-01', '2024-04-30', 1),
+    (-6, '2024-04-01', '2024-04-30', 1),
+    (-7, '2024-04-01', '2024-04-30', 1),
+    (-1, '2024-04-01', '2024-04-30', 1),
+    (-2, '2024-04-01', '2024-04-30', 1);
 
 
 

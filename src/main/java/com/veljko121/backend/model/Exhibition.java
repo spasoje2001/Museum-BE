@@ -35,7 +35,7 @@ public class Exhibition {
     @Column
     private String shortDescription;
 
-    @Column
+    @Column(name = "long_description", columnDefinition = "TEXT")
     private String longDescription;
 
     @Enumerated(EnumType.STRING)

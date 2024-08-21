@@ -23,8 +23,7 @@ public class Item {
     @Column(nullable = false)
     private String name;
 
-    @NotEmpty
-    @Column(nullable = false)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = true)
