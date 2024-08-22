@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@Table(name = "tickets")
+@Table(name = "ticket")
 public class Ticket {
 
     @Id
@@ -21,14 +21,14 @@ public class Ticket {
     @Column(name = "number_of_adults", nullable = false)
     private int numberOfAdults;
 
-    @Column(name = "numbber_of_minors", nullable = false)
+    @Column(name = "number_of_minors", nullable = false)
     private int numberOfMinors;
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
 
     @ManyToOne // Veza sa posetiocem, mnoge karte mogu biti kupljene od strane jednog posetioca
-    @JoinColumn(name = "visitor_id", nullable = false) // Strani ključ za posetioca
+    @JoinColumn(name = "guest_id", nullable = false) // Strani ključ za posetioca
     private Guest guest;
 
     // Konstruktor bez argumenata potreban za JPA

@@ -3,14 +3,14 @@
 
 
 
-INSERT INTO _user(email, username, password, first_name, last_name, role, is_account_locked) VALUES
-    ('nikolicveljko01@gmail.com', 'veljko', '$2a$10$kVZ6MkAdppKk5GtbzjsgbubBx1Uos0EOTdiY9mIBA5XwWy1ezVQam', 'Veljko', 'Nikolić', 0, false),
-    ('vule.dok@gmail.com', 'dokma', '$2a$10$jicdgzoNyODhfwtEuXsYHelIRjzFZ5zIgqcXlHfoy9BROPAnWV2y2', 'Vukašin', 'Dokmanović', 0, false),
-    ('spale01@gmail.com', 'spale', '$2a$10$NhX4GkvqpZTas4mZa9wxuevS.8VCi70t3tKXVekdD5/VCg2Hf.kAu', 'Spasoje', 'Brborić', 0, false),
-    ('kuzminacn@gmail.com', 'nina', '$2a$10$XxmC.cIEK6XvYUVOa2HvTOlMQlIk0J6oQYouW2iBdgob.sRv78W9C', 'Nina', 'Kuzminac', 0, false),
-    ('admin@gmail.com', 'admin', '$2a$12$zSJwNzNr/uFw.a9H5YRus.gQhZ.hjaNxhads7618x/U8KTFCPUnde', 'Admin', 'Adminovski', 3, false),
-    ('organizer@gmail.com', 'organizer', '$2a$10$KVAfGs.glFRaekHlH3OWaeUASPrUMoh7MBuNu8DYT/SzRnvD9ZjL6', 'Organizator', 'Organizatorović', 1, false),
-    ('curator@gmail.com', 'curator', '$2a$10$JGckcPY5eO8/1.xE7h7KmuH0A4gNif6PDSxBzUbxsThjQTTu.Nyai', 'Kustos', 'Kustosović', 2, false);
+INSERT INTO _user(email, username, password, first_name, last_name, role, is_account_locked, picture) VALUES
+    ('nikolicveljko01@gmail.com', 'veljko', '$2a$10$kVZ6MkAdppKk5GtbzjsgbubBx1Uos0EOTdiY9mIBA5XwWy1ezVQam', 'Veljko', 'Nikolić', 0, false, 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D'),
+    ('vule.dok@gmail.com', 'dokma', '$2a$10$jicdgzoNyODhfwtEuXsYHelIRjzFZ5zIgqcXlHfoy9BROPAnWV2y2', 'Vukašin', 'Dokmanović', 0, false, 'https://plus.unsplash.com/premium_photo-1683121771856-3c3964975777?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHBvcnRyYWl0fGVufDB8fDB8fHww'),
+    ('spale01@gmail.com', 'spale', '$2a$10$NhX4GkvqpZTas4mZa9wxuevS.8VCi70t3tKXVekdD5/VCg2Hf.kAu', 'Spasoje', 'Brborić', 0, false, 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBvcnRyYWl0fGVufDB8fDB8fHww'),
+    ('kuzminacn@gmail.com', 'nina', '$2a$10$XxmC.cIEK6XvYUVOa2HvTOlMQlIk0J6oQYouW2iBdgob.sRv78W9C', 'Nina', 'Kuzminac', 0, false, 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D'),
+    ('admin@gmail.com', 'admin', '$2a$12$zSJwNzNr/uFw.a9H5YRus.gQhZ.hjaNxhads7618x/U8KTFCPUnde', 'Admin', 'Adminovski', 3, false, 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHBvcnRyYWl0fGVufDB8fDB8fHww'),
+    ('organizer@gmail.com', 'organizer', '$2a$10$KVAfGs.glFRaekHlH3OWaeUASPrUMoh7MBuNu8DYT/SzRnvD9ZjL6', 'Organizator', 'Organizatorović', 1, false, 'https://images.unsplash.com/photo-1526510747491-58f928ec870f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvcnRyYWl0fGVufDB8fDB8fHww'),
+    ('curator@gmail.com', 'curator', '$2a$10$JGckcPY5eO8/1.xE7h7KmuH0A4gNif6PDSxBzUbxsThjQTTu.Nyai', 'Kustos', 'Kustosović', 2, false, '');
 
 
 INSERT INTO guest(id, biography) VALUES
@@ -104,6 +104,23 @@ INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALU
     (-7, '2024-04-01', '2024-04-30', 1),
     (-1, '2024-04-01', '2024-04-30', 1),
     (-2, '2024-04-01', '2024-04-30', 1);
+
+INSERT INTO ticket(number_of_adults, number_of_minors, total_price, exhibition_id, guest_id) VALUES
+    (2, 1, 30.00, 2, 1),
+    (1, 0, 12.00, 2, 2),
+    (3, 2, 48.00, 2, 3);
+
+
+
+-- Insert Reviews for "Medieval Treasures" Exhibition (ID 2)
+INSERT INTO review(guest_id, exhibition_id, rating, comment, review_date) VALUES
+    (1, 2, 5, 'An amazing deep dive into the medieval era. The artifacts were astonishing!', now()),  -- Review by Veljko (guest ID 1)
+    (2, 2, 4, 'Great exhibition! The curation was excellent, but I expected more interactive elements.', now()),  -- Review by Dokma (guest ID 2)
+    (2, 2, 5, 'An amazing deep dive into the medieval era. The artifacts were astonishing!', now()),  -- Review by Veljko (guest ID 1)
+    (4, 2, 2, 'Great exhibition! The curation was excellent, but I expected more interactive elements.', now()),  -- Review by Dokma (guest ID 2)
+    (4, 2, 1, 'An amazing deep dive into the medieval era. The artifacts were astonishing!', now()),  -- Review by Veljko (guest ID 1)
+    (1, 2, 5, 'Great exhibition! The curation was excellent, but I expected more interactive elements.', now());  -- Review by Dokma (guest ID 2)
+
 
 
 

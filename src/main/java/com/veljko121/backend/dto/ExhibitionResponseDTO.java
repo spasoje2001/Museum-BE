@@ -10,6 +10,7 @@ import java.util.List;
 public class ExhibitionResponseDTO {
     private Integer id;
     private String name;
+    private double averageRating;
     private String picture;
     private String shortDescription;
     private String longDescription;

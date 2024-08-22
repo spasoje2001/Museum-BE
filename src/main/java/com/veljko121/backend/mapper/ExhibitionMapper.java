@@ -15,6 +15,7 @@ public class ExhibitionMapper {
         ExhibitionResponseDTO dto = new ExhibitionResponseDTO();
         dto.setId(exhibition.getId());
         dto.setName(exhibition.getName());
+        dto.setAverageRating(exhibition.getAverageRating());
         dto.setPicture(exhibition.getPicture());
         dto.setShortDescription(exhibition.getShortDescription());
         dto.setLongDescription(exhibition.getLongDescription());

@@ -54,7 +54,7 @@ public class Exhibition {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     public boolean isOngoing() {
@@ -78,10 +78,12 @@ public class Exhibition {
     }
 
     public double getAverageRating() {
-        return reviews.stream()
+        double average = reviews.stream()
                 .mapToInt(Review::getRating)
                 .average()
                 .orElse(0.0);
+
+        return Math.round(average * 100.0) / 100.0;
     }
 
 }

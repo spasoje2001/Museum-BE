@@ -43,6 +43,9 @@ public abstract class User implements UserDetails {
     
     @Column
     private String lastName;
+
+    @NotEmpty
+    private String picture;
     
     @Enumerated
     private Role role;

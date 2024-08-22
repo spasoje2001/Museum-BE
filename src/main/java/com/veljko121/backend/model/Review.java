@@ -7,9 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "review")
 public class Review {
 
     @Id
@@ -17,7 +20,7 @@ public class Review {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "visitor_id", nullable = false)
+    @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;  // Veza sa posetiocem koji je napisao recenziju
 
     @ManyToOne
@@ -29,13 +32,12 @@ public class Review {
     @Column(nullable = false)
     private int rating;  // Ocena izložbe, npr. od 1 do 5
 
-    @Column(length = 1000)
+    @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;  // Tekstualni komentar posetioca
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false)
-    private java.util.Date reviewDate;  // Datum kada je recenzija napisana
+    @Column(name = "review_date",nullable = false, updatable = false)
+    private LocalDate reviewDate;  // Datum kada je recenzija napisana
 
     // Konstruktor sa svim parametrima
     public Review(Guest guest, Exhibition exhibition, int rating, String comment) {

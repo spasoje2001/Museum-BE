@@ -42,6 +42,9 @@ public class WebSecurityConfig {
         "/swagger-ui.html",
 
         "/api/events/published",
+        "/api/exhibitions",
+        "/api/exhibitions/{id}",
+        "/api/reviews/exhibition/{exhibitionId}"
     };
     
     private final AuthenticationProvider authenticationProvider;
