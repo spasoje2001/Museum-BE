@@ -38,42 +38,8 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         super(repository);
         exhibitionRepository = repository;
     }
+
     /*
-    @Transactional
-    public Exhibition proposeExhibition(ExhibitionProposalDTO proposalDTO) {
-        Exhibition exhibition = new Exhibition();
-
-        Date startDate;
-        Date endDate = null;
-        try {
-            startDate = DateUtil.stringToDate(proposalDTO.getStartDate());
-            endDate = DateUtil.stringToDate(proposalDTO.getEndDate());
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("The provided date is not in the expected format (dd.MM.yyyy.).", e);
-        }
-
-        exhibition.setStartDate(startDate);
-        exhibition.setEndDate(endDate);
-        exhibition.setPrice(proposalDTO.getPrice());
-        exhibition.setStatus(ExhibitionStatus.PROPOSED); // Postavljate status na PROPOSED
-        exhibition.setOrganizer(organizerService.findById(proposalDTO.getOrganizerId()));
-        exhibition.setCurator(curatorService.findById(proposalDTO.getCuratorId()));
-
-        RoomReservation roomReservation = new RoomReservation();
-        roomReservation.setRoom(roomService.findById(proposalDTO.getRoomId()));
-        LocalTime startTime = LocalTime.of(9, 0); // 9 AM
-        LocalTime endTime = LocalTime.of(21, 0); // 9 PM
-        roomReservation.setStartDateTime(startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(startTime));
-        roomReservation.setEndDateTime(endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atTime(endTime));
-        roomReservationService.save(roomReservation);
-
-        exhibition.setRoomReservation(roomReservation);
-
-        Exhibition savedExhibition = exhibitionRepository.save(exhibition);
-        savedExhibition.setName("Exhibition Proposal: " + savedExhibition.getId());
-
-        return exhibitionRepository.save(savedExhibition);
-    }
 
     @Override
     public List<Exhibition> getExhibitionsForPreviousMonth() {
@@ -131,10 +97,6 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         return exhibitionRepository.findAll();
     }
 
-    @Override
-    public Exhibition proposeExhibition(ExhibitionProposalDTO proposalDTO) {
-        return null;
-    }
 
     @Override
     public List<Exhibition> getExhibitionsForPreviousMonth() {

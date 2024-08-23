@@ -19,6 +19,7 @@ import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.model.Room;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.service.IRoomService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoomService extends CRUDService<Room, Integer> implements IRoomService {
@@ -38,13 +39,10 @@ public class RoomService extends CRUDService<Room, Integer> implements IRoomServ
         return roomRepository.findAll();
     }
 
-    @Override
-    public List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate) {
-        // Use the RoomReservationService to find available rooms
-        Collection<Room> availableRooms = roomReservationService.findAvailableRoomsBetweenDates(startDate, endDate);
 
-        // Convert to List if necessary or directly return the collection
-        return new ArrayList<>(availableRooms);
+    @Transactional(readOnly = true)
+    public List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate) {
+        return roomRepository.findAvailableRooms(startDate, endDate);
     }
 
     

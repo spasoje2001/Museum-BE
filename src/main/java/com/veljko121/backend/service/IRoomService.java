@@ -11,5 +11,5 @@ public interface IRoomService extends ICRUDService<Room, Integer> {
     
     public List<Room> findAll();
 
-    List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate);
+    public List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate);
 }

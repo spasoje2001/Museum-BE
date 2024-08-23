@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.veljko121.backend.dto.RoomResponseDTO;
+import com.veljko121.backend.mapper.ExhibitionMapper;
+import com.veljko121.backend.mapper.RoomMapper;
 import com.veljko121.backend.util.DateUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,41 +36,30 @@ public class RoomController {
     private final IRoomReservationService roomReservationService;
     private final IRoomService roomService;
 
-    private final ModelMapper modelMapper;
+    private final RoomMapper roomMapper;
 
-    @GetMapping("/availableDates")
-    public ResponseEntity<?> getAvailableRooms(
-            @RequestParam("startDate") @DateTimeFormat(pattern = "dd.MM.yyyy.") String startDateStr,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "dd.MM.yyyy.") String endDateStr) {
-        try {
-            // Convert String to Date
-            LocalDate startDate = DateUtil.stringToDate(startDateStr);
-            LocalDate endDate = DateUtil.stringToDate(endDateStr);
 
-            // Call the service method to find available rooms
-            List<Room> availableRooms = roomService.findAvailableRooms(startDate, endDate);
+    @GetMapping("/available")
+    public ResponseEntity<List<RoomResponseDTO>> getAvailableRooms(@RequestParam String startDate,
+                                                                   @RequestParam String endDate) {
+        LocalDate start = DateUtil.stringToDate(startDate);
+        LocalDate end = DateUtil.stringToDate(endDate);
 
-            // If you have a RoomDTO, map the Room entities to RoomDTOs
-            // Otherwise, directly return the Room entities
-            // Replace 'RoomResponse' with your actual DTO class if you have one
-            var response = availableRooms.stream()
-                    .map(room -> modelMapper.map(room, Room.class))
-                    .collect(Collectors.toList());
+        var rooms = roomService.findAvailableRooms(start,end);
+        var response = rooms.stream()
+                .map(roomMapper::mapToDTO)
+                .collect(Collectors.toList());
 
-            return ResponseEntity.ok(response);
-        } catch (DateTimeParseException e) {
-            return ResponseEntity.badRequest().body("Invalid date format. Please use the pattern dd.MM.yyyy.");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-
     @GetMapping
-    public ResponseEntity<?> findAll() {
-        List<Room> rooms = roomService.findAll();
-        var roomsResponse = rooms.stream()
-                .map(tour -> modelMapper.map(tour, Room.class))
+    public ResponseEntity<?> getAll() {
+        var exhibitions = roomService.findAll();
+        var response = exhibitions.stream()
+                .map(roomMapper::mapToDTO)
                 .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.CREATED).body(roomsResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
 }

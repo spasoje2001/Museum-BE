@@ -1,12 +1,16 @@
 package com.veljko121.backend.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import com.veljko121.backend.model.ExhibitionPriceList;
+import com.veljko121.backend.model.Organizer;
+import com.veljko121.backend.model.RoomReservation;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class ExhibitionProposalDTO {
@@ -25,3 +29,6 @@ public class ExhibitionProposalDTO {
     @NotNull(message = "Organizer ID is required.")
     private Integer organizerId;
 }
+
+
+

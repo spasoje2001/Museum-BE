@@ -40,19 +40,4 @@ public class ExhibitionController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/propose")
-    public ResponseEntity<?> proposeExhibition(@RequestBody @Valid ExhibitionProposalDTO proposalDTO) {
-        try {
-            Exhibition createdExhibition = exhibitionService.proposeExhibition(proposalDTO);
-            ExhibitionResponseDTO exhibitionDTO = exhibitionMapper.mapToDTO(createdExhibition);
-            return new ResponseEntity<>(exhibitionDTO, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            // In a real-world application, you might want to log this exception and return a user-friendly message
-            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            // Generic exception handling, likely you'd want more specific handling
-            return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
 }

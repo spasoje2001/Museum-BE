@@ -37,7 +37,7 @@ public class ExhibitionMapper {
         return dto;
     }
 
-    private ExhibitionProposalResponseDTO mapToProposalDTO(ExhibitionProposal proposal) {
+    public ExhibitionProposalResponseDTO mapToProposalDTO(ExhibitionProposal proposal) {
         if (proposal == null) {
             return null;
         }
