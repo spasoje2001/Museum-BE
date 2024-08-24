@@ -30,9 +30,24 @@ INSERT INTO curator(id, biography) VALUES
 
 -- Insert Rooms (without the 'floor' field)
 INSERT INTO room(name, number) VALUES
-    ('Main room', '101'),
-    ('Side room', '121'),
-    ('Front room', '203');
+                                   ('Main room', '101'),
+                                   ('Side room', '121'),
+                                   ('Front room', '203'),
+                                   ('Gallery A', '104'),
+                                   ('Gallery B', '105'),
+                                   ('East Wing', '201'),
+                                   ('West Wing', '202'),
+                                   ('North Hall', '301'),
+                                   ('South Hall', '302'),
+                                   ('Ancient Art Room', '303'),
+                                   ('Modern Art Room', '304'),
+                                   ('Sculpture Hall', '305'),
+                                   ('Photography Gallery', '306'),
+                                   ('Textile Room', '307'),
+                                   ('Ceramics Room', '308'),
+                                   ('Interactive Exhibit', '309'),
+                                   ('Temporary Exhibit', '310');
+
 
 INSERT INTO exhibition_pricelist(adult_ticket_price, minor_ticket_price) VALUES
     (10, 5),   -- Price List 1
