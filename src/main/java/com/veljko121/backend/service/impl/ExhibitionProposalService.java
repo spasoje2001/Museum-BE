@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Service
 public class ExhibitionProposalService extends CRUDService<ExhibitionProposal, Integer> implements IExhibitionProposalService {
@@ -37,6 +38,11 @@ public class ExhibitionProposalService extends CRUDService<ExhibitionProposal, I
     public ExhibitionProposalService(ExhibitionProposalRepository repository) {
         super(repository);
         exhibitionProposalRepository = repository;
+    }
+
+    @Override
+    public List<ExhibitionProposal> findByOrganizerId(Integer organizerId) {
+        return exhibitionProposalRepository.findUnlinkedProposalsByOrganizerId(organizerId);
     }
 
     @Transactional

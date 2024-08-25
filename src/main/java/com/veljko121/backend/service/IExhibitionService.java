@@ -10,5 +10,6 @@ public interface IExhibitionService extends ICRUDService<Exhibition, Integer> {
     List<Exhibition> findAll();
     List<Exhibition> getExhibitionsForPreviousMonth();
     List<Exhibition> getExhibitionsForPreviousYear(Integer curatorId);
+    List<Exhibition> findByOrganizerId(Integer organizerId);
 
 }

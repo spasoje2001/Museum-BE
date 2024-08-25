@@ -14,10 +14,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/proposals")
@@ -32,6 +31,15 @@ public class ExhibitionProposalController {
         ExhibitionProposal proposal = proposalService.createProposal(proposalDTO);
         ExhibitionProposalResponseDTO dto = exhibitionMapper.mapToProposalDTO(proposal);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @GetMapping("/organizer/{organizerId}")
+    public ResponseEntity<?> getProposalsByOrganizer(@PathVariable Integer organizerId) {
+        var proposals = proposalService.findByOrganizerId(organizerId);
+        var response = proposals.stream()
+                .map(exhibitionMapper::mapToProposalDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

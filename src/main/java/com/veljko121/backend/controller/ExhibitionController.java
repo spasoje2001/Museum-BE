@@ -40,4 +40,13 @@ public class ExhibitionController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/organizer/{organizerId}")
+    public ResponseEntity<?> getExhibitionsByOrganizer(@PathVariable Integer organizerId) {
+        var exhibitions = exhibitionService.findByOrganizerId(organizerId);
+        var response = exhibitions.stream()
+                .map(exhibitionMapper::mapToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }

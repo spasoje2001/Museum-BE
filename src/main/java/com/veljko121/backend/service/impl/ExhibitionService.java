@@ -107,4 +107,9 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     public List<Exhibition> getExhibitionsForPreviousYear(Integer curatorId) {
         return null;
     }
+
+    @Override
+    public List<Exhibition> findByOrganizerId(Integer organizerId) {
+        return exhibitionRepository.findByExhibitionProposalOrganizerId(organizerId);
+    }
 }
