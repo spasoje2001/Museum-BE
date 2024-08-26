@@ -53,6 +53,21 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/availableForUpdate")
+    public ResponseEntity<List<RoomResponseDTO>> getAvailableRoomsForUpdate(@RequestParam String startDate,
+                                                                            @RequestParam String endDate,
+                                                                            @RequestParam Integer proposalId) {
+        LocalDate start = DateUtil.stringToDate(startDate);
+        LocalDate end = DateUtil.stringToDate(endDate);
+
+        var rooms = roomService.findAvailableRoomsForUpdate(start, end, proposalId);
+        var response = rooms.stream()
+                .map(roomMapper::mapToDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping
     public ResponseEntity<?> getAll() {
         var exhibitions = roomService.findAll();

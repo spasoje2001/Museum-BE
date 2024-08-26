@@ -8,6 +8,7 @@ import com.veljko121.backend.repository.ExhibitionProposalRepository;
 import com.veljko121.backend.repository.ExhibitionRepository;
 import com.veljko121.backend.service.*;
 import com.veljko121.backend.util.DateUtil;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,5 +72,44 @@ public class ExhibitionProposalService extends CRUDService<ExhibitionProposal, I
         proposal.setRoomReservation(roomReservationService.save(roomReservation));
 
         return exhibitionProposalRepository.save(proposal);
+    }
+
+    @Transactional
+    public ExhibitionProposal updateProposal(Integer id, ExhibitionProposalDTO proposalDTO) {
+        ExhibitionProposal proposal = findById(id);
+
+        if (proposal == null) {
+            throw new EntityNotFoundException("Proposal not found");
+        }
+
+        LocalDate startDate = DateUtil.stringToDate(proposalDTO.getStartDate());
+        LocalDate endDate = DateUtil.stringToDate(proposalDTO.getEndDate());
+
+        proposal.setStartDate(startDate);
+        proposal.setEndDate(endDate);
+
+        ExhibitionPriceList priceList = proposal.getExhibitionPriceList();
+        priceList.setAdultTicketPrice(proposalDTO.getAdultPrice());
+        priceList.setMinorTicketPrice(proposalDTO.getMinorPrice());
+        proposal.setExhibitionPriceList(exhibitionPriceListService.save(priceList));
+
+        RoomReservation roomReservation = proposal.getRoomReservation();
+        roomReservation.setRoom(roomService.findById(proposalDTO.getRoomId()));
+        roomReservation.setStartDate(startDate);
+        roomReservation.setEndDate(endDate);
+        roomReservationService.save(roomReservation);
+
+        return exhibitionProposalRepository.save(proposal);
+    }
+
+    @Transactional
+    public void deleteProposal(Integer id) {
+        ExhibitionProposal proposal = findById(id);
+
+        if (proposal == null) {
+            throw new EntityNotFoundException("Proposal not found");
+        }
+
+        exhibitionProposalRepository.delete(proposal);
     }
 }

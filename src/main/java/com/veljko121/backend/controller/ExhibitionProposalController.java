@@ -42,4 +42,17 @@ public class ExhibitionProposalController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ExhibitionProposalResponseDTO> updateProposal(@PathVariable Integer id, @RequestBody ExhibitionProposalDTO proposalDTO) {
+        ExhibitionProposal updatedProposal = proposalService.updateProposal(id, proposalDTO);
+        ExhibitionProposalResponseDTO dto = exhibitionMapper.mapToProposalDTO(updatedProposal);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProposal(@PathVariable Integer id) {
+        proposalService.deleteProposal(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

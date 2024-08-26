@@ -15,5 +15,13 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
             "(SELECT rr.room.id FROM RoomReservation rr WHERE " +
             "(rr.startDate <= :endDate AND rr.endDate >= :startDate))")
     List<Room> findAvailableRooms(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-    
+
+
+    @Query("SELECT r FROM Room r WHERE r.id NOT IN " +
+            "(SELECT rr.room.id FROM RoomReservation rr WHERE " +
+            "(rr.startDate <= :endDate AND rr.endDate >= :startDate) " +
+            "AND rr.exhibitionProposal.id <> :proposalId)")
+    List<Room> findAvailableRoomsForUpdate(@Param("startDate") LocalDate startDate,
+                                           @Param("endDate") LocalDate endDate,
+                                           @Param("proposalId") Integer proposalId);
 }
