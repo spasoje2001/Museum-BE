@@ -112,4 +112,10 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     public List<Exhibition> findByOrganizerId(Integer organizerId) {
         return exhibitionRepository.findByExhibitionProposalOrganizerId(organizerId);
     }
+
+    @Override
+    public List<Exhibition> findByCuratorId(Integer curatorId) {
+        return exhibitionRepository.findByCuratorId(curatorId);
+    }
 }
+

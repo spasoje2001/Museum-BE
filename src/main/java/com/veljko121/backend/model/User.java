@@ -53,7 +53,7 @@ public abstract class User implements UserDetails {
     @Column(nullable = false)
     private Boolean isAccountLocked = false;
 
-    @OneToMany(mappedBy = "user", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.EAGER)
     private List<Notification> notifications = new ArrayList<>();
 
     @Override

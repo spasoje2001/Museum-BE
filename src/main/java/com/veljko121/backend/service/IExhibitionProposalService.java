@@ -10,6 +10,7 @@ import java.util.List;
 public interface IExhibitionProposalService extends ICRUDService<ExhibitionProposal, Integer> {
     public ExhibitionProposal createProposal(ExhibitionProposalDTO proposalDTO);
     List<ExhibitionProposal> findByOrganizerId(Integer organizerId);
+    List<ExhibitionProposal> getPending();
     ExhibitionProposal updateProposal(Integer id, ExhibitionProposalDTO proposalDTO);
     void deleteProposal(Integer id);
 }

@@ -49,4 +49,13 @@ public class ExhibitionController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/curator/{curatorId}")
+    public ResponseEntity<?> getExhibitionsByCurator(@PathVariable Integer curatorId) {
+        var exhibitions = exhibitionService.findByCuratorId(curatorId);
+        var response = exhibitions.stream()
+                .map(exhibitionMapper::mapToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }

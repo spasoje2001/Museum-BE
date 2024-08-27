@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ExhibitionRepository extends JpaRepository<Exhibition, Integer> {
     List<Exhibition> findByExhibitionProposalOrganizerId(Integer organizerId);
+
+    List<Exhibition> findByCuratorId(Integer curatorId);
 }

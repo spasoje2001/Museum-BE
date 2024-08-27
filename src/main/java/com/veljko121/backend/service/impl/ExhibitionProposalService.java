@@ -46,6 +46,11 @@ public class ExhibitionProposalService extends CRUDService<ExhibitionProposal, I
         return exhibitionProposalRepository.findUnlinkedProposalsByOrganizerId(organizerId);
     }
 
+    @Override
+    public List<ExhibitionProposal> getPending() {
+        return exhibitionProposalRepository.getPending();
+    }
+
     @Transactional
     public ExhibitionProposal createProposal(ExhibitionProposalDTO proposalDTO) {
         ExhibitionProposal proposal = new ExhibitionProposal();

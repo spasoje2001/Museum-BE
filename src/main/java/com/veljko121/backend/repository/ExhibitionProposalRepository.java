@@ -11,4 +11,7 @@ import java.util.List;
 public interface ExhibitionProposalRepository extends JpaRepository<ExhibitionProposal, Integer> {
     @Query("SELECT ep FROM ExhibitionProposal ep WHERE ep.organizer.id = :organizerId AND ep.id NOT IN (SELECT e.exhibitionProposal.id FROM Exhibition e)")
     List<ExhibitionProposal> findUnlinkedProposalsByOrganizerId(@Param("organizerId") Integer organizerId);
+
+    @Query("SELECT ep FROM ExhibitionProposal ep WHERE ep.id NOT IN (SELECT e.exhibitionProposal.id FROM Exhibition e)")
+    List<ExhibitionProposal> getPending();
 }

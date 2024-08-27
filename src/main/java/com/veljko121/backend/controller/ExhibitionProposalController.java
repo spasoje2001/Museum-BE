@@ -33,9 +33,25 @@ public class ExhibitionProposalController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ExhibitionProposalResponseDTO> getById(@PathVariable Integer id) {
+        ExhibitionProposal proposal = proposalService.findById(id);
+        ExhibitionProposalResponseDTO dto = exhibitionMapper.mapToProposalDTO(proposal);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
     @GetMapping("/organizer/{organizerId}")
     public ResponseEntity<?> getProposalsByOrganizer(@PathVariable Integer organizerId) {
         var proposals = proposalService.findByOrganizerId(organizerId);
+        var response = proposals.stream()
+                .map(exhibitionMapper::mapToProposalDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/pending")
+    public ResponseEntity<?> getPendingProposals() {
+        var proposals = proposalService.getPending();
         var response = proposals.stream()
                 .map(exhibitionMapper::mapToProposalDTO)
                 .collect(Collectors.toList());
