@@ -9,6 +9,7 @@ import com.veljko121.backend.model.Room;
 import com.veljko121.backend.repository.ItemRepository;
 import com.veljko121.backend.repository.RoomRepository;
 import com.veljko121.backend.service.IItemService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -51,6 +52,11 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
 
     public List<Item> findByName(String name) {
         return itemRepository.findByName(name);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Item> findAvailableItems(LocalDate startDate, LocalDate endDate) {
+        return itemRepository.findAvailableItems(startDate, endDate);
     }
 
 

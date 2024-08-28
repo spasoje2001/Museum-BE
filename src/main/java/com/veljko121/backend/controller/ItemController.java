@@ -1,25 +1,22 @@
 package com.veljko121.backend.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.veljko121.backend.dto.ItemCreateDTO;
 import com.veljko121.backend.dto.ItemResponseDTO;
 import com.veljko121.backend.dto.ItemUpdateDTO;
+import com.veljko121.backend.dto.RoomResponseDTO;
 import com.veljko121.backend.model.Item;
 import com.veljko121.backend.service.IItemService;
+import com.veljko121.backend.util.DateUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
-import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -46,6 +43,19 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
     }
 
+    @GetMapping("/available")
+    public ResponseEntity<List<ItemResponseDTO>> getAvailableItems(@RequestParam String startDate,
+                                                                   @RequestParam String endDate) {
+        LocalDate start = DateUtil.stringToDate(startDate);
+        LocalDate end = DateUtil.stringToDate(endDate);
+
+
+        List<Item> items = itemService.findAvailableItems(start, end);
+        var itemResponse = items.stream()
+                .map(item -> modelMapper.map(item, ItemResponseDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
 
     @GetMapping("/{itemId}")
     public Item getItem(@PathVariable Integer itemId) {
