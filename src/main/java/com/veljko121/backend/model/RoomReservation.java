@@ -3,7 +3,9 @@ package com.veljko121.backend.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +36,7 @@ public class RoomReservation {
     @Column(nullable = false)
     private LocalDate endDate;  // Datum završetka rezervacije (mora biti u budućnosti ili sadašnjosti)
 
-    @OneToOne(mappedBy = "roomReservation", cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.LAZY, mappedBy = "roomReservation", cascade = CascadeType.ALL)
     private ExhibitionProposal exhibitionProposal;
 
     public RoomReservation(Room room, LocalDate startDate, LocalDate endDate) {

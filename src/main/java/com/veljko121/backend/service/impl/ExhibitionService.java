@@ -8,12 +8,14 @@ import com.veljko121.backend.model.*;
 import com.veljko121.backend.repository.ExhibitionRepository;
 import com.veljko121.backend.service.*;
 import com.veljko121.backend.util.DateUtil;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.time.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -159,6 +161,54 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
 
         return savedExhibition;
     }
+
+    @Transactional
+    public Exhibition updateExhibition(Integer id, CreateExhibitionDTO exhibitionDTO) {
+        Exhibition exhibition = findById(id);
+
+        if (exhibition == null) {
+            throw new EntityNotFoundException("Exhibition not found");
+        }
+
+        // Update basic details
+        exhibition.setName(exhibitionDTO.getName());
+        exhibition.setTheme(exhibitionDTO.getTheme());
+        exhibition.setShortDescription(exhibitionDTO.getShortDescription());
+        exhibition.setLongDescription(exhibitionDTO.getLongDescription());
+        exhibition.setPicture(exhibitionDTO.getPicture());
+
+        // Handle item reservations
+        List<ItemReservation> existingReservations = exhibition.getItemReservations();
+        List<Integer> newItemIds = exhibitionDTO.getItemIds(); // List of item IDs from the DTO
+        LocalDate startDate = exhibition.getExhibitionProposal().getStartDate();
+        LocalDate endDate = exhibition.getExhibitionProposal().getEndDate();
+
+        // Fetch the actual Item entities based on the provided IDs
+        Collection<Item> newItems = itemService.findAllByIds(newItemIds);
+
+        // Remove reservations that are no longer needed
+        List<ItemReservation> toRemove = existingReservations.stream()
+                .filter(ir -> !newItems.contains(ir.getItem()))
+                .toList();
+
+        for (ItemReservation reservation : toRemove) {
+            exhibition.getItemReservations().remove(reservation);
+            itemReservationService.delete(reservation); // Ovo je bitno za pravilno brisanje
+        }
+
+
+        // Add new reservations
+        List<ItemReservation> toAdd = newItems.stream()
+                .filter(item -> existingReservations.stream()
+                        .noneMatch(ir -> ir.getItem().equals(item)))
+                .map(item -> new ItemReservation(item, exhibition, startDate, endDate))
+                .toList();
+
+        exhibition.getItemReservations().addAll(toAdd);
+
+        return exhibitionRepository.save(exhibition);
+    }
+
 
 
 }

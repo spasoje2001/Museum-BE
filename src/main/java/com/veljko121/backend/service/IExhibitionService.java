@@ -4,6 +4,7 @@ import com.veljko121.backend.core.service.ICRUDService;
 import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
 import com.veljko121.backend.model.Exhibition;
+import com.veljko121.backend.model.ExhibitionProposal;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface IExhibitionService extends ICRUDService<Exhibition, Integer> {
 
     List<Exhibition> findByCuratorId(Integer curatorId);
 
-    public Exhibition createExhibition(CreateExhibitionDTO createExhibitionDTO);
+    Exhibition createExhibition(CreateExhibitionDTO createExhibitionDTO);
+
+    Exhibition updateExhibition(Integer id, CreateExhibitionDTO exhibitionDTO);
 
 }

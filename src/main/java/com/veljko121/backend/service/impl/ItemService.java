@@ -59,5 +59,10 @@ public class ItemService extends CRUDService<Item, Integer> implements IItemServ
         return itemRepository.findAvailableItems(startDate, endDate);
     }
 
+    @Transactional(readOnly = true)
+    public List<Item> findAvailableItemsForUpdate(LocalDate startDate, LocalDate endDate, Integer exhibitionId) {
+        return itemRepository.findAvailableItemsForUpdate(startDate, endDate, exhibitionId);
+    }
+
 
 }

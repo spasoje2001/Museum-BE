@@ -1,5 +1,6 @@
 package com.veljko121.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.veljko121.backend.core.enums.ItemCategory;
 
 import jakarta.persistence.*;
@@ -43,7 +44,7 @@ public class Item {
     @Column(nullable = false)
     private String picture;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemReservation> itemReservations = new ArrayList<>();
 
     public Item(String name, String description, String authorsName, String yearOfCreation, String period, ItemCategory category, String picture) {

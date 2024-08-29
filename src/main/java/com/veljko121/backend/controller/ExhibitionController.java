@@ -2,9 +2,11 @@ package com.veljko121.backend.controller;
 
 import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
+import com.veljko121.backend.dto.ExhibitionProposalResponseDTO;
 import com.veljko121.backend.dto.ExhibitionResponseDTO;
 import com.veljko121.backend.mapper.ExhibitionMapper;
 import com.veljko121.backend.model.Exhibition;
+import com.veljko121.backend.model.ExhibitionProposal;
 import com.veljko121.backend.service.IExhibitionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +67,13 @@ public class ExhibitionController {
         Exhibition exhibition = exhibitionService.createExhibition(createExhibitionDTO);
         var exhibitionResponse = exhibitionMapper.mapToDTO(exhibition);
         return ResponseEntity.status(HttpStatus.CREATED).body(exhibitionResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ExhibitionResponseDTO> updateExhibition(@PathVariable Integer id, @RequestBody CreateExhibitionDTO exhibitionDTO) {
+        Exhibition updatedExhibition = exhibitionService.updateExhibition(id, exhibitionDTO);
+        ExhibitionResponseDTO dto = exhibitionMapper.mapToDTO(updatedExhibition);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
 }

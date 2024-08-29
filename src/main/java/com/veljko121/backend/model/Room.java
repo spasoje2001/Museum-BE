@@ -3,6 +3,7 @@ package com.veljko121.backend.model;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,9 +36,6 @@ public class Room {
     @Pattern(regexp = "^[1-9][0-9]{2}$", message = "Room number must be in the format '101', '212', etc.")
     @Column(unique = true, nullable = false)
     private String number;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoomReservation> roomReservations = new ArrayList<>();
 
     public Room(String name, String number) {
         this.name = name;

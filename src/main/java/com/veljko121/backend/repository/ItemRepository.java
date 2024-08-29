@@ -23,5 +23,13 @@ public interface ItemRepository extends JpaRepository<Item, Integer>{
             "(ir.startDate <= :endDate AND ir.endDate >= :startDate))")
     List<Item> findAvailableItems(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    @Query("SELECT i FROM Item i WHERE i.id NOT IN " +
+            "(SELECT ir.item.id FROM ItemReservation ir WHERE " +
+            "(ir.startDate <= :endDate AND ir.endDate >= :startDate) " +
+            "AND ir.exhibition.id <> :exhibitionId)")
+    List<Item> findAvailableItemsForUpdate(@Param("startDate") LocalDate startDate,
+                                           @Param("endDate") LocalDate endDate,
+                                           @Param("exhibitionId") Integer exhibitionId);
+
 
 }

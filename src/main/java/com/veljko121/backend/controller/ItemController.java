@@ -57,6 +57,21 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
     }
 
+    @GetMapping("/availableForUpdate")
+    public ResponseEntity<List<ItemResponseDTO>> getAvailableItemsForUpdate(@RequestParam String startDate,
+                                                                            @RequestParam String endDate,
+                                                                            @RequestParam Integer exhibitionId) {
+        LocalDate start = DateUtil.stringToDate(startDate);
+        LocalDate end = DateUtil.stringToDate(endDate);
+
+        List<Item> items = itemService.findAvailableItemsForUpdate(start, end, exhibitionId);
+        var itemResponse = items.stream()
+                .map(item -> modelMapper.map(item, ItemResponseDTO.class))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
+
     @GetMapping("/{itemId}")
     public Item getItem(@PathVariable Integer itemId) {
         return itemService.findById(itemId);

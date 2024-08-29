@@ -1,5 +1,7 @@
 package com.veljko121.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.enums.ExhibitionTheme;
 import jakarta.persistence.*;
