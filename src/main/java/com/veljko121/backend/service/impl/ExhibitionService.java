@@ -2,10 +2,9 @@ package com.veljko121.backend.service.impl;
 
 import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.service.impl.CRUDService;
+import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
-import com.veljko121.backend.model.Curator;
-import com.veljko121.backend.model.Exhibition;
-import com.veljko121.backend.model.RoomReservation;
+import com.veljko121.backend.model.*;
 import com.veljko121.backend.repository.ExhibitionRepository;
 import com.veljko121.backend.service.*;
 import com.veljko121.backend.util.DateUtil;
@@ -33,6 +32,14 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
 
     @Autowired
     private IRoomReservationService roomReservationService;
+
+    @Autowired
+    private IItemService itemService;
+
+    @Autowired
+    private IItemReservationService itemReservationService;
+    @Autowired
+    private IExhibitionProposalService exhibitionProposalService;
 
     public ExhibitionService(ExhibitionRepository repository) {
         super(repository);
@@ -117,5 +124,42 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     public List<Exhibition> findByCuratorId(Integer curatorId) {
         return exhibitionRepository.findByCuratorId(curatorId);
     }
+
+    @Override
+    @Transactional
+    public Exhibition createExhibition(CreateExhibitionDTO createExhibitionDTO) {
+        // Load proposal
+        ExhibitionProposal proposal = exhibitionProposalService.findById(createExhibitionDTO.getProposalId());
+
+        // Create exhibition
+        Exhibition exhibition = new Exhibition();
+        exhibition.setName(createExhibitionDTO.getName());
+        exhibition.setTheme(createExhibitionDTO.getTheme());
+        exhibition.setShortDescription(createExhibitionDTO.getShortDescription());
+        exhibition.setLongDescription(createExhibitionDTO.getLongDescription());
+        exhibition.setPicture(createExhibitionDTO.getPicture());
+        exhibition.setStatus(ExhibitionStatus.READY_TO_OPEN); // Default status
+        exhibition.setExhibitionProposal(proposal);
+
+        // Set curator
+        Curator curator = curatorService.findById(createExhibitionDTO.getCuratorId());
+        exhibition.setCurator(curator);
+
+        // Save exhibition
+        Exhibition savedExhibition = exhibitionRepository.save(exhibition);
+
+        // Create item reservations
+        for (Integer itemId : createExhibitionDTO.getItemIds()) {
+            Item item = itemService.findById(itemId);
+            // Create and save reservation
+            ItemReservation itemReservation = new ItemReservation(item, savedExhibition,
+                    proposal.getStartDate(), proposal.getEndDate());
+            itemReservationService.save(itemReservation);
+        }
+
+        return savedExhibition;
+    }
+
+
 }
 

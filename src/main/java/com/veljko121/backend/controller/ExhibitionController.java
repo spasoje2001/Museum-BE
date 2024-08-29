@@ -1,5 +1,6 @@
 package com.veljko121.backend.controller;
 
+import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
 import com.veljko121.backend.dto.ExhibitionResponseDTO;
 import com.veljko121.backend.mapper.ExhibitionMapper;
@@ -56,6 +57,14 @@ public class ExhibitionController {
                 .map(exhibitionMapper::mapToDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<?> createExhibition(@RequestBody @Valid CreateExhibitionDTO createExhibitionDTO) {
+        Exhibition exhibition = exhibitionService.createExhibition(createExhibitionDTO);
+        var exhibitionResponse = exhibitionMapper.mapToDTO(exhibition);
+        return ResponseEntity.status(HttpStatus.CREATED).body(exhibitionResponse);
     }
 
 }
