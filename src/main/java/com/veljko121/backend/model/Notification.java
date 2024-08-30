@@ -1,6 +1,7 @@
 package com.veljko121.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.veljko121.backend.core.enums.NotificationType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -34,10 +35,16 @@ public class Notification {
     @Column(nullable = false)
     private boolean isRead = false;  // Oznaka da li je obaveštenje pročitano
 
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
+
+    private String actionUrl;
     // Konstruktor sa svim parametrima osim timestamp (koji se postavlja automatski)
-    public Notification(User user, String message) {
+    public Notification(User user, String message, NotificationType type, String actionUrl) {
         this.user = user;
         this.message = message;
+        this.type = type;
+        this.actionUrl = actionUrl;
     }
 
     // Metoda za označavanje obaveštenja kao pročitanog

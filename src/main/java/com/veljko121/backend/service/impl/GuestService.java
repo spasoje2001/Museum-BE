@@ -1,5 +1,7 @@
 package com.veljko121.backend.service.impl;
 
+import com.veljko121.backend.core.enums.ExhibitionTheme;
+import com.veljko121.backend.model.Exhibition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import com.veljko121.backend.model.Guest;
 import com.veljko121.backend.repository.GuestRepository;
 import com.veljko121.backend.service.IGuestService;
 import com.veljko121.backend.service.IUserService;
+
+import java.util.List;
 
 @Service
 public class GuestService extends CRUDService<Guest, Integer> implements IGuestService {
@@ -48,6 +52,26 @@ public class GuestService extends CRUDService<Guest, Integer> implements IGuestS
     @Override
     public Guest findByUsername(String username) {
         return guestRepository.findByUsername(username).orElseThrow();
+    }
+
+    @Override
+    public List<Guest> findUsersWithTicketsForExhibition(Exhibition exhibition) {
+        return guestRepository.findUsersWithTicketsForExhibition(exhibition.getId());
+    }
+
+    @Override
+    public List<Guest> findUsersInterestedInTheme(ExhibitionTheme theme) {
+        return guestRepository.findUsersInterestedInTheme(theme);
+    }
+
+    @Override
+    public List<Guest> findUsersWhoReviewedExhibition(Exhibition exhibition) {
+        return guestRepository.findUsersWhoReviewedExhibition(exhibition);
+    }
+
+    @Override
+    public List<Guest> findUsersWithoutTicketsForExhibition(Exhibition exhibition) {
+        return guestRepository.findUsersWithoutTicketsForExhibition(exhibition);
     }
     
 }

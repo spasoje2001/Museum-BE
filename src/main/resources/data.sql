@@ -58,13 +58,13 @@ INSERT INTO exhibition_pricelist(adult_ticket_price, minor_ticket_price) VALUES
 INSERT INTO room_reservation(room_id, start_date, end_date) VALUES
     (1, '2024-04-01', '2024-04-30'),
     (2, '2024-05-15', '2024-09-15'),
-    (3, '2024-09-01', '2024-09-30');
+    (3, '2024-09-01', '2024-09-05');
 
 
 INSERT INTO exhibition_proposal(start_date, end_date, organizer_id, room_reservation_id, pricelist_id, proposal_date) VALUES
     ('2024-04-01', '2024-04-30', 6, 1, 1, '2024-03-15'),
     ('2024-05-15', '2024-09-15', 6, 2, 2, '2024-04-01'),
-    ('2024-09-01', '2024-09-30', 6, 3, 3, '2024-08-01');
+    ('2024-09-01', '2024-09-05', 6, 3, 3, '2024-08-01');
 
 
 
