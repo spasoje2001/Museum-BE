@@ -14,6 +14,9 @@ public class TicketResponseDTO {
 
     private Integer exhibitionId;
     private String exhibitionName;
+    private String exhibitionPicture;
+    private String exhibitionRoomName;
+    private String exhibitionRoomNumber;
     private String exhibitionStartDate;
     private String exhibitionEndDate;
 

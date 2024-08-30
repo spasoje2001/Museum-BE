@@ -33,7 +33,7 @@ public class TicketController {
     }
 
     @GetMapping("/guest/{guestId}")
-    public ResponseEntity<List<TicketResponseDTO>> getReviewsByExhibitionId(@PathVariable Integer guestId) {
+    public ResponseEntity<List<TicketResponseDTO>> getTicketsByGuestId(@PathVariable Integer guestId) {
         List<Ticket> tickets = ticketService.getTicketsByGuestId(guestId);
 
         // Use the mapper to convert the list of Review entities to a list of ReviewResponseDTOs

@@ -11,6 +11,7 @@ import com.veljko121.backend.util.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -102,7 +103,9 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     }
 
     @Override
+    @Transactional
     public List<Exhibition> findAll() {
+        updateExhibitionStatuses();
         return exhibitionRepository.findAll();
     }
 
@@ -118,12 +121,16 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     }
 
     @Override
+    @Transactional
     public List<Exhibition> findByOrganizerId(Integer organizerId) {
+        updateExhibitionStatuses();
         return exhibitionRepository.findByExhibitionProposalOrganizerId(organizerId);
     }
 
     @Override
+    @Transactional
     public List<Exhibition> findByCuratorId(Integer curatorId) {
+        updateExhibitionStatuses();
         return exhibitionRepository.findByCuratorId(curatorId);
     }
 
@@ -207,6 +214,33 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         exhibition.getItemReservations().addAll(toAdd);
 
         return exhibitionRepository.save(exhibition);
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?") // Podesi da se pokreće svake ponoći
+    @Transactional
+    public void updateExhibitionStatusesScheduled() {
+        updateExhibitionStatuses();
+    }
+
+    @Transactional
+    public void updateExhibitionStatuses() {
+        LocalDate today = LocalDate.now();
+        List<Exhibition> exhibitions = exhibitionRepository.findAll();
+
+        for (Exhibition exhibition : exhibitions) {
+            LocalDate startDate = exhibition.getExhibitionProposal().getStartDate();
+            LocalDate endDate = exhibition.getExhibitionProposal().getEndDate();
+
+            if (today.isBefore(startDate) && exhibition.getStatus() != ExhibitionStatus.READY_TO_OPEN) {
+                exhibition.setStatus(ExhibitionStatus.READY_TO_OPEN);
+            } else if ((today.isEqual(startDate) || today.isAfter(startDate)) && today.isBefore(endDate) && exhibition.getStatus() != ExhibitionStatus.OPENED) {
+                exhibition.setStatus(ExhibitionStatus.OPENED);
+            } else if (today.isEqual(endDate) || today.isAfter(endDate) && exhibition.getStatus() != ExhibitionStatus.CLOSED) {
+                exhibition.setStatus(ExhibitionStatus.CLOSED);
+            }
+        }
+
+        exhibitionRepository.saveAll(exhibitions); // Spremi ažurirane statuse
     }
 
 

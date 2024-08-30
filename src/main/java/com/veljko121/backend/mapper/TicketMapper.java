@@ -23,6 +23,9 @@ public class TicketMapper {
 
         dto.setExhibitionId(ticket.getExhibition().getId());
         dto.setExhibitionName(ticket.getExhibition().getName());
+        dto.setExhibitionPicture(ticket.getExhibition().getPicture());
+        dto.setExhibitionRoomName(ticket.getExhibition().getExhibitionProposal().getRoomReservation().getRoom().getName());
+        dto.setExhibitionRoomNumber(ticket.getExhibition().getExhibitionProposal().getRoomReservation().getRoom().getNumber());
         dto.setExhibitionStartDate(DateUtil.dateToString(ticket.getExhibition().getExhibitionProposal().getStartDate()));
         dto.setExhibitionEndDate(DateUtil.dateToString(ticket.getExhibition().getExhibitionProposal().getEndDate()));
 
