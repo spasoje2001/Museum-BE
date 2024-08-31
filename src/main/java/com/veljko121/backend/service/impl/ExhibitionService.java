@@ -4,8 +4,10 @@ import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
+import com.veljko121.backend.mapper.ExhibitionSearchMapper;
 import com.veljko121.backend.model.*;
 import com.veljko121.backend.repository.ExhibitionRepository;
+import com.veljko121.backend.repository.ExhibitionSearchRepository;
 import com.veljko121.backend.service.*;
 import com.veljko121.backend.util.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +26,12 @@ import java.util.stream.Collectors;
 @Service
 public class ExhibitionService extends CRUDService<Exhibition, Integer> implements IExhibitionService {
     private final ExhibitionRepository exhibitionRepository;
+
+    private final ExhibitionSearchRepository  exhibitionSearchRepository;
+
+    @Autowired
+    private ExhibitionSearchMapper exhibitionSearchMapper;
+
     @Autowired
     private ICuratorService curatorService;
 
@@ -44,9 +52,10 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     @Autowired
     private IExhibitionProposalService exhibitionProposalService;
 
-    public ExhibitionService(ExhibitionRepository repository) {
+    public ExhibitionService(ExhibitionRepository repository, ExhibitionSearchRepository searchRepository) {
         super(repository);
         exhibitionRepository = repository;
+        exhibitionSearchRepository = searchRepository;
     }
 
     /*
@@ -105,9 +114,21 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     @Override
     @Transactional
     public List<Exhibition> findAll() {
+        // Update exhibition statuses
         updateExhibitionStatuses();
-        return exhibitionRepository.findAll();
+
+        // Find all exhibitions
+        List<Exhibition> exhibitions = exhibitionRepository.findAll();
+
+        // Save each exhibition to Elasticsearch
+        for (Exhibition exhibition : exhibitions) {
+            ExhibitionSearch exhibitionSearch = exhibitionSearchMapper.toExhibitionSearch(exhibition);
+            exhibitionSearchRepository.save(exhibitionSearch);
+        }
+
+        return exhibitions;
     }
+
 
 
     @Override
@@ -165,6 +186,7 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
                     proposal.getStartDate(), proposal.getEndDate());
             itemReservationService.save(itemReservation);
         }
+
 
         return savedExhibition;
     }

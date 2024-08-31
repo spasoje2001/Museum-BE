@@ -75,8 +75,7 @@ public class Exhibition {
     }
 
     public boolean isFree() {
-        return tickets.isEmpty() || tickets.stream()
-                .allMatch(ticket -> BigDecimal.ZERO.compareTo(ticket.getTotalPrice()) == 0);
+        return tickets.stream().allMatch(ticket -> BigDecimal.ZERO.compareTo(ticket.getTotalPrice()) == 0);
     }
 
     public double getAverageRating() {
