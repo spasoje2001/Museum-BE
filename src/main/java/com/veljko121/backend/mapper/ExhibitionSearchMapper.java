@@ -34,6 +34,8 @@ public class ExhibitionSearchMapper {
         searchExhibition.setItems(mapItems(exhibition.getItemReservations()));
         searchExhibition.setReviews(mapReviews(exhibition.getReviews()));
 
+        searchExhibition.setAverageRating(searchExhibition.getAverageRating());
+
         return searchExhibition;
     }
 

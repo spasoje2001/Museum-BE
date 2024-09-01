@@ -46,6 +46,8 @@ public class ExhibitionSearch {
 
     private Collection<ReviewSearch> reviews;
 
+    private Double averageRating;
+
     public Double getAverageRating() {
         if (reviews.isEmpty()) {
             return 0.0;

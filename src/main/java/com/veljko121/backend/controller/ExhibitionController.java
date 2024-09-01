@@ -1,9 +1,6 @@
 package com.veljko121.backend.controller;
 
-import com.veljko121.backend.dto.CreateExhibitionDTO;
-import com.veljko121.backend.dto.ExhibitionProposalDTO;
-import com.veljko121.backend.dto.ExhibitionProposalResponseDTO;
-import com.veljko121.backend.dto.ExhibitionResponseDTO;
+import com.veljko121.backend.dto.*;
 import com.veljko121.backend.mapper.ExhibitionMapper;
 import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.ExhibitionProposal;
@@ -74,6 +71,15 @@ public class ExhibitionController {
         Exhibition updatedExhibition = exhibitionService.updateExhibition(id, exhibitionDTO);
         ExhibitionResponseDTO dto = exhibitionMapper.mapToDTO(updatedExhibition);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<?> searchExhibitions(@RequestBody ExhibitionSearchRequestDTO searchRequest) {
+        var exhibitions = exhibitionService.searchExhibitions(searchRequest);
+        var response = exhibitions.stream()
+                .map(exhibitionMapper::mapToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

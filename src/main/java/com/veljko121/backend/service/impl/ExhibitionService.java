@@ -4,6 +4,7 @@ import com.veljko121.backend.core.enums.ExhibitionStatus;
 import com.veljko121.backend.core.service.impl.CRUDService;
 import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
+import com.veljko121.backend.dto.ExhibitionSearchRequestDTO;
 import com.veljko121.backend.mapper.ExhibitionSearchMapper;
 import com.veljko121.backend.model.*;
 import com.veljko121.backend.repository.ExhibitionRepository;
@@ -12,16 +13,23 @@ import com.veljko121.backend.service.*;
 import com.veljko121.backend.util.DateUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.query.Criteria;
+import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+
+
+
 import java.text.ParseException;
 import java.time.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ExhibitionService extends CRUDService<Exhibition, Integer> implements IExhibitionService {
@@ -51,6 +59,8 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     private IItemReservationService itemReservationService;
     @Autowired
     private IExhibitionProposalService exhibitionProposalService;
+
+    private static final Logger logger = LoggerFactory.getLogger(ExhibitionService.class);
 
     public ExhibitionService(ExhibitionRepository repository, ExhibitionSearchRepository searchRepository) {
         super(repository);
@@ -114,22 +124,10 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     @Override
     @Transactional
     public List<Exhibition> findAll() {
-        // Update exhibition statuses
         updateExhibitionStatuses();
-
-        // Find all exhibitions
-        List<Exhibition> exhibitions = exhibitionRepository.findAll();
-
-        // Save each exhibition to Elasticsearch
-        for (Exhibition exhibition : exhibitions) {
-            ExhibitionSearch exhibitionSearch = exhibitionSearchMapper.toExhibitionSearch(exhibition);
-            exhibitionSearchRepository.save(exhibitionSearch);
-        }
-
-        return exhibitions;
+        //updateExhibitionSearchIndex();
+        return exhibitionRepository.findAll();
     }
-
-
 
     @Override
     public List<Exhibition> getExhibitionsForPreviousMonth() {
@@ -191,6 +189,7 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         return savedExhibition;
     }
 
+    @Override
     @Transactional
     public Exhibition updateExhibition(Integer id, CreateExhibitionDTO exhibitionDTO) {
         Exhibition exhibition = findById(id);
@@ -265,7 +264,153 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         exhibitionRepository.saveAll(exhibitions); // Spremi ažurirane statuse
     }
 
+    @Scheduled(initialDelay = 0, fixedRate = 3600000) // podeseno da se pokrene pri pokretanju aplikacije i onda svaki sat nakon toga
+    //@Scheduled(cron = "0 0 * * * ?") // Podesi da se pokreće na svakih sat vremena, na pun sat, ali ne nuzno pri pokretanju aplikacije
+    @Transactional
+    public void updateExhibitionSearchIndex() {
+        logger.info("Starting update of ExhibitionSearchIndex");
 
+        List<Exhibition> exhibitions = exhibitionRepository.findAll();
+        List<ExhibitionSearch> exhibitionSearches = StreamSupport
+                .stream(exhibitionSearchRepository.findAll().spliterator(), false)
+                .toList();
+
+
+        // Kreiramo mapu izložbi iz relacione baze radi bržeg pristupa
+        Map<Integer, Exhibition> exhibitionMap = exhibitions.stream()
+                .collect(Collectors.toMap(Exhibition::getId, exhibition -> exhibition));
+
+        for (ExhibitionSearch exhibitionSearch : exhibitionSearches) {
+            Integer relationalDbId = exhibitionSearch.getRelationalDbId();
+
+            if (exhibitionMap.containsKey(relationalDbId)) {
+                // Ako izložba postoji u relacionej bazi, proveravamo da li se podaci razlikuju
+                Exhibition exhibition = exhibitionMap.get(relationalDbId);
+                ExhibitionSearch updatedExhibitionSearch = exhibitionSearchMapper.toExhibitionSearch(exhibition);
+
+                updatedExhibitionSearch.setId(exhibitionSearch.getId());
+
+                if (!exhibitionSearch.equals(updatedExhibitionSearch)) {
+                    // Ažuriramo podatke u Elasticsearch ako se razlikuju
+                    exhibitionSearchRepository.save(updatedExhibitionSearch);
+                }
+            } else {
+                // Ako izložba ne postoji u relacionej bazi, brišemo je iz Elasticsearch
+                exhibitionSearchRepository.delete(exhibitionSearch);
+            }
+        }
+
+        // Dodavanje novih izložbi koje nisu u Elasticsearch bazi
+        for (Exhibition exhibition : exhibitions) {
+            if (exhibitionSearches.stream().noneMatch(es -> es.getRelationalDbId().equals(exhibition.getId()))) {
+                ExhibitionSearch newExhibitionSearch = exhibitionSearchMapper.toExhibitionSearch(exhibition);
+                exhibitionSearchRepository.save(newExhibitionSearch);
+            }
+        }
+
+        logger.info("Completed update of ExhibitionSearchIndex");
+    }
+
+    @Override
+    public List<Exhibition> searchExhibitions(ExhibitionSearchRequestDTO searchRequest) {
+        List<Set<Integer>> resultSets = new ArrayList<>();
+
+        if (searchRequest.getName() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByNameContaining(searchRequest.getName());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getShortDescription() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByShortDescriptionContaining(searchRequest.getShortDescription());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getLongDescription() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByLongDescriptionContaining(searchRequest.getLongDescription());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getTheme() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByTheme(searchRequest.getTheme());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getStatus() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByStatus(searchRequest.getStatus());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getStartDate() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByStartDateAfter(DateUtil.stringToDate(searchRequest.getStartDate()));
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getEndDate() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByEndDateBefore(DateUtil.stringToDate(searchRequest.getEndDate()));
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getOrganizer() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByOrganizerContaining(searchRequest.getOrganizer());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getCurator() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByCuratorContaining(searchRequest.getCurator());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getItemName() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_NameContaining(searchRequest.getItemName());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getItemDescription() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_DescriptionContaining(searchRequest.getItemDescription());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getItemAuthorsName() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_AuthorsNameContaining(searchRequest.getItemAuthorsName());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getItemCategory() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_Category(searchRequest.getItemCategory());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getItemPeriod() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_PeriodContaining(searchRequest.getItemPeriod());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getMinRating() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByAverageRatingGreaterThanEqual(searchRequest.getMinRating().doubleValue());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getComment() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByReviews_CommentContaining(searchRequest.getComment());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        if (searchRequest.getGuest() != null) {
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByReviews_GuestNameContaining(searchRequest.getGuest());
+            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+        }
+
+        // Presek svih setova rezultata
+        Set<Integer> finalSet = resultSets.stream()
+                .reduce((set1, set2) -> {
+                    set1.retainAll(set2);
+                    return set1;
+                })
+                .orElse(Collections.emptySet());
+
+        // Pronađi izložbe u relacionoj bazi po ID-jevima
+        return exhibitionRepository.findAllById(finalSet);
+    }
 
 }
 

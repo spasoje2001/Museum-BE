@@ -3,6 +3,7 @@ package com.veljko121.backend.service;
 import com.veljko121.backend.core.service.ICRUDService;
 import com.veljko121.backend.dto.CreateExhibitionDTO;
 import com.veljko121.backend.dto.ExhibitionProposalDTO;
+import com.veljko121.backend.dto.ExhibitionSearchRequestDTO;
 import com.veljko121.backend.model.Exhibition;
 import com.veljko121.backend.model.ExhibitionProposal;
 
@@ -19,5 +20,7 @@ public interface IExhibitionService extends ICRUDService<Exhibition, Integer> {
     Exhibition createExhibition(CreateExhibitionDTO createExhibitionDTO);
 
     Exhibition updateExhibition(Integer id, CreateExhibitionDTO exhibitionDTO);
+    List<Exhibition> searchExhibitions(ExhibitionSearchRequestDTO searchRequest);
+
 
 }
