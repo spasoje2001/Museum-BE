@@ -315,19 +315,21 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
     public List<Exhibition> searchExhibitions(ExhibitionSearchRequestDTO searchRequest) {
         List<Set<Integer>> resultSets = new ArrayList<>();
 
-        if (searchRequest.getName() != null) {
+        if (searchRequest.getName() != null && !searchRequest.getName().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByNameContaining(searchRequest.getName());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getShortDescription() != null) {
-            List<ExhibitionSearch> results = exhibitionSearchRepository.findByShortDescriptionContaining(searchRequest.getShortDescription());
-            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
-        }
+        if (searchRequest.getDescription() != null && !searchRequest.getDescription().isEmpty()) {
+            List<ExhibitionSearch> shortDescResults = exhibitionSearchRepository.findByShortDescriptionContaining(searchRequest.getDescription());
+            List<ExhibitionSearch> longDescResults = exhibitionSearchRepository.findByLongDescriptionContaining(searchRequest.getDescription());
 
-        if (searchRequest.getLongDescription() != null) {
-            List<ExhibitionSearch> results = exhibitionSearchRepository.findByLongDescriptionContaining(searchRequest.getLongDescription());
-            resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
+            // Combine results from both searches into one set
+            Set<Integer> combinedResultIds = new HashSet<>();
+            combinedResultIds.addAll(shortDescResults.stream().map(result -> result.getRelationalDbId()).collect(Collectors.toSet()));
+            combinedResultIds.addAll(longDescResults.stream().map(result -> result.getRelationalDbId()).collect(Collectors.toSet()));
+
+            resultSets.add(combinedResultIds);
         }
 
         if (searchRequest.getTheme() != null) {
@@ -340,37 +342,37 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getStartDate() != null) {
+        if (searchRequest.getStartDate() != null && !searchRequest.getStartDate().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByStartDateAfter(DateUtil.stringToDate(searchRequest.getStartDate()));
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getEndDate() != null) {
+        if (searchRequest.getEndDate() != null && !searchRequest.getEndDate().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByEndDateBefore(DateUtil.stringToDate(searchRequest.getEndDate()));
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getOrganizer() != null) {
+        if (searchRequest.getOrganizer() != null && !searchRequest.getOrganizer().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByOrganizerContaining(searchRequest.getOrganizer());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getCurator() != null) {
+        if (searchRequest.getCurator() != null && !searchRequest.getCurator().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByCuratorContaining(searchRequest.getCurator());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getItemName() != null) {
+        if (searchRequest.getItemName() != null && !searchRequest.getItemName().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_NameContaining(searchRequest.getItemName());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getItemDescription() != null) {
+        if (searchRequest.getItemDescription() != null && !searchRequest.getItemDescription().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_DescriptionContaining(searchRequest.getItemDescription());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getItemAuthorsName() != null) {
+        if (searchRequest.getItemAuthorsName() != null && !searchRequest.getItemAuthorsName().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_AuthorsNameContaining(searchRequest.getItemAuthorsName());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
@@ -380,7 +382,7 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getItemPeriod() != null) {
+        if (searchRequest.getItemPeriod() != null && !searchRequest.getItemPeriod().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByItems_PeriodContaining(searchRequest.getItemPeriod());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
@@ -390,17 +392,17 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getComment() != null) {
+        if (searchRequest.getComment() != null && !searchRequest.getComment().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByReviews_CommentContaining(searchRequest.getComment());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        if (searchRequest.getGuest() != null) {
+        if (searchRequest.getGuest() != null && !searchRequest.getGuest().isEmpty()) {
             List<ExhibitionSearch> results = exhibitionSearchRepository.findByReviews_GuestNameContaining(searchRequest.getGuest());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
-        // Presek svih setova rezultata
+        // Intersection of all result sets
         Set<Integer> finalSet = resultSets.stream()
                 .reduce((set1, set2) -> {
                     set1.retainAll(set2);
@@ -408,9 +410,10 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
                 })
                 .orElse(Collections.emptySet());
 
-        // Pronađi izložbe u relacionoj bazi po ID-jevima
+        // Find exhibitions in relational database by IDs
         return exhibitionRepository.findAllById(finalSet);
     }
+
 
 }
 

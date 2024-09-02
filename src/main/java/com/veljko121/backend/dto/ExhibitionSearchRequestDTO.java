@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @Setter
 public class ExhibitionSearchRequestDTO {
     private String name;
-    private String shortDescription;
-    private String longDescription;
+    private String description;
     private ExhibitionTheme theme;
     private ExhibitionStatus status;
     private String startDate;
