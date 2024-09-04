@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 public class Administrator extends User {
-    
-    @Column
+
+    @Column(name = "biography", columnDefinition = "TEXT")
     private String biography;
 
 }

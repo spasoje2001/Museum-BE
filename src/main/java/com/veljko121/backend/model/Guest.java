@@ -12,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class Guest extends User {
 
-    @Column
+    @Column(name = "biography", columnDefinition = "TEXT")
     private String biography;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest", cascade = CascadeType.ALL, orphanRemoval = true)

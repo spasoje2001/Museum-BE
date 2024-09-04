@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Curator extends User{
 
-    @Column
+    @Column(name = "biography", columnDefinition = "TEXT")
     private String biography;
 
 }
