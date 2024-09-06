@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findByGuestId(Integer guestId);
+
+    boolean existsByExhibitionIdAndGuestId(Integer exhibitionId, Integer guestId);
 }

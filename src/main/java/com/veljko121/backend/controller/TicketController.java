@@ -44,4 +44,11 @@ public class TicketController {
         return ResponseEntity.ok(ticketResponseDTOS);
     }
 
+    @GetMapping("/exhibition/{exhibitionId}/guest/{guestId}/has-ticket")
+    public ResponseEntity<Boolean> hasUserPurchasedTicket(@PathVariable Integer exhibitionId, @PathVariable Integer guestId) {
+        boolean hasTicket = ticketService.hasUserPurchasedTicket(exhibitionId, guestId);
+        return ResponseEntity.ok(hasTicket);
+    }
+
+
 }

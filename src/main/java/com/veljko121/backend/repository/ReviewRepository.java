@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> findByExhibitionIdOrderByReviewDateDesc(Integer exhibitionId);
+
+    boolean existsByGuestIdAndExhibitionId(Integer guestId, Integer exhibitionId);
 }

@@ -44,7 +44,10 @@ public class ExhibitionSearch {
 
     private Collection<ItemSearch> items;
 
-    private Collection<ReviewSearch> reviews;
+
+    private Collection<CommentSearch> comments;
+
+    private Collection<Integer> reviews;
 
     private Double averageRating;
 
@@ -53,8 +56,8 @@ public class ExhibitionSearch {
             return 0.0;
         }
         Double averageRating = 0.;
-        for (ReviewSearch review : reviews) {
-            averageRating += review.getRating();
+        for (Integer review : reviews) {
+            averageRating += review;
         }
         return averageRating / reviews.size();
     }

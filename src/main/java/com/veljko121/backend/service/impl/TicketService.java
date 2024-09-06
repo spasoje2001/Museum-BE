@@ -50,4 +50,9 @@ public class TicketService extends CRUDService<Ticket, Integer> implements ITick
     public List<Ticket> getTicketsByGuestId(Integer guestId) {
         return ticketRepository.findByGuestId(guestId);
     }
+
+    public boolean hasUserPurchasedTicket(Integer exhibitionId, Integer guestId) {
+        return ticketRepository.existsByExhibitionIdAndGuestId(exhibitionId, guestId);
+    }
+
 }

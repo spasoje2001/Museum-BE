@@ -33,6 +33,7 @@ public class ExhibitionSearchMapper {
         // Mapping Items and Reviews
         searchExhibition.setItems(mapItems(exhibition.getItemReservations()));
         searchExhibition.setReviews(mapReviews(exhibition.getReviews()));
+        searchExhibition.setComments(mapComments(exhibition.getComments()));
 
         searchExhibition.setAverageRating(searchExhibition.getAverageRating());
 
@@ -71,14 +72,19 @@ public class ExhibitionSearchMapper {
     }
 
     // Helper method to map Review list to SearchReview list
-    private List<ReviewSearch> mapReviews(List<Review> reviews) {
+    private List<Integer> mapReviews(List<Review> reviews) {
         return reviews.stream()
-                .map(review -> {
-                    ReviewSearch searchReview = new ReviewSearch();
-                    searchReview.setGuestName(review.getGuest().getFirstName() + " " + review.getGuest().getLastName());
-                    searchReview.setRating(review.getRating());
-                    searchReview.setComment(review.getComment());
-                    return searchReview;
+                .map(Review::getRating)
+                .collect(Collectors.toList());
+    }
+
+    private List<CommentSearch> mapComments(List<Comment> comments) {
+        return comments.stream()
+                .map(comment -> {
+                    CommentSearch searchComment = new CommentSearch();
+                    searchComment.setGuestName(comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
+                    searchComment.setText(comment.getText());
+                    return searchComment;
                 })
                 .collect(Collectors.toList());
     }

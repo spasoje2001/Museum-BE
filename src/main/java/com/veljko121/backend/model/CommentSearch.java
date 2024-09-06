@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReviewSearch {
+public class CommentSearch {
     private String guestName;
-    private int rating;
-    private String comment;
+    private String text;
 }

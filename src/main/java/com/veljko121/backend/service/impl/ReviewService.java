@@ -41,8 +41,18 @@ public class ReviewService extends CRUDService<Review, Integer> implements IRevi
         Exhibition exhibition = exhibitionService.findById(reviewDTO.getExhibitionId());
         Guest guest = guestService.findById(reviewDTO.getGuestId());
 
-        Review review = new Review(guest, exhibition, reviewDTO.getRating(), reviewDTO.getComment());
+        if (reviewRepository.existsByGuestIdAndExhibitionId(reviewDTO.getGuestId(), reviewDTO.getExhibitionId())) {
+            throw new IllegalArgumentException("Guest has already reviewed this exhibition");
+        }
+
+        Review review = new Review(guest, exhibition, reviewDTO.getRating());
 
         return reviewRepository.save(review);
     }
+
+    @Override
+    public boolean hasUserReviewedExhibition(Integer exhibitionId, Integer userId) {
+        return reviewRepository.existsByGuestIdAndExhibitionId(userId, exhibitionId);
+    }
+
 }

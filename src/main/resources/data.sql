@@ -779,13 +779,13 @@ INSERT INTO ticket(number_of_adults, number_of_minors, total_price, exhibition_i
     (1, 2, 22.00, 13, 11);
 
 -- Insert Reviews for "Medieval Treasures" Exhibition (ID 2)
-INSERT INTO review(guest_id, exhibition_id, rating, comment, review_date) VALUES
-    (1, 2, 5, 'An amazing deep dive into the medieval era. The artifacts were astonishing!', now()),  -- Review by Veljko (guest ID 1)
-    (2, 2, 4, 'Great exhibition! The curation was excellent, but I expected more interactive elements.', now()),  -- Review by Dokma (guest ID 2)
-    (2, 2, 5, 'An amazing deep dive into the medieval era. The artifacts were astonishing!', now()),  -- Review by Veljko (guest ID 1)
-    (4, 2, 2, 'Great exhibition! The curation was excellent, but I expected more interactive elements.', now()),  -- Review by Dokma (guest ID 2)
-    (4, 2, 1, 'An amazing deep dive into the medieval era. The artifacts were astonishing!', now()),  -- Review by Veljko (guest ID 1)
-    (1, 2, 5, 'Great exhibition! The curation was excellent, but I expected more interactive elements.', now());  -- Review by Dokma (guest ID 2)
+INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
+    (1, 2, 5, now()),  -- Review by Veljko (guest ID 1)
+    (2, 2, 4, now()),  -- Review by Dokma (guest ID 2)
+    (2, 2, 5, now()),  -- Review by Veljko (guest ID 1)
+    (4, 2, 2, now()),  -- Review by Dokma (guest ID 2)
+    (4, 2, 1, now()),  -- Review by Veljko (guest ID 1)
+    (1, 2, 5, now());  -- Review by Dokma (guest ID 2)
 
 
 

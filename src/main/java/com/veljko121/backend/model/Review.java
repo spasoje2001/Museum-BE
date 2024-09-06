@@ -34,18 +34,14 @@ public class Review {
     @Column(nullable = false)
     private int rating;  // Ocena izložbe, npr. od 1 do 5
 
-    @Column(name = "comment", columnDefinition = "TEXT")
-    private String comment;  // Tekstualni komentar posetioca
-
     @CreationTimestamp
     @Column(name = "review_date",nullable = false, updatable = false)
     private LocalDate reviewDate;  // Datum kada je recenzija napisana
 
     // Konstruktor sa svim parametrima
-    public Review(Guest guest, Exhibition exhibition, int rating, String comment) {
+    public Review(Guest guest, Exhibition exhibition, int rating) {
         this.guest = guest;
         this.exhibition = exhibition;
         this.rating = rating;
-        this.comment = comment;
     }
 }

@@ -15,7 +15,6 @@ public class ReviewMapper {
         ReviewResponseDTO dto = new ReviewResponseDTO();
         dto.setId(review.getId());
         dto.setRating(review.getRating());
-        dto.setComment(review.getComment());
         dto.setReviewDate(DateUtil.dateToString(review.getReviewDate()));
 
         dto.setExhibitionId(review.getExhibition().getId());

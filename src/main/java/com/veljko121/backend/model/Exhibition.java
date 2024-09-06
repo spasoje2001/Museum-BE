@@ -59,6 +59,9 @@ public class Exhibition {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
     public boolean isOngoing() {
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = exhibitionProposal.getStartDate();

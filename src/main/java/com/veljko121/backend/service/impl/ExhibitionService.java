@@ -393,12 +393,12 @@ public class ExhibitionService extends CRUDService<Exhibition, Integer> implemen
         }
 
         if (searchRequest.getComment() != null && !searchRequest.getComment().isEmpty()) {
-            List<ExhibitionSearch> results = exhibitionSearchRepository.findByReviews_CommentContaining(searchRequest.getComment());
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByComments_TextContaining(searchRequest.getComment());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 
         if (searchRequest.getGuest() != null && !searchRequest.getGuest().isEmpty()) {
-            List<ExhibitionSearch> results = exhibitionSearchRepository.findByReviews_GuestNameContaining(searchRequest.getGuest());
+            List<ExhibitionSearch> results = exhibitionSearchRepository.findByComments_GuestNameContaining(searchRequest.getGuest());
             resultSets.add(results.stream().map(ExhibitionSearch::getRelationalDbId).collect(Collectors.toSet()));
         }
 

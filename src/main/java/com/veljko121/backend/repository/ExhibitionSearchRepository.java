@@ -59,10 +59,8 @@ public interface ExhibitionSearchRepository extends ElasticsearchRepository<Exhi
     List<ExhibitionSearch> findByAverageRatingGreaterThanEqual(Double minRating);
 
     // Pretraga po komentaru sa podrškom za slovne greške i delimične podudarnosti
-    List<ExhibitionSearch> findByReviews_CommentContaining(String comment);
+    List<ExhibitionSearch> findByComments_TextContaining(String comment);
 
     // Pretraga po imenu gosta sa podrškom za slovne greške i delimične podudarnosti
-    List<ExhibitionSearch> findByReviews_GuestNameContaining(String guestName);
-
-
+    List<ExhibitionSearch> findByComments_GuestNameContaining(String guestName);
 }

@@ -10,5 +10,7 @@ import java.util.List;
 public interface IReviewService extends ICRUDService<Review, Integer> {
     public List<Review> getReviewsByExhibitionId(Integer exhibitionId);
     public Review createReview(ReviewDTO reviewDTO);
+    boolean hasUserReviewedExhibition(Integer exhibitionId, Integer userId);
+
 
 }

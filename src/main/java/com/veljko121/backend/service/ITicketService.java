@@ -12,4 +12,6 @@ public interface ITicketService extends ICRUDService<Ticket, Integer> {
     public Ticket bookTickets(BookTicketsDTO dto);
 
     public List<Ticket> getTicketsByGuestId(Integer guestId);
+
+    boolean hasUserPurchasedTicket(Integer exhibitionId, Integer guestId);
 }

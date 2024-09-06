@@ -10,6 +10,8 @@ import com.veljko121.backend.service.ITicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,10 +36,21 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<ReviewResponseDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
-        Review createdReview = reviewService.createReview(reviewDTO);
-        ReviewResponseDTO dto = reviewMapper.mapToDTO(createdReview);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<?> createReview(@RequestBody ReviewDTO reviewDTO) {
+        try {
+            Review createdReview = reviewService.createReview(reviewDTO);
+            ReviewResponseDTO dto = reviewMapper.mapToDTO(createdReview);
+            return ResponseEntity.ok(dto);
+        } catch (IllegalArgumentException e) {
+            // Vraća HTTP 400 sa porukom o grešci
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/exhibition/{exhibitionId}/has-reviewed")
+    public ResponseEntity<Boolean> hasUserReviewedExhibition(@PathVariable Integer exhibitionId, @RequestParam Integer userId) {
+        boolean hasReviewed = reviewService.hasUserReviewedExhibition(exhibitionId, userId);
+        return ResponseEntity.ok(hasReviewed);
     }
 
 

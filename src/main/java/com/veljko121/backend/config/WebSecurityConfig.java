@@ -44,7 +44,9 @@ public class WebSecurityConfig {
         "/api/events/published",
         "/api/exhibitions",
         "/api/exhibitions/{id}",
-        "/api/reviews/exhibition/{exhibitionId}"
+        "/api/reviews/exhibition/{exhibitionId}",
+        "/api/comments",
+        "/api/comments/exhibition/{exhibitionId}",
     };
     
     private final AuthenticationProvider authenticationProvider;

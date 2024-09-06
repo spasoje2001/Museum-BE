@@ -16,6 +16,5 @@ public class ReviewResponseDTO {
     private String exhibitionName;
 
     private Integer rating;
-    private String comment;
     private String reviewDate;
 }
