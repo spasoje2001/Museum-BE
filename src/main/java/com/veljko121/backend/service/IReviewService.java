@@ -12,5 +12,7 @@ public interface IReviewService extends ICRUDService<Review, Integer> {
     public Review createReview(ReviewDTO reviewDTO);
     boolean hasUserReviewedExhibition(Integer exhibitionId, Integer userId);
 
+    Integer getUserRatingForExhibition(Integer exhibitionId, Integer userId);
+
 
 }

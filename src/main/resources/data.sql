@@ -785,7 +785,8 @@ INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
     (2, 2, 5, now()),  -- Review by Veljko (guest ID 1)
     (4, 2, 2, now()),  -- Review by Dokma (guest ID 2)
     (4, 2, 1, now()),  -- Review by Veljko (guest ID 1)
-    (1, 2, 5, now());  -- Review by Dokma (guest ID 2)
+    (1, 2, 5, now()),  -- Review by Dokma (guest ID 2)
+    (3, 6, 4, now());  -- Review by Dokma (guest ID 2)
 
 
 

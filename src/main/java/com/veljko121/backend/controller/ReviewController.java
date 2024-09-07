@@ -53,5 +53,16 @@ public class ReviewController {
         return ResponseEntity.ok(hasReviewed);
     }
 
+    @GetMapping("/exhibition/{exhibitionId}/user-rating")
+    public ResponseEntity<Integer> getUserRatingForExhibition(@PathVariable Integer exhibitionId, @RequestParam Integer userId) {
+        Integer rating = reviewService.getUserRatingForExhibition(exhibitionId, userId);
+        if (rating != null) {
+            return ResponseEntity.ok(rating);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);  // Ako korisnik nije ocenio izložbu
+        }
+    }
+
+
 
 }

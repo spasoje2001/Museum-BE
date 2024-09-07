@@ -55,4 +55,10 @@ public class ReviewService extends CRUDService<Review, Integer> implements IRevi
         return reviewRepository.existsByGuestIdAndExhibitionId(userId, exhibitionId);
     }
 
+    public Integer getUserRatingForExhibition(Integer exhibitionId, Integer userId) {
+        Review review = reviewRepository.findByGuestIdAndExhibitionId(userId, exhibitionId);
+        return review != null ? review.getRating() : null;  // Vrati ocenu ako postoji
+    }
+
+
 }

@@ -9,4 +9,6 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> findByExhibitionIdOrderByReviewDateDesc(Integer exhibitionId);
 
     boolean existsByGuestIdAndExhibitionId(Integer guestId, Integer exhibitionId);
+
+    Review findByGuestIdAndExhibitionId(Integer guestId, Integer exhibitionId);
 }
