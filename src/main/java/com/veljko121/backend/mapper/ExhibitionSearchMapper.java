@@ -82,10 +82,15 @@ public class ExhibitionSearchMapper {
         return comments.stream()
                 .map(comment -> {
                     CommentSearch searchComment = new CommentSearch();
-                    searchComment.setGuestName(comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
+                    if (comment.getUser() != null) {
+                        searchComment.setGuestName(comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
+                    } else {
+                        searchComment.setGuestName("Anonymous");
+                    }
                     searchComment.setText(comment.getText());
                     return searchComment;
                 })
                 .collect(Collectors.toList());
     }
+
 }

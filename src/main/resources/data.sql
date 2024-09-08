@@ -778,6 +778,37 @@ INSERT INTO ticket(number_of_adults, number_of_minors, total_price, exhibition_i
     (2, 0, 20.00, 13, 10),
     (1, 2, 22.00, 13, 11);
 
+-- Komentari za izložbu 1 "Van Gogh and the Masters of Impressionism"
+
+-- Pozitivan komentar od gosta
+INSERT INTO comment (user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
+(1, 1, 'This exhibition is absolutely stunning! Van Goghs works never fail to amaze me. The colors and textures are breathtaking, and the way the exhibition is organized allows for a deep emotional connection with the art. Truly inspiring!', NULL, '2024-07-01'),
+
+-- Anonimni komentar
+(NULL, 1, 'I was moved by the entire collection. Seeing Van Goghs "Wheat Fields at Auvers" in person was a dream come true. Highly recommend this exhibit to all art lovers.', NULL, '2024-07-02'),
+
+-- Pitanje gosta o mogućnosti ponavljanja izložbe
+(7, 1, 'Will this exhibition be shown again in the future? I would love to bring more of my friends to experience it.', NULL, '2024-07-03'),
+
+-- Odgovor organizatora na pitanje gosta
+(22, 1, 'We are thrilled that you enjoyed the exhibition! As of now, we don’t have plans to extend this specific exhibit, but we often feature similar collections in our future programs. Stay tuned for upcoming exhibitions!', 3, '2024-07-05'),
+
+-- Pozitivan komentar kustosa
+(25, 1, 'As the curator of this exhibition, I am glad to see the positive response. Van Gogh’s emotional connection to nature is truly reflected in his brushstrokes, especially in works like "Wheat Field". This collection was a joy to put together, and it highlights the evolution of Impressionism beautifully.', NULL, '2024-07-06'),
+
+-- Komentar sa pitanjem o tehnikama Van Goga
+(NULL, 1, 'I noticed that Van Gogh uses a very thick application of paint in many of his works. Was this a common technique among the Impressionists, or was it unique to Van Gogh?', NULL, '2024-07-07'),
+
+-- Odgovor kustosa na pitanje o tehnikama
+(25, 1, 'Great observation! Van Gogh did indeed use a technique called "impasto," where paint is applied thickly, often with a palette knife. While other Impressionists also used this technique to some extent, Van Gogh took it to new heights, using it to express emotion and movement in his works.', 6, '2024-07-08'),
+-- Negativan komentar gosta
+(3, 1, 'I found the exhibition a bit too crowded and the lighting didn’t do justice to some of the pieces. Van Gogh’s work deserves better presentation.', NULL, '2024-07-10'),
+-- Organizator odgovara na negativan komentar
+(23, 1, 'We appreciate your feedback and are sorry to hear about your experience. We’ll take your suggestions into account for future exhibitions. We are constantly working to improve the layout and lighting to enhance the visitor experience.', 8, '2024-07-12'),
+-- Još jedan pozitivan komentar gosta
+(2, 1, 'I have visited many art exhibitions, but this one really stands out. The selection of pieces is perfect, and the atmosphere in the gallery is so peaceful. "Roses" by Van Gogh was my favorite!', NULL, '2024-07-14');
+
+
 -- Insert Reviews for "Medieval Treasures" Exhibition (ID 2)
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
     (1, 2, 5, now()),  -- Review by Veljko (guest ID 1)
@@ -786,7 +817,7 @@ INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
     (4, 2, 2, now()),  -- Review by Dokma (guest ID 2)
     (4, 2, 1, now()),  -- Review by Veljko (guest ID 1)
     (1, 2, 5, now()),  -- Review by Dokma (guest ID 2)
-    (3, 6, 4, now());  -- Review by Dokma (guest ID 2)
+    (3, 6, 3, now());  -- Review by Dokma (guest ID 2)
 
 
 
