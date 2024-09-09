@@ -7,7 +7,7 @@ import com.itextpdf.text.DocumentException;
 
 
 public interface IPdfService {
-    ByteArrayInputStream generateExhibitionReport(Integer organizerId) throws DocumentException, IOException;
+    ByteArrayInputStream generateOrganizerExhibitionReport(Integer organizerId) throws DocumentException, IOException;
     ByteArrayInputStream generateCuratorExhibitionReport(Integer curatorId) throws DocumentException, IOException;
 
 }

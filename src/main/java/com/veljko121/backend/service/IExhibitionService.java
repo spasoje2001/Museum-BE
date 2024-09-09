@@ -22,5 +22,4 @@ public interface IExhibitionService extends ICRUDService<Exhibition, Integer> {
     Exhibition updateExhibition(Integer id, CreateExhibitionDTO exhibitionDTO);
     List<Exhibition> searchExhibitions(ExhibitionSearchRequestDTO searchRequest);
 
-
 }

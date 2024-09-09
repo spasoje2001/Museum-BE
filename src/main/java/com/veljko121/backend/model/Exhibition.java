@@ -53,13 +53,13 @@ public class Exhibition {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemReservation> itemReservations = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     public boolean isOngoing() {
@@ -88,6 +88,12 @@ public class Exhibition {
                 .orElse(0.0);
 
         return Math.round(average * 100.0) / 100.0;
+    }
+
+    public int getTotalVisitors() {
+        return tickets.stream()
+                .mapToInt(ticket -> ticket.getNumberOfAdults() + ticket.getNumberOfMinors())
+                .sum();
     }
 
 }

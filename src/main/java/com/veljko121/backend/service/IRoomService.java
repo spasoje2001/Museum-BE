@@ -14,4 +14,6 @@ public interface IRoomService extends ICRUDService<Room, Integer> {
     public List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate);
 
     public List<Room> findAvailableRoomsForUpdate(LocalDate startDate, LocalDate endDate, Integer proposalId);
+
+    public long countRoomsNotReservedForOpenExhibitions();
 }

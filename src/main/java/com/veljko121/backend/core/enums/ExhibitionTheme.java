@@ -1,5 +1,8 @@
 package com.veljko121.backend.core.enums;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public enum ExhibitionTheme {
     ANCIENT_HISTORY,
     MEDIEVAL_HISTORY,
@@ -23,5 +26,12 @@ public enum ExhibitionTheme {
     MILITARY_HISTORY,
     ENVIRONMENTAL_SCIENCE,
     CHILDREN_EDUCATION,
-    SEASONAL
+    SEASONAL;
+
+    public static String getDisplayName(ExhibitionTheme theme) {
+        String name = theme.name().toLowerCase().replace('_', ' ');
+        return Arrays.stream(name.split(" "))
+                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
+                .collect(Collectors.joining(" "));
+    }
 }

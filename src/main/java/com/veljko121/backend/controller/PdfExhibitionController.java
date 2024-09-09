@@ -25,7 +25,7 @@ public class PdfExhibitionController {
     @GetMapping("/generate-organizer-report")
     public ResponseEntity<InputStreamResource> generateOrganizerReport() throws DocumentException, IOException {
         Integer userId = jwtService.getLoggedInUserId();
-        ByteArrayInputStream bis = pdfExhibitionsService.generateExhibitionReport(userId);
+        ByteArrayInputStream bis = pdfExhibitionsService.generateOrganizerExhibitionReport(userId);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=exhibition-organizer-report.pdf");
 

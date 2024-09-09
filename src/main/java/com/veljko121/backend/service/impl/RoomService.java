@@ -49,5 +49,9 @@ public class RoomService extends CRUDService<Room, Integer> implements IRoomServ
     public List<Room> findAvailableRoomsForUpdate(LocalDate startDate, LocalDate endDate, Integer proposalId) {
         return roomRepository.findAvailableRoomsForUpdate(startDate, endDate, proposalId);
     }
-    
+
+    @Transactional(readOnly = true)
+    public long countRoomsNotReservedForOpenExhibitions() {
+        return roomRepository.findRoomsNotReservedForOpenExhibitions().size();
+    }
 }

@@ -24,4 +24,10 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
     List<Room> findAvailableRoomsForUpdate(@Param("startDate") LocalDate startDate,
                                            @Param("endDate") LocalDate endDate,
                                            @Param("proposalId") Integer proposalId);
+
+    @Query("SELECT r FROM Room r WHERE r.id NOT IN " +
+            "(SELECT rr.room.id FROM RoomReservation rr WHERE rr.exhibitionProposal IN " +
+            "(SELECT e.exhibitionProposal FROM Exhibition e WHERE e.status IN (com.veljko121.backend.core.enums.ExhibitionStatus.OPENED, com.veljko121.backend.core.enums.ExhibitionStatus.READY_TO_OPEN)))")
+    List<Room> findRoomsNotReservedForOpenExhibitions();
+
 }
