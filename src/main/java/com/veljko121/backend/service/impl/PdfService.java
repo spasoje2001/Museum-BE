@@ -280,9 +280,11 @@ public class PdfService implements IPdfService {
 
         long totalReviews = exhibitions.stream().mapToLong(e -> e.getReviews().size()).sum();
         double averageRating = exhibitions.stream()
+                .filter(exhibition -> exhibition.getAverageRating() > 0.0)
                 .mapToDouble(Exhibition::getAverageRating)
                 .average()
                 .orElse(0.0);
+
         long totalComments = exhibitions.stream().mapToLong(e -> e.getComments().size()).sum();
 
         // Create a table for the engagement overview
