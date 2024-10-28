@@ -5,18 +5,18 @@
 
 INSERT INTO _user(email, username, password, first_name, last_name, role, is_account_locked, picture) VALUES
     ('nemanja.tasovac@gmail.com', 'papi', '$2a$10$kVZ6MkAdppKk5GtbzjsgbubBx1Uos0EOTdiY9mIBA5XwWy1ezVQam', 'Nemanja', 'Tasovac', 0, false, 'assets/profile/guest1.jpg'), --veljko
-    ('luka.zelovic@gmail.com', 'zela11', '2a$10$jicdgzoNyODhfwtEuXsYHelIRjzFZ5zIgqcXlHfoy9BROPAnWV2y2', 'Luka', 'Zelovic', 0, false, 'assets/profile/guest2.jpg'), --dokma
-    ('jana.zecevic@gmail.com', 'janci01', '$2a$10$NhX4GkvqpZTas4mZa9wxuevS.8VCi70t3tKXVekdD5/VCg2Hf.kAu', 'Jana', 'Zecevic', 0, false, 'assets/profile/guest3.jpg'), --spale
-    ('katarina.medic@gmail.com', 'meeeedic', '$2a$10$XxmC.cIEK6XvYUVOa2HvTOlMQlIk0J6oQYouW2iBdgob.sRv78W9C', 'Katarina', 'Medic', 0, false, 'assets/profile/guest4.jpg'), --nina
-    ('nina.knezevic@gmail.com', 'bekana', 'password5', 'Nina', 'Knezevic', 0, false, 'assets/profile/guest5.jpg'),
-    ('jovan.brboric@gmail.com', 'cabacaba', 'password6', 'Jovan', 'Brboric', 0, false, 'assets/profile/guest6.jpg'),
-    ('spasoje.brboric@gmail.com', 'cicko01', 'password7', 'Spasoje', 'Brboric', 0, false, 'assets/profile/guest7.jpg'),
-    ('nikola.markovic@gmail.com', 'markan01', 'password8', 'Nikola', 'Markovic', 0, false, 'assets/profile/guest8.jpg'),
-    ('ryan.reynolds@gmail.com', 'deadpool', 'password9', 'Ryan', 'Reynolds', 0, false, 'assets/profile/guest9.jpg'),
-    ('hugh.jackman@gmail.com', 'wolverine', 'password10', 'Hugh', 'Jackman', 0, false, 'assets/profile/guest10.jpg'),
+    ('luka.zelovic@gmail.com', 'zela11', '2a$10$jicdgzoNyODhfwtEuXsYHelIRjzFZ5zIgqcXlHfoy9BROPAnWV2y2', 'Luka', 'Zelović', 0, false, 'assets/profile/guest2.jpg'), --dokma
+    ('jana.zecevic@gmail.com', 'janci01', '$2a$10$NhX4GkvqpZTas4mZa9wxuevS.8VCi70t3tKXVekdD5/VCg2Hf.kAu', 'Jana', 'Zecević', 0, false, 'assets/profile/guest3.jpg'), --spale
+    ('katarina.medic@gmail.com', 'meeeedic', '$2a$10$XxmC.cIEK6XvYUVOa2HvTOlMQlIk0J6oQYouW2iBdgob.sRv78W9C', 'Katarina', 'Medić', 0, false, 'assets/profile/guest4.jpg'), --nina
+    ('nina.knezevic@gmail.com', 'bekana', 'password5', 'Nina', 'Knezević', 0, false, 'assets/profile/guest5.jpg'),
+    ('jovan.brboric@gmail.com', 'cabacaba', 'password6', 'Jovan', 'Brborić', 0, false, 'assets/profile/guest6.jpg'),
+    ('spasoje.brboric@gmail.com', 'cicko01', 'password7', 'Spasoje', 'Brborić', 0, false, 'assets/profile/guest7.jpg'),
+    ('nikola.markovic@gmail.com', 'markan01', 'password8', 'Nikola', 'Marković', 0, false, 'assets/profile/guest8.jpg'),
+    ('ryan.reynolds@gmail.com', 'deadpool', 'password9', 'Darko', 'Babijanović', 0, false, 'assets/profile/guest9.jpg'),
+    ('hugh.jackman@gmail.com', 'wolverine', 'password10', 'Uros', 'Komlenić', 0, false, 'assets/profile/guest10.jpg'),
     ('nikola.vukovic@gmail.com', 'nidza', 'password11', 'Nikola', 'Vuković', 0, false, 'assets/profile/guest11.jpg'),
     ('nikolina.vukovic@gmail.com', 'mekeu', 'password12', 'Nikolina', 'Vuković', 0, false, 'assets/profile/guest12.jpg'),
-    ('julia.roberts@gmail.com', 'julia', 'password13', 'Julia', 'Roberts', 0, false, 'assets/profile/guest13.jpg'),
+    ('julia.roberts@gmail.com', 'julia', 'password13', 'Jovan', 'Kokotović', 0, false, 'assets/profile/guest13.jpg'),
     ('walter.white@gmail.com', 'heisenberg', 'password14', 'Walter', 'White', 0, false, 'assets/profile/guest14.jpg'),
     ('tony.soprano@gmail.com', 'tony', 'password15', 'Tony', 'Soprano', 0, false, 'assets/profile/guest15.jpg'),
     ('jesse.pinkman@gmail.com', 'elcamino', 'password16', 'Jesse', 'Pinkman', 0, false, 'assets/profile/guest16.jpg'),
@@ -262,7 +262,7 @@ INSERT INTO exhibition(name, picture, short_description, long_description, theme
     ('The Golden Age of Gustav Klimt',
      'assets/exhibitions/exhibition8.jpg',
      'Immerse yourself in the opulent world of Gustav Klimt, where gold and beauty converge.',
-     'This exhibition celebrates the opulent and intricate works of Gustav Klimt, one of the most prominent figures of the Vienna Secession movement. Klimts use of gold leaf, vibrant colors, and sensual subject matter have made his works some of the most beloved and recognizable in art history. The exhibition features "The Kiss," a masterpiece that captures the epitome of love and intimacy through its dazzling gold and intricate patterns. "Judith I," another highlight, portrays the biblical heroine with a blend of seduction and strength, showcasing Klimts unique approach to the female form. The enigmatic "Mermaids" further demonstrates Klimts ability to weave myth and reality into a tapestry of beauty and mystery. Together, these works represent the zenith of Klimts artistic journey, where every brushstroke is a testament to his mastery of form, color, and ornamentation.',
+     'This exhibition celebrates the opulent of portraits and intricate works of Gustav Klimt, one of the most prominent figures of the Vienna Secession movement. Klimts use of gold leaf, vibrant colors, and sensual subject matter have made his works some of the most beloved and recognizable in art history. The exhibition features "The Kiss," a masterpiece that captures the epitome of love and intimacy through its dazzling gold and intricate patterns. "Judith I," another highlight, portrays the biblical heroine with a blend of seduction and strength, showcasing Klimts unique approach to the female form. The enigmatic "Mermaids" further demonstrates Klimts ability to weave myth and reality into a tapestry of beauty and mystery. Together, these works represent the zenith of Klimts artistic journey, where every brushstroke is a testament to his mastery of form, color, and ornamentation.',
      'FINE_ARTS', 'OPENED', 28, 8),
 --ready_to_open
     ('Sava Šumanović: The Serbian Modernist',
@@ -461,6 +461,7 @@ INSERT INTO item_reservation (item_id, start_date, end_date, exhibition_id) VALU
     (7, '2024-08-04', '2024-11-04', 4),
     (8, '2024-08-04', '2024-11-04', 4),
     (14, '2024-08-04', '2024-11-04', 4),
+
 
     (9, '2024-08-20', '2024-10-20', 5),
     (15, '2024-08-20', '2024-10-20', 5),
@@ -708,7 +709,7 @@ INSERT INTO ticket(number_of_adults, number_of_minors, total_price, exhibition_i
 --"Icons of 20th Century Photography" (10-15 sold tickets)
     (2, 2, 54.00, 3, 1),
     (1, 0, 18.00, 3, 2),
-    (3, 2, 81.00, 3, 3),
+    (3, 2, 81.00, 3, 9),
     (1, 1, 27.00, 3, 4),
     (2, 1, 45.00, 3, 5),
     (1, 0, 18.00, 3, 6),
@@ -816,7 +817,7 @@ INSERT INTO comment (user_id, exhibition_id, text, parent_comment_id, comment_da
 
 -- Pozitivan komentar od gosta
 INSERT INTO comment (user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
-(5, 2, 'The level of detail in Hokusai’s works is absolutely mesmerizing. I’ve been fascinated by "The Great Wave" for years, and seeing it in person was a dream come true! Kyōsai’s "Deer and Monkeys" was a beautiful contrast to Hokusai’s work, showcasing a different yet equally captivating style.', NULL, '2024-07-05'),
+(5, 2, 'The level of detail in Hokusai’s works is absolutely mesmerizing. I’ve been fascinated by "The Great Wave" for years, and seeing it in person was a dream come true! Kyōsai’s "Deer and Monkeys" was a beautiful contrast to Hokusai’s work, showcasing a different yet equally captivating style. Zanimljivo!', NULL, '2024-07-05'),
 -- Anonimni komentar
 (NULL, 2, 'I visited this exhibition with my family, and we were all blown away by the artistry of these Japanese masters. The colors, the precision, everything was so well presented. Definitely worth the visit!', NULL, '2024-07-07'),
 -- Pitanje gosta o tehnikama korišćenim u Hokusai-ovim radovima
@@ -838,25 +839,28 @@ INSERT INTO comment (user_id, exhibition_id, text, parent_comment_id, comment_da
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Pozitivni komentari
-(1, 3, 'Neverovatno iskustvo! Fotografije su toliko snažne i emotivne da su me duboko dotakle. Posebno mi se svidela fotografija “Napalm Girl” - pravi simbol jednog mračnog perioda u istoriji.', NULL, '2024-07-20'),
+(1, 3, 'Neverovatno iskustvo! Fotografije su toliko snažne i emotivne da su me duboko dotakle. Posebno mi se svidela fotografija “Napalm Girl” - pravi simbol jednog mračnog perioda u istoriji. Veoma zanimljivo!', NULL, '2024-07-20'),
 (2, 3, 'Fotografija “V-J Day in Times Square” me uvek razveseli! Sjajno je videti kako se neki od najpoznatijih trenutaka u istoriji pojavljuju na jednom mestu.', NULL, '2024-07-21'),
-(3, 3, 'Za ljubitelje fotografije, ovo je obavezno! “Lunch Atop a Skyscraper” je bio fascinantan – stvarno se vidi koliko su radnici bili hrabri.', NULL, '2024-07-23'),
+(9, 3, 'Za ljubitelje fotografije, ovo je obavezno! “Lunch Atop a Skyscraper” je bio fascinantan – stvarno se vidi koliko su radnici bili hrabri.', NULL, '2024-07-23'),
 
 -- Organizacijska pitanja i odgovori
-(NULL, 3, 'Da li će ova izložba biti ponovljena sledeće godine? Imam prijatelja koji bi ovo obožavao, ali nije mogao da dođe sada.', NULL, '2024-07-24'),
+(10, 3, 'Da li će ova izložba biti ponovljena sledeće godine? Imam prijatelja koji bi ovo obožavao, ali nije mogao da dođe sada.', NULL, '2024-07-24'),
 (23, 3, 'Izložba je planirana kao privremena, ali ćemo razmotriti ponavljanje sledeće godine ukoliko interesovanje bude veliko. Hvala vam na predlogu!', 24, '2024-07-25'),
 
+(NULL, 3, 'Da li će ova izložba biti dostupna online za one koji ne mogu prisustvovati lično? Voleo/la bih da ponovo pregledam neke od ovih dela nakon što izložba završi.', NULL, '2024-07-25'),
+(23, 3, 'Trenutno istražujemo mogućnosti da ovu izložbu učinimo dostupnom na mreži. Pratite ažuriranja na našoj veb stranici. Hvala vam na interesovanju!', 26, '2024-07-29'),
+
 -- Kreativna pitanja i odgovori
-(NULL, 3, 'Da li su fotografije originalne ili su ovo reprodukcije? Zanimljivo je videti tako ikonične slike.', NULL, '2024-07-26'),
-(27, 3, 'Većina prikazanih fotografija su visokokvalitetne reprodukcije, s obzirom da su originali previše osetljivi za čestu izloženost svetlu. Svaka fotografija je detaljno objašnjena uz odgovarajuće informacije.', 26, '2024-07-27'),
+(13, 3, 'Da li su fotografije originalne ili su ovo reprodukcije? Zanimljivo je videti tako ikonične slike.', NULL, '2024-07-26'),
+(27, 3, 'Većina prikazanih fotografija su visokokvalitetne reprodukcije, s obzirom da su originali previše osetljivi za čestu izloženost svetlu. Svaka fotografija je detaljno objašnjena uz odgovarajuće informacije.', 28, '2024-07-27'),
 
 -- Negativni komentari
 (4, 3, 'Iako volim istorijsku fotografiju, smatram da izložba nije dovoljno raznolika. Previše se fokusira na američku istoriju, a bilo bi lepo videti i druge delove sveta.', NULL, '2024-07-28'),
-(5, 3, 'Izložba je solidna, ali sam očekivao više interaktivnih elemenata. Za mlade posetioce, samo gledanje fotografija možda nije dovoljno da ih privuče.', NULL, '2024-07-29'),
+(5, 3, 'Izložba je solidna, ali sam očekivala više interaktivnih elemenata. Za mlade posetioce, samo gledanje fotografija možda nije dovoljno da ih privuče.', NULL, '2024-07-29'),
 
 -- Pozitivni komentari sa diskusijom
 (6, 3, 'Slika “Migrant Mother” me potpuno rastužila. Uspela je da prenese toliko emocija u jednoj fotografiji.', NULL, '2024-07-30'),
-(7, 3, 'Da, to je i mene pogodilo. Toliko je realna i surova. Dorothea Lange je stvarno uspela da prikaže ljudsku patnju.', 30, '2024-07-31');
+(7, 3, 'Da, to je i mene pogodilo. Toliko je realna i surova. Dorothea Lange je stvarno uspela da prikaže ljudsku patnju.', 32, '2024-07-31');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
@@ -866,19 +870,19 @@ INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_dat
 
 -- Organizational questions and answers
 (NULL, 4, 'Will this exhibition be available online for those who can’t attend in person? I would love to revisit some of these pieces after the exhibition ends.', NULL, '2024-08-17'),
-(23, 4, 'We’re currently exploring options for making this exhibition available online. Stay tuned for updates on our website. Thank you for your interest!', 35, '2024-08-18'),
+(23, 4, 'We’re currently exploring options for making this exhibition available online. Stay tuned for updates on our website. Thank you for your interest!', 37, '2024-08-18'),
 
 -- Creative/artistic questions and answers
 (NULL, 4, 'Can you tell me more about the techniques used by Boudin? His use of light is phenomenal.', NULL, '2024-08-19'),
-(26, 4, 'Boudin was known for his plein air painting, where he painted outdoors to capture the natural light directly. His mastery of light and reflection, especially on water, was groundbreaking and had a significant influence on the Impressionist movement.', 37, '2024-08-20'),
+(26, 4, 'Boudin was known for his plein air painting, where he painted outdoors to capture the natural light directly. His mastery of light and reflection, especially on water, was groundbreaking and had a significant influence on the Impressionist movement.', 39, '2024-08-20'),
 
 -- Mild criticism
-(8, 4, 'While the exhibition is visually stunning, I wish there was more information provided on each piece. Some deeper context about the time periods and techniques would have enhanced the experience.', NULL, '2024-08-21'),
-(9, 4, 'Beautiful art, but the layout of the exhibition felt a bit crowded. It was hard to focus on individual pieces with so many people around.', NULL, '2024-08-23'),
+(2, 4, 'While the exhibition is visually stunning, I wish there was more information provided on each piece. Some deeper context about the time periods and techniques would have enhanced the experience.', NULL, '2024-08-21'),
+(9, 4, 'Beautiful art, but the layout of the exhibition felt a bit crowded. It was hard to focus on individual pieces with so many people around. Sve u svemu, dosadno!', NULL, '2024-08-23'),
 
 -- Follow-up discussion
-(10, 4, 'I agree with the comment about the crowd. I visited on a weekend, and it was difficult to really enjoy each piece. Maybe they could consider timed entries?', 40, '2024-08-24'),
-(23, 4, 'Thank you for your feedback! We are looking into ways to improve the visitor experience, including the possibility of timed entries during peak hours.', 40, '2024-08-25');
+(10, 4, 'I agree with the comment about the crowd. I visited on a weekend, and it was difficult to really enjoy each piece. Maybe they could consider timed entries?', 42, '2024-08-24'),
+(23, 4, 'Thank you for your feedback! We are looking into ways to improve the visitor experience, including the possibility of timed entries during peak hours.', 42, '2024-08-25');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
@@ -888,60 +892,60 @@ INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_dat
 
 -- Artistic questions and responses
 (NULL, 5, 'What inspired Friedrich’s "Two Men Contemplating the Moon"? It’s such an emotional piece.', NULL, '2024-08-28'),
-(27, 5, 'Friedrich was inspired by the Romantic ideal of the sublime, which emphasizes nature’s overwhelming power and beauty. This painting reflects the human experience of standing in awe of something far greater than oneself, an important theme in Romanticism.', 46, '2024-08-29'),
+(27, 5, 'Friedrich was inspired by the Romantic ideal of the sublime, which emphasizes nature’s overwhelming power and beauty. This painting reflects the human experience of standing in awe of something far greater than oneself, an important theme in Romanticism.', 48, '2024-08-29'),
 
 -- Organizational questions and responses
 (NULL, 5, 'Will this exhibition travel to other museums? I have friends who would love to see it but live far away.', NULL, '2024-08-30'),
-(23, 5, 'Yes, we are currently working on plans to bring this exhibition to several other major cities. We’ll update our website with more details soon!', 48, '2024-09-01'),
+(23, 5, 'Yes, we are currently working on plans to bring this exhibition to several other major cities. We’ll update our website with more details soon!', 50, '2024-09-01'),
 
 -- Criticism and follow-up comments
-(8, 5, 'While I appreciate the theme, I felt that the exhibition was somewhat repetitive. Several pieces, though individually beautiful, seemed to convey similar ideas without much variation in technique.', NULL, '2024-09-02'),
-(9, 5, 'I understand your point, but I think the repetition serves to highlight the central themes of Neoclassicism and Romanticism. The focus on grand ideals and deep emotion is reinforced through these similar techniques.', 50, '2024-09-03'),
+(8, 5, 'While I appreciate the theme, I felt that the exhibition was somewhat repetitive and boring - dosadno. Several pieces, though individually beautiful, seemed to convey similar ideas without much variation in technique.', NULL, '2024-09-02'),
+(9, 5, 'I understand your point, but I think the repetition serves to highlight the central themes of Neoclassicism and Romanticism. The focus on grand ideals and deep emotion is reinforced through these similar techniques.', 52, '2024-09-03'),
 
 -- Response to criticism
-(27, 5, 'We appreciate your feedback! The exhibition was curated to provide a deep dive into how these movements used similar visual styles to convey vastly different emotional landscapes. I encourage you to revisit with this in mind, and perhaps you’ll discover new layers in each piece.', 50, '2024-09-04');
+(27, 5, 'We appreciate your feedback! The exhibition was curated to provide a deep dive into how these movements used similar visual styles to convey vastly different emotional landscapes. I encourage you to revisit with this in mind, and perhaps you’ll discover new layers in each piece.', 54, '2024-09-04');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
-(5, 6, 'Pajine slike su neverovatne! "Seoba Srba" je jedna od najimpresivnijih slika koje sam ikada video. Prikazuje ne samo istoriju, već i emocije naroda kroz svaki potez četkice. Ova izložba je pravo umetničko blago.', NULL, '2024-08-30'),
+(5, 6, 'Pajine slike su neverovatne! "Seoba Srba" je jedna od najimpresivnijih slika koje sam ikada video. Prikazuje ne samo istoriju, već i emocije naroda kroz svaki potez četkice. Ova izložba je pravo umetničko blago. Prosto veoma zanimljivo i poučno, preporuka za svakog ljubitelja umetnosti.', NULL, '2024-08-30'),
 (8, 6, 'Izložba je fantastična! "Takovski ustanak" me je zaista dirnuo, osećaj borbe i snaga naroda su tako živo prikazani. Paja Jovanović je zaista majstor u prenošenju istorijskih trenutaka.', NULL, '2024-08-31'),
 (12, 6, 'Kao ljubitelj srpske istorije, uživao sam u svakom delu. "Krunisanje Cara Dušana" je pravo remek-delo! Neverovatna pažnja na detalje i veličanstvo scene su me ostavili bez reči.', NULL, '2024-09-01'),
 
 -- Artistic questions and responses
 (NULL, 6, 'Da li je "Seoba Srba" naslikana na osnovu istorijskih dokumenata ili je više plod umetnikove mašte?', NULL, '2024-09-02'),
-(26, 6, 'Slika je zasnovana na istorijskim činjenicama, ali Jovanović koristi umetničku slobodu kako bi naglasio emocije i značaj ovog događaja za srpski narod. Detalji su precizno istraženi, ali kompozicija i atmosfera su umetnički interpretirani.', 56, '2024-09-03'),
+(26, 6, 'Slika je zasnovana na istorijskim činjenicama, ali Jovanović koristi umetničku slobodu kako bi naglasio emocije i značaj ovog događaja za srpski narod. Detalji su precizno istraženi, ali kompozicija i atmosfera su umetnički interpretirani.', 58, '2024-09-03'),
 
 -- Organizational questions and responses
-(NULL, 6, 'Da li će ova izložba biti ponovo prikazana negde u unutrašnjosti Srbije? Želim da je preporučim prijateljima koji nisu u Beogradu.', NULL, '2024-09-04'),
-(22, 6, 'Planiramo da izložba obiđe nekoliko gradova širom Srbije tokom sledeće godine. Proverite našu veb stranicu za tačne datume i lokacije!', 58, '2024-09-05'),
+(2, 6, 'Da li će ova izložba biti ponovo prikazana negde u unutrašnjosti Srbije? Želim da je preporučim prijateljima koji nisu u Beogradu.', NULL, '2024-09-04'),
+(22, 6, 'Planiramo da izložba obiđe nekoliko gradova širom Srbije tokom sledeće godine. Proverite našu veb stranicu za tačne datume i lokacije!', 60, '2024-09-05'),
 
 -- Criticism and follow-up comments
 (11, 6, 'Iako su slike izuzetno detaljne, osećam da je izložba mogla biti bolje organizovana. Neki delovi nisu dovoljno osvetljeni, pa je teško u potpunosti uživati u svim detaljima.', NULL, '2024-09-06'),
-(10, 6, 'Slažem se. Posebno kod "Borbe petlova" je osvetljenje bilo slabo, a to je jedna od najdinamičnijih slika. Voleo bih da su bolji uslovi da se uživa u njoj.', 60, '2024-09-07'),
+(10, 6, 'Slažem se. Posebno kod "Borbe petlova" je osvetljenje bilo slabo, a to je jedna od najdinamičnijih slika. Voleo bih da su bolji uslovi da se uživa u njoj.', 62, '2024-09-07'),
 
 -- Response to criticism
-(26, 6, 'Hvala na povratnim informacijama! Radićemo na poboljšanju osvetljenja kako bi svi posetioci mogli u potpunosti da uživaju u izložbi. Vaše primedbe su nam veoma važne.', 60, '2024-09-08');
+(26, 6, 'Hvala na povratnim informacijama! Radićemo na poboljšanju osvetljenja kako bi svi posetioci mogli u potpunosti da uživaju u izložbi. Vaše primedbe su nam veoma važne.', 62, '2024-09-08');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
 (6, 7, 'Predićeva dela su zaista izvanredna. "Kosovka devojka" je jedna od najupečatljivijih slika koje sam ikada video, savršeno prenosi bol i snagu u isto vreme. Ova izložba je neprocenjiva za svakog ko ceni srpsku istoriju i kulturu.', NULL, '2024-09-02'),
 (7, 7, 'Uroš Predić je majstor realizma! "Hercegovačke izbeglice" me je duboko dirnula, toliko emocija je uloženo u svako lice. Svaka slika u ovoj izložbi je pravo blago.', NULL, '2024-09-03'),
-(5, 7, 'Izložba je odlično organizovana, svaki rad je lepo predstavljen. Posebno me oduševila "Deca pod dudom", slika koja odiše mirom i srećom. Predić je neverovatan u prikazu svakodnevnog života.', NULL, '2024-09-05'),
+(5, 7, 'Izložba je odlično organizovana, svaki rad je lepo i zanimljivo predstavljen. Posebno me oduševila "Deca pod dudom", slika koja odiše mirom i srećom. Predić je neverovatan u prikazu svakodnevnog života.', NULL, '2024-09-05'),
 
 -- Artistic questions and responses
 (NULL, 7, 'Zanima me koliko je Uroš Predić posvetio vremena istraživanju istorijskih činjenica pre nego što je naslikao "Kosovku devojku"?', NULL, '2024-09-04'),
-(27, 7, 'Predić je bio izuzetno posvećen autentičnosti svojih dela. Proučavao je istorijske izvore i konsultovao se sa stručnjacima kako bi verno prikazao događaje i osećanja vezana za njih. Ipak, njegov umetnički izražaj je jednako važan kao i istorijska preciznost.', 66, '2024-09-06'),
+(27, 7, 'Predić je bio izuzetno posvećen autentičnosti svojih dela. Proučavao je istorijske izvore i konsultovao se sa stručnjacima kako bi verno prikazao događaje i osećanja vezana za njih. Ipak, njegov umetnički izražaj je jednako važan kao i istorijska preciznost.', 68, '2024-09-06'),
 
 -- Organizational questions and responses
 (NULL, 7, 'Hoće li ova izložba biti dostupna i u drugim gradovima Srbije nakon Beograda? Voleo bih da je pogledam sa porodicom u Novom Sadu.', NULL, '2024-09-07'),
-(23, 7, 'Trenutno planiramo da izložba bude postavljena u Novom Sadu krajem sledeće godine. Više informacija o datumu i mestu možete pronaći na našoj veb stranici!', 68, '2024-09-08'),
+(23, 7, 'Trenutno planiramo da izložba bude postavljena u Novom Sadu krajem sledeće godine. Više informacija o datumu i mestu možete pronaći na našoj veb stranici!', 70, '2024-09-08'),
 
 -- Criticism and follow-up comments
 (10, 7, 'Iako su slike predivne, mislim da je prostor izložbe mogao biti bolje organizovan. Bilo je trenutaka kada je bilo teško pronaći informacije o slikama.', NULL, '2024-09-09'),
-(12, 7, 'Slažem se, informacije o nekim delima nisu bile jasno vidljive. Bilo bi bolje kada bi bile postavljene bliže slikama, ili sa boljim osvetljenjem.', 70, '2024-09-10'),
+(12, 7, 'Slažem se, informacije o nekim delima nisu bile jasno vidljive. Bilo bi bolje kada bi bile postavljene bliže slikama, ili sa boljim osvetljenjem.', 72, '2024-09-10'),
 
 -- Response to criticism
-(27, 7, 'Hvala na povratnim informacijama! Radimo na unapređenju organizacije izložbi kako bi svi posetioci mogli da uživaju u umetničkim delima bez ometanja. Vaši komentari su nam veoma korisni.', 70, '2024-09-11');
+(27, 7, 'Hvala na povratnim informacijama! Radimo na unapređenju organizacije izložbi kako bi svi posetioci mogli da uživaju u umetničkim delima bez ometanja. Vaši komentari su nam veoma korisni.', 74, '2024-09-11');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
@@ -951,116 +955,116 @@ INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_dat
 
 -- Artistic questions and responses
 (NULL, 8, 'Can anyone tell me more about the symbolism behind the use of gold in "The Kiss"? I’ve heard different interpretations.', NULL, '2024-09-08'),
-(28, 8, 'Great question! Klimt used gold leaf to evoke a sense of otherworldliness and timeless beauty. The gold in "The Kiss" symbolizes both divine love and the eternal connection between the two figures. It’s also a nod to his fascination with Byzantine art, where gold was often used to convey the sacred and the precious.', 76, '2024-09-09'),
+(28, 8, 'Great question! Klimt used gold leaf to evoke a sense of otherworldliness and timeless beauty. The gold in "The Kiss" symbolizes both divine love and the eternal connection between the two figures. It’s also a nod to his fascination with Byzantine art, where gold was often used to convey the sacred and the precious.', 78, '2024-09-09'),
 
 -- Organizational questions and responses
-(NULL, 8, 'Is this exhibition going to be available online for virtual viewing? I would love to experience it but can’t visit in person.', NULL, '2024-09-10'),
-(23, 8, 'We’re currently working on making parts of the exhibition available through a virtual tour! Please check back on our website in the coming weeks for updates.', 78, '2024-09-11'),
+(2, 8, 'Is this exhibition going to be available online for virtual viewing? I would love to experience it but can’t visit in person.', NULL, '2024-09-10'),
+(23, 8, 'We’re currently working on making parts of the exhibition available through a virtual tour! Please check back on our website in the coming weeks for updates.', 80, '2024-09-11'),
 
 -- Criticism and follow-up comments
-(19, 8, 'While the artwork is stunning, I felt that the lighting in the gallery was a bit too dim, especially near "Judith I". It was hard to fully appreciate the details.', NULL, '2024-09-12'),
-(20, 8, 'I agree, the lighting could be better. I had trouble seeing the intricate patterns on some of the paintings. Still, the exhibition overall is amazing, just a bit of a shame about the lighting.', 80, '2024-09-13'),
+(19, 8, 'While the artwork is stunning, I felt that the lighting in the gallery was a bit too dim, especially near "Judith I". It was hard to fully appreciate the details. Dosadno posle dužeg vremena.', NULL, '2024-09-12'),
+(20, 8, 'I agree, the lighting could be better. I had trouble seeing the intricate patterns on some of the paintings. Still, the exhibition overall is amazing, just a bit of a shame about the lighting.', 82, '2024-09-13'),
 
 -- Response to criticism
-(28, 8, 'Thank you for your feedback! We’re constantly working to improve the experience for our visitors and will take your comments about the lighting into consideration for future exhibitions.', 80, '2024-09-14');
+(28, 8, 'Thank you for your feedback! We’re constantly working to improve the experience for our visitors and will take your comments about the lighting into consideration for future exhibitions.', 82, '2024-09-14');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Pitanja o izložbi
 (10, 9, 'Da li će ova izložba obuhvatiti i neka Šumanovićeva manje poznata dela, ili će se fokusirati samo na njegove najpoznatije radove?', NULL, '2024-10-10'),
-(26, 9, 'Ova izložba će uključiti Šumanovićeva najpoznatija dela poput "Šid pod snegom" i "Pijana ladja", ali ćemo prikazati i neka manje poznata dela koja osvetljavaju druge aspekte njegovog stvaralaštva. Nadamo se da će posetioci uživati u raznolikosti prikazanih radova.', 83, '2024-10-11'),
+(26, 9, 'Ova izložba će uključiti Šumanovićeva najpoznatija dela poput "Šid pod snegom" i "Pijana ladja", ali ćemo prikazati i neka manje poznata dela koja osvetljavaju druge aspekte njegovog stvaralaštva. Nadamo se da će posetioci uživati u raznolikosti prikazanih radova.', 85, '2024-10-11'),
 
 (NULL, 9, 'Kada je planirano otvaranje izložbe? I da li će biti vođenih tura tokom trajanja?', NULL, '2024-10-12'),
-(23, 9, 'Izložba će biti otvorena 15. oktobra 2024. godine i trajaće do 15. januara 2025. godine. Takođe ćemo organizovati vođene ture svakog vikenda. Detalje o vremenu tura možete naći na našem sajtu ili prilikom posete muzeju.', 85, '2024-10-13'),
+(23, 9, 'Izložba će biti otvorena 15. oktobra 2024. godine i trajaće do 15. januara 2025. godine. Takođe ćemo organizovati vođene ture svakog vikenda. Detalje o vremenu tura možete naći na našem sajtu ili prilikom posete muzeju.', 87, '2024-10-13'),
 
 -- Pitanja o umetniku i delima
 (12, 9, 'Da li se zna šta je inspirisalo Šumanovića za sliku "Pijana ladja"? Oduvek mi je izgledala intrigantno.', NULL, '2024-10-14'),
-(26, 9, 'Odlično pitanje! "Pijana ladja" je inspirisana pesmom "Le Bateau ivre" koju je napisao francuski pesnik Artur Rambo. Šumanović je bio fasciniran tom pesmom i njenim simbolima, što je uticalo na stvaranje slike. Ova slika simbolizuje životno putovanje, puno izazova i preokreta.', 87, '2024-10-15'),
+(26, 9, 'Odlično pitanje! "Pijana ladja" je inspirisana pesmom "Le Bateau ivre" koju je napisao francuski pesnik Artur Rambo. Šumanović je bio fasciniran tom pesmom i njenim simbolima, što je uticalo na stvaranje slike. Ova slika simbolizuje životno putovanje, puno izazova i preokreta.', 89, '2024-10-15'),
 
 -- Organizacijska pitanja
 (15, 9, 'Da li će se ova izložba održavati i u nekim drugim gradovima nakon što završi u vašem muzeju?', NULL, '2024-10-16'),
-(23, 9, 'Trenutno nemamo planove da izložbu premestimo u druge gradove, ali svakako postoji mogućnost da u budućnosti proširimo njen domet. Preporučujemo da nas pratite za eventualne najave.', 89, '2024-10-17'),
+(23, 9, 'Trenutno nemamo planove da izložbu premestimo u druge gradove, ali svakako postoji mogućnost da u budućnosti proširimo njen domet. Preporučujemo da nas pratite za eventualne najave.', 91, '2024-10-17'),
 
 (NULL, 9, 'Postoji li mogućnost online prikaza dela za one koji nisu u mogućnosti da dođu na izložbu uživo?', NULL, '2024-10-18'),
-(23, 9, 'Trenutno radimo na digitalizaciji nekih od najvažnijih dela i planiramo da omogućimo online prikaz izložbe u skorijoj budućnosti. Pratite naš sajt za više informacija.', 91, '2024-10-19');
+(23, 9, 'Trenutno radimo na digitalizaciji nekih od najvažnijih dela i planiramo da omogućimo online prikaz izložbe u skorijoj budućnosti. Pratite naš sajt za više informacija.', 93, '2024-10-19');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- General questions about the exhibition
 (19, 10, 'Will this exhibition include a guided tour explaining Kandinskys use of color and form in his abstract works?', NULL, '2024-10-25'),
-(27, 10, 'Yes, we will be offering guided tours that focus on Kandinskys groundbreaking approach to abstract art, particularly his use of color to evoke emotions. You can sign up for the tours at the entrance or on our website.', 93, '2024-10-26'),
+(27, 10, 'Yes, we will be offering guided tours that focus on Kandinskys groundbreaking approach to abstract art, particularly his use of color to evoke emotions. You can sign up for the tours at the entrance or on our website.', 95, '2024-10-26'),
 
 (NULL, 10, 'Is "Composition VIII" going to be displayed as part of the exhibition? I’ve always wanted to see it in person.', NULL, '2024-10-20'),
-(27, 10, 'Yes, "Composition VIII" is one of the centerpiece works of this exhibition. It’s an incredible opportunity to see this masterpiece up close and experience Kandinskys powerful use of geometry and color in person.', 95, '2024-10-21'),
+(27, 10, 'Yes, "Composition VIII" is one of the centerpiece works of this exhibition. It’s an incredible opportunity to see this masterpiece up close and experience Kandinskys powerful use of geometry and color in person.', 97, '2024-10-21'),
 
 -- Artistic and technical questions
 (9, 10, 'How does Kandinskys "Heavy Red" compare to his other works? It seems like a more emotionally intense piece.', NULL, '2024-10-22'),
-(27, 10, 'Excellent observation! "Heavy Red" is indeed one of Kandinskys more intense works. The deep red tones evoke strong emotions, contrasting with some of his other pieces that use lighter, more playful colors. This piece explores the emotional power of color, something Kandinsky was deeply passionate about.', 97, '2024-10-23'),
+(27, 10, 'Excellent observation! "Heavy Red" is indeed one of Kandinskys more intense works. The deep red tones evoke strong emotions, contrasting with some of his other pieces that use lighter, more playful colors. This piece explores the emotional power of color, something Kandinsky was deeply passionate about.', 99, '2024-10-23'),
 
 -- Organizational questions
 (15, 10, 'Will the exhibition be available online for those who can’t attend in person?', NULL, '2024-10-24'),
-(23, 10, 'We are working on a virtual tour for this exhibition, which will allow you to experience some of the highlights online. Keep an eye on our website for more information.', 99, '2024-10-25'),
+(23, 10, 'We are working on a virtual tour for this exhibition, which will allow you to experience some of the highlights online. Keep an eye on our website for more information.', 101, '2024-10-25'),
 
 -- Practical information
 (NULL, 10, 'Are tickets required in advance for this exhibition, or can we buy them at the door?', NULL, '2024-10-26'),
-(23, 10, 'You can buy tickets at the door, but we recommend purchasing them in advance to guarantee your spot, especially on weekends when it can get busy.', 101, '2024-10-27');
+(23, 10, 'You can buy tickets at the door, but we recommend purchasing them in advance to guarantee your spot, especially on weekends when it can get busy.', 103, '2024-10-27');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- General questions about the exhibition
 (10, 11, 'Will there be an explanation of the cultural significance behind the Ephebe sculptures during the exhibition?', NULL, '2024-11-28'),
-(25, 11, 'Absolutely! Our curators have prepared detailed explanations and will provide insight into the cultural importance of the Ephebes in ancient Greek society, focusing on their role as symbols of beauty and athleticism.', 103, '2024-11-29'),
+(25, 11, 'Absolutely! Our curators have prepared detailed explanations and will provide insight into the cultural importance of the Ephebes in ancient Greek society, focusing on their role as symbols of beauty and athleticism.', 105, '2024-11-29'),
 
 (NULL, 11, 'Are the displayed sculptures originals or reproductions? I am curious about the authenticity of the pieces.', NULL, '2024-11-26'),
-(25, 11, 'The sculptures in this exhibition are original pieces, carefully preserved to maintain their historical and artistic integrity. You’ll have the chance to see authentic ancient Greek sculptures up close.', 105, '2024-11-27'),
+(25, 11, 'The sculptures in this exhibition are original pieces, carefully preserved to maintain their historical and artistic integrity. You’ll have the chance to see authentic ancient Greek sculptures up close.', 107, '2024-11-27'),
 
 -- Artistic and technical questions
 (8, 11, 'How does the "Artemis or Bendis with a Herm of Pan" sculpture compare with other depictions of Artemis in ancient Greek art?', NULL, '2024-11-20'),
-(25, 11, 'Great question! This particular depiction emphasizes the serene and regal aspects of Artemis (or possibly Bendis), contrasting with some of her more dynamic representations in other artworks. The presence of the Herm of Pan adds a unique twist, symbolizing the wild and rustic aspects of nature.', 107, '2024-11-21'),
+(25, 11, 'Great question! This particular depiction emphasizes the serene and regal aspects of Artemis (or possibly Bendis), contrasting with some of her more dynamic representations in other artworks. The presence of the Herm of Pan adds a unique twist, symbolizing the wild and rustic aspects of nature.', 109, '2024-11-21'),
 
 -- Practical information
 (NULL, 11, 'Is there a special guide or program for children at this exhibition? My son is really interested in Greek mythology.', NULL, '2024-11-24'),
-(23, 11, 'Yes, we have a special program for younger visitors, including interactive activities and a simplified guide to help children engage with the sculptures and the myths behind them. We think your son will love it!', 109, '2024-11-25'),
+(23, 11, 'Yes, we have a special program for younger visitors, including interactive activities and a simplified guide to help children engage with the sculptures and the myths behind them. We think your son will love it!', 111, '2024-11-25'),
 
 -- Logistical questions
 (NULL, 11, 'Will there be any evening viewing times available for this exhibition?', NULL, '2024-11-23'),
-(23, 11, 'Yes, we will be offering extended evening hours on Fridays and Saturdays to allow more visitors to enjoy the exhibition after work hours. Tickets for these time slots can be purchased online.', 111, '2024-11-24');
+(23, 11, 'Yes, we will be offering extended evening hours on Fridays and Saturdays to allow more visitors to enjoy the exhibition after work hours. Tickets for these time slots can be purchased online.', 113, '2024-11-24');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- General questions about the sculptures
 (9, 12, 'Will there be an explanation about the historical significance of "The Holy Trinity" sculpture?', NULL, '2025-01-05'),
-(26, 12, 'Yes, we will provide detailed historical context on the sculpture, including its religious significance during the medieval period and the craftsmanship behind its creation. Visitors will gain insight into its spiritual and artistic importance.', 113, '2025-01-06'),
+(26, 12, 'Yes, we will provide detailed historical context on the sculpture, including its religious significance during the medieval period and the craftsmanship behind its creation. Visitors will gain insight into its spiritual and artistic importance.', 115, '2025-01-06'),
 
 (NULL, 12, 'Are the "Saint Peter" and "Saint Paul" sculptures part of a larger religious collection?', NULL, '2025-01-04'),
-(26, 12, 'Good question! These sculptures were originally part of a larger ecclesiastical collection, most likely from a Venetian church. They are now displayed together to reflect their symbolic connection as pillars of the Christian faith.', 115, '2025-01-05'),
+(26, 12, 'Good question! These sculptures were originally part of a larger ecclesiastical collection, most likely from a Venetian church. They are now displayed together to reflect their symbolic connection as pillars of the Christian faith.', 117, '2025-01-05'),
 
 -- Artistic and technical questions
 (NULL, 12, 'How were medieval sculptors able to achieve such intricate detail in stone? It seems incredibly challenging.', NULL, '2025-01-06'),
-(26, 12, 'Indeed, the level of detail in medieval sculpture is astounding. Sculptors used rudimentary tools, but their skill and deep religious devotion allowed them to create works of incredible intricacy. We’ll be highlighting these techniques throughout the exhibition.', 117, '2025-01-07'),
+(26, 12, 'Indeed, the level of detail in medieval sculpture is astounding. Sculptors used rudimentary tools, but their skill and deep religious devotion allowed them to create works of incredible intricacy. We’ll be highlighting these techniques throughout the exhibition.', 119, '2025-01-07'),
 
 -- Practical information
 (12, 12, 'Will there be guided tours available for this exhibition? I would love to learn more about the religious context.', NULL, '2025-01-08'),
-(23, 12, 'Yes, we’ll offer both guided tours and audio guides. The guided tours will focus on the religious and cultural significance of each piece, helping you connect more deeply with the artwork.', 119, '2025-01-09'),
+(23, 12, 'Yes, we’ll offer both guided tours and audio guides. The guided tours will focus on the religious and cultural significance of each piece, helping you connect more deeply with the artwork.', 121, '2025-01-09'),
 
 -- Logistical questions
 (NULL, 12, 'Is photography allowed during the exhibition? I’d love to capture some details of the sculptures.', NULL, '2025-01-06'),
-(23, 12, 'Unfortunately, photography is not permitted inside the exhibition to preserve the delicate condition of the sculptures. However, we will provide high-quality images and detailed descriptions in the exhibition catalog.', 121, '2025-01-07');
+(23, 12, 'Unfortunately, photography is not permitted inside the exhibition to preserve the delicate condition of the sculptures. However, we will provide high-quality images and detailed descriptions in the exhibition catalog.', 123, '2025-01-07');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- General questions about printmaking and history
 (NULL, 13, 'How did Renaissance artists achieve such fine detail in their prints without modern tools?', NULL, '2025-01-10'),
-(27, 13, 'Great question! Renaissance printmakers used intricate techniques like engraving and etching, requiring great skill and patience. They worked with sharp tools to carve designs into metal plates, which were then inked and pressed onto paper. The precision of their work is truly remarkable, even by today’s standards.', 123, '2025-01-11'),
+(27, 13, 'Great question! Renaissance printmakers used intricate techniques like engraving and etching, requiring great skill and patience. They worked with sharp tools to carve designs into metal plates, which were then inked and pressed onto paper. The precision of their work is truly remarkable, even by today’s standards.', 125, '2025-01-11'),
 
 (11, 13, 'Will we get to see the entire series of Ludovico Mattioli’s monthly prints, or just a few?', NULL, '2025-01-09'),
-(27, 13, 'We’ll be displaying a selection of Mattioli’s monthly prints, including "February," "June," and "January." These pieces were chosen to showcase the range of his skill and the seasonal themes he explored. The full series will also be available in the exhibition catalog for those interested in further study.', 125, '2025-01-10'),
+(27, 13, 'We’ll be displaying a selection of Mattioli’s monthly prints, including "February," "June," and "January." These pieces were chosen to showcase the range of his skill and the seasonal themes he explored. The full series will also be available in the exhibition catalog for those interested in further study.', 127, '2025-01-10'),
 
 -- Practical and logistical questions
 (14, 13, 'Will there be a workshop where we can learn about Renaissance printmaking techniques?', NULL, '2025-01-07'),
-(23, 13, 'Yes, we’ll be hosting a workshop on Renaissance printmaking techniques as part of the exhibition! Visitors will get a hands-on experience in creating simple prints using traditional methods. The schedule for the workshops will be available on our website soon.', 127, '2025-01-08'),
+(23, 13, 'Yes, we’ll be hosting a workshop on Renaissance printmaking techniques as part of the exhibition! Visitors will get a hands-on experience in creating simple prints using traditional methods. The schedule for the workshops will be available on our website soon.', 129, '2025-01-08'),
 
 (NULL, 13, 'Is there a guide or audio tour available for this exhibition? I’d love to learn more about the history behind the prints.', NULL, '2025-01-06'),
-(23, 13, 'Yes, we offer both audio guides and guided tours for this exhibition. The audio guide will walk you through the history of printmaking and the artists featured in the exhibition, providing additional context to enhance your visit.', 129, '2025-01-07'),
+(23, 13, 'Yes, we offer both audio guides and guided tours for this exhibition. The audio guide will walk you through the history of printmaking and the artists featured in the exhibition, providing additional context to enhance your visit.', 131, '2025-01-07'),
 
 -- Artistic curiosity and details
 (12, 13, 'What makes Israhel van Meckenem’s prints so special compared to other Renaissance artists?', NULL, '2025-01-09'),
-(27, 13, 'Israhel van Meckenem was known for his prolific output and the religious intensity of his prints. He often combined intricate detail with rich symbolism, especially in works like "Saint Stephen" and "Virgin and Child in a Courtyard." His ability to convey deep spiritual themes through printmaking set him apart from his contemporaries.', 131, '2025-01-10');
+(27, 13, 'Israhel van Meckenem was known for his prolific output and the religious intensity of his prints. He often combined intricate detail with rich symbolism, especially in works like "Saint Stephen" and "Virgin and Child in a Courtyard." His ability to convey deep spiritual themes through printmaking set him apart from his contemporaries.', 133, '2025-01-10');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
@@ -1070,37 +1074,37 @@ INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_dat
 
 -- Artistic questions and responses
 (NULL, 14, 'Can anyone tell me more about the symbolism behind the use of gold in "The Kiss"? I’ve heard different interpretations.', NULL, '2021-09-08'),
-(28, 14, 'Great question! Klimt used gold leaf to evoke a sense of otherworldliness and timeless beauty. The gold in "The Kiss" symbolizes both divine love and the eternal connection between the two figures. It’s also a nod to his fascination with Byzantine art, where gold was often used to convey the sacred and the precious.', 136, '2021-09-09'),
+(28, 14, 'Great question! Klimt used gold leaf to evoke a sense of otherworldliness and timeless beauty. The gold in "The Kiss" symbolizes both divine love and the eternal connection between the two figures. It’s also a nod to his fascination with Byzantine art, where gold was often used to convey the sacred and the precious.', 138, '2021-09-09'),
 
 -- Organizational questions and responses
 (NULL, 14, 'Is this exhibition going to be available online for virtual viewing? I would love to experience it but can’t visit in person.', NULL, '2021-09-10'),
-(23, 14, 'We’re currently working on making parts of the exhibition available through a virtual tour! Please check back on our website in the coming weeks for updates.', 138, '2021-09-11'),
+(23, 14, 'We’re currently working on making parts of the exhibition available through a virtual tour! Please check back on our website in the coming weeks for updates.', 140, '2021-09-11'),
 
 -- Criticism and follow-up comments
 (19, 14, 'While the artwork is stunning, I felt that the lighting in the gallery was a bit too dim, especially near "Judith I". It was hard to fully appreciate the details.', NULL, '2021-09-12'),
-(20, 14, 'I agree, the lighting could be better. I had trouble seeing the intricate patterns on some of the paintings. Still, the exhibition overall is amazing, just a bit of a shame about the lighting.', 140, '2021-09-13'),
+(20, 14, 'I agree, the lighting could be better. I had trouble seeing the intricate patterns on some of the paintings. Still, the exhibition overall is amazing, just a bit of a shame about the lighting.', 142, '2021-09-13'),
 
 -- Response to criticism
-(28, 14, 'Thank you for your feedback! We’re constantly working to improve the experience for our visitors and will take your comments about the lighting into consideration for future exhibitions.', 140, '2021-09-14');
+(28, 14, 'Thank you for your feedback! We’re constantly working to improve the experience for our visitors and will take your comments about the lighting into consideration for future exhibitions.', 142, '2021-09-14');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- General questions about printmaking and history
 (NULL, 15, 'How did Renaissance artists achieve such fine detail in their prints without modern tools?', NULL, '2022-01-10'),
-(27, 15, 'Great question! Renaissance printmakers used intricate techniques like engraving and etching, requiring great skill and patience. They worked with sharp tools to carve designs into metal plates, which were then inked and pressed onto paper. The precision of their work is truly remarkable, even by today’s standards.', 143, '2022-01-11'),
+(27, 15, 'Great question! Renaissance printmakers used intricate techniques like engraving and etching, requiring great skill and patience. They worked with sharp tools to carve designs into metal plates, which were then inked and pressed onto paper. The precision of their work is truly remarkable, even by today’s standards.', 145, '2022-01-11'),
 
 (11, 15, 'Will we get to see the entire series of Ludovico Mattioli’s monthly prints, or just a few?', NULL, '2022-01-09'),
-(27, 15, 'We’ll be displaying a selection of Mattioli’s monthly prints, including "February," "June," and "January." These pieces were chosen to showcase the range of his skill and the seasonal themes he explored. The full series will also be available in the exhibition catalog for those interested in further study.', 145, '2022-01-10'),
+(27, 15, 'We’ll be displaying a selection of Mattioli’s monthly prints, including "February," "June," and "January." These pieces were chosen to showcase the range of his skill and the seasonal themes he explored. The full series will also be available in the exhibition catalog for those interested in further study.', 147, '2022-01-10'),
 
 -- Practical and logistical questions
 (14, 15, 'Will there be a workshop where we can learn about Renaissance printmaking techniques?', NULL, '2022-01-07'),
-(23, 15, 'Yes, we’ll be hosting a workshop on Renaissance printmaking techniques as part of the exhibition! Visitors will get a hands-on experience in creating simple prints using traditional methods. The schedule for the workshops will be available on our website soon.', 147, '2022-01-08'),
+(23, 15, 'Yes, we’ll be hosting a workshop on Renaissance printmaking techniques as part of the exhibition! Visitors will get a hands-on experience in creating simple prints using traditional methods. The schedule for the workshops will be available on our website soon.', 149, '2022-01-08'),
 
 (NULL, 15, 'Is there a guide or audio tour available for this exhibition? I’d love to learn more about the history behind the prints.', NULL, '2022-01-06'),
-(23, 15, 'Yes, we offer both audio guides and guided tours for this exhibition. The audio guide will walk you through the history of printmaking and the artists featured in the exhibition, providing additional context to enhance your visit.', 149, '2022-01-07'),
+(23, 15, 'Yes, we offer both audio guides and guided tours for this exhibition. The audio guide will walk you through the history of printmaking and the artists featured in the exhibition, providing additional context to enhance your visit.', 151, '2022-01-07'),
 
 -- Artistic curiosity and details
 (12, 15, 'What makes Israhel van Meckenem’s prints so special compared to other Renaissance artists?', NULL, '2022-01-09'),
-(27, 15, 'Israhel van Meckenem was known for his prolific output and the religious intensity of his prints. He often combined intricate detail with rich symbolism, especially in works like "Saint Stephen" and "Virgin and Child in a Courtyard." His ability to convey deep spiritual themes through printmaking set him apart from his contemporaries.', 151, '2022-01-10');
+(27, 15, 'Israhel van Meckenem was known for his prolific output and the religious intensity of his prints. He often combined intricate detail with rich symbolism, especially in works like "Saint Stephen" and "Virgin and Child in a Courtyard." His ability to convey deep spiritual themes through printmaking set him apart from his contemporaries.', 153, '2022-01-10');
 
 INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_date) VALUES
 -- Positive comments
@@ -1110,19 +1114,19 @@ INSERT INTO comment(user_id, exhibition_id, text, parent_comment_id, comment_dat
 
 -- Organizational questions and answers
 (NULL, 16, 'Will this exhibition be available online for those who can’t attend in person? I would love to revisit some of these pieces after the exhibition ends.', NULL, '2022-06-17'),
-(23, 16, 'We’re currently exploring options for making this exhibition available online. Stay tuned for updates on our website. Thank you for your interest!', 156, '2022-06-18'),
+(23, 16, 'We’re currently exploring options for making this exhibition available online. Stay tuned for updates on our website. Thank you for your interest!', 158, '2022-06-18'),
 
 -- Creative/artistic questions and answers
 (NULL, 16, 'Can you tell me more about the techniques used by Boudin? His use of light is phenomenal.', NULL, '2022-06-19'),
-(26, 16, 'Boudin was known for his plein air painting, where he painted outdoors to capture the natural light directly. His mastery of light and reflection, especially on water, was groundbreaking and had a significant influence on the Impressionist movement.', 158, '2022-06-20'),
+(26, 16, 'Boudin was known for his plein air painting, where he painted outdoors to capture the natural light directly. His mastery of light and reflection, especially on water, was groundbreaking and had a significant influence on the Impressionist movement.', 160, '2022-06-20'),
 
 -- Mild criticism
 (8, 16, 'While the exhibition is visually stunning, I wish there was more information provided on each piece. Some deeper context about the time periods and techniques would have enhanced the experience.', NULL, '2022-06-21'),
 (9, 16, 'Beautiful art, but the layout of the exhibition felt a bit crowded. It was hard to focus on individual pieces with so many people around.', NULL, '2022-06-23'),
 
 -- Follow-up discussion
-(10, 16, 'I agree with the comment about the crowd. I visited on a weekend, and it was difficult to really enjoy each piece. Maybe they could consider timed entries?', 161, '2022-06-24'),
-(23, 16, 'Thank you for your feedback! We are looking into ways to improve the visitor experience, including the possibility of timed entries during peak hours.', 161, '2022-06-25');
+(10, 16, 'I agree with the comment about the crowd. I visited on a weekend, and it was difficult to really enjoy each piece. Maybe they could consider timed entries?', 163, '2022-06-24'),
+(23, 16, 'Thank you for your feedback! We are looking into ways to improve the visitor experience, including the possibility of timed entries during peak hours.', 163, '2022-06-25');
 
 
 -- Insert Reviews for "Medieval Treasures" Exhibition (ID 2)
@@ -1132,11 +1136,11 @@ INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
  (3, 1, 5, '2024-07-06'),  -- Recenzija od gosta sa ID 3
  (4, 1, 4, '2024-07-08'),  -- Recenzija od gosta sa ID 4
  (5, 1, 5, '2024-07-10'),  -- Recenzija od gosta sa ID 5
- (6, 1, 4, '2024-07-12'),  -- Recenzija od gosta sa ID 6
- (7, 1, 5, '2024-07-14'),  -- Recenzija od gosta sa ID 7
- (8, 1, 5, '2024-07-16'),  -- Recenzija od gosta sa ID 8
- (9, 1, 4, '2024-07-18'),  -- Recenzija od gosta sa ID 9
- (10, 1, 5, '2024-07-20'); -- Recenzija od gosta sa ID 10
+ (6, 1, 3, '2024-07-12'),  -- Recenzija od gosta sa ID 6
+ (7, 1, 3, '2024-07-14'),  -- Recenzija od gosta sa ID 7
+ (8, 1, 4, '2024-07-16'),  -- Recenzija od gosta sa ID 8
+ (9, 1, 2, '2024-07-18'),  -- Recenzija od gosta sa ID 9
+ (10, 1, 2, '2024-07-20'); -- Recenzija od gosta sa ID 10
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
  (11, 2, 5, '2024-07-10'),  -- Recenzija od gosta sa ID 11
@@ -1153,37 +1157,37 @@ INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
  (1, 3, 4, '2024-07-20'),  -- Recenzija od gosta sa ID 1
  (2, 3, 3, '2024-07-22'),  -- Recenzija od gosta sa ID 2
- (3, 3, 4, '2024-07-24'),  -- Recenzija od gosta sa ID 3
+ (11, 3, 5, '2024-07-24'),  -- Recenzija od gosta sa ID 3
  (4, 3, 3, '2024-07-26'),  -- Recenzija od gosta sa ID 4
  (5, 3, 4, '2024-07-28'),  -- Recenzija od gosta sa ID 5
  (6, 3, 3, '2024-07-30'),  -- Recenzija od gosta sa ID 6
  (7, 3, 4, '2024-08-01'),  -- Recenzija od gosta sa ID 7
  (8, 3, 4, '2024-08-03'),  -- Recenzija od gosta sa ID 8
- (9, 3, 3, '2024-08-05'),  -- Recenzija od gosta sa ID 9
- (10, 3, 4, '2024-08-07'); -- Recenzija od gosta sa ID 10
+ (9, 3, 2, '2024-08-05'),  -- Recenzija od gosta sa ID 9
+ (10, 3, 2, '2024-08-07'); -- Recenzija od gosta sa ID 10
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
- (11, 4, 5, '2024-04-05'),  -- Recenzija od gosta sa ID 11
- (12, 4, 4, '2024-04-07'),  -- Recenzija od gosta sa ID 12
- (13, 4, 5, '2024-04-10'),  -- Recenzija od gosta sa ID 13
- (14, 4, 4, '2024-04-12'),  -- Recenzija od gosta sa ID 14
- (15, 4, 5, '2024-04-15'),  -- Recenzija od gosta sa ID 15
- (16, 4, 4, '2024-04-18'),  -- Recenzija od gosta sa ID 16
- (17, 4, 5, '2024-04-20');  -- Recenzija od gosta sa ID 17
+ (11, 4, 1, '2024-04-05'),  -- Recenzija od gosta sa ID 11
+ (12, 4, 2, '2024-04-07'),  -- Recenzija od gosta sa ID 12
+ (13, 4, 2, '2024-04-10'),  -- Recenzija od gosta sa ID 13
+ (14, 4, 2, '2024-04-12'),  -- Recenzija od gosta sa ID 14
+ (15, 4, 1, '2024-04-15'),  -- Recenzija od gosta sa ID 15
+ (16, 4, 3, '2024-04-18'),  -- Recenzija od gosta sa ID 16
+ (17, 4, 3, '2024-04-20');  -- Recenzija od gosta sa ID 17
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
-(18, 5, 4, '2024-08-25'),  -- Recenzija od gosta sa ID 18
-(19, 5, 3, '2024-08-27'),  -- Recenzija od gosta sa ID 19
-(20, 5, 4, '2024-08-30'),  -- Recenzija od gosta sa ID 20
-(1, 5, 3, '2024-09-01'),   -- Recenzija od gosta sa ID 1
-(2, 5, 4, '2024-09-03');   -- Recenzija od gosta sa ID 2
+(18, 5, 1, '2024-08-25'),  -- Recenzija od gosta sa ID 18
+(19, 5, 2, '2024-08-27'),  -- Recenzija od gosta sa ID 19
+(20, 5, 1, '2024-08-30'),  -- Recenzija od gosta sa ID 20
+(1, 5, 2, '2024-09-01'),   -- Recenzija od gosta sa ID 1
+(2, 5, 2, '2024-09-03');   -- Recenzija od gosta sa ID 2
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
-(3, 6, 5, '2024-09-01'),  -- Recenzija od gosta sa ID 3
-(4, 6, 4, '2024-09-03'),  -- Recenzija od gosta sa ID 4
+(3, 6, 4, '2024-09-01'),  -- Recenzija od gosta sa ID 3
+(4, 6, 5, '2024-09-03'),  -- Recenzija od gosta sa ID 4
 (5, 6, 5, '2024-09-06'),  -- Recenzija od gosta sa ID 5
-(6, 6, 4, '2024-09-08'),  -- Recenzija od gosta sa ID 6
-(7, 6, 5, '2024-09-10');  -- Recenzija od gosta sa ID 7
+(6, 6, 5, '2024-09-08'),  -- Recenzija od gosta sa ID 6
+(7, 6, 4, '2024-09-10');  -- Recenzija od gosta sa ID 7
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
 (8, 7, 4, '2024-09-05'),  -- Recenzija od gosta sa ID 8
@@ -1193,11 +1197,11 @@ INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
 (12, 7, 4, '2024-09-18'); -- Recenzija od gosta sa ID 12
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
-(13, 8, 5, '2024-09-10'),  -- Recenzija od gosta sa ID 13
-(14, 8, 4, '2024-09-12'),  -- Recenzija od gosta sa ID 14
-(15, 8, 5, '2024-09-15'),  -- Recenzija od gosta sa ID 15
-(16, 8, 4, '2024-09-18'),  -- Recenzija od gosta sa ID 16
-(17, 8, 5, '2024-09-20');  -- Recenzija od gosta sa ID 17
+(13, 8, 2, '2024-09-10'),  -- Recenzija od gosta sa ID 13
+(14, 8, 3, '2024-09-12'),  -- Recenzija od gosta sa ID 14
+(15, 8, 1, '2024-09-15'),  -- Recenzija od gosta sa ID 15
+(16, 8, 2, '2024-09-18'),  -- Recenzija od gosta sa ID 16
+(17, 8, 2, '2024-09-20');  -- Recenzija od gosta sa ID 17
 
 INSERT INTO review(guest_id, exhibition_id, rating, review_date) VALUES
  (1, 14, 5, '2021-09-10'),  -- Recenzija od gosta sa ID 1
